@@ -1,0 +1,70 @@
+version: "3.5"
+
+services:
+
+  rabbitmq:
+    image: rabbitmq:3.9-management
+    container_name: eiffel-rabbitmq
+    hostname: ${HostName}
+    volumes:
+      - ./services/rabbitmq/rabbitmq.conf:/etc/rabbitmq/rabbitmq.config
+    expose:
+      - 15672
+      - 5672
+    ports:
+      - "${EXTERNAL_RABBITMQ_MANAGEMENT_PORT}:15672"
+      - "${EXTERNAL_RABBITMQ_SERVICE_PORT}:5672"  
+    networks:
+      - eiffel_internal
+    healthcheck:
+      test: curl -s ${HostName}:15672 || exit 1
+      interval: 4s
+      timeout: 20s
+      retries: 10
+    restart: on-failure
+    #environment:
+    #  TZ: ${EIFFEL_SERVICES_TIMEZONE}
+   
+  subscriber-one:
+    build:
+      context: 
+        ../
+    networks:
+      - eiffel_internal    
+    restart: on-failure
+    container_name: eiffel-subscriber-one
+    environment:
+      RabbitMqConfig__HostName: ${HostName}
+      RabbitMqConfig__UserName: ${UserName}
+      RabbitMqConfig__Password: ${Password}
+      RabbitMqConfig__Port: ${Port}
+    entrypoint: ["dotnet","EiffelClient.SubscriberOne.dll"]
+    tty: true
+    stdin_open: true
+    depends_on:
+      - "rabbitmq" 
+  
+  subscriber-two:
+    build:
+      context: 
+        ../
+    networks:
+      - eiffel_internal    
+    restart: on-failure
+    container_name: eiffel-subscriber-two
+    environment:
+      RabbitMqConfig__HostName: ${HostName}
+      RabbitMqConfig__UserName: ${UserName}
+      RabbitMqConfig__Password: ${Password}
+      RabbitMqConfig__Port: ${Port}
+    entrypoint: ["dotnet","EiffelClient.SubscriberTwo.dll"]
+    tty: true
+    stdin_open: true
+    depends_on:
+      - "rabbitmq"
+  
+networks:
+  eiffel_internal:
+    name: eiffel_internal
+  host_machine:
+    external: true

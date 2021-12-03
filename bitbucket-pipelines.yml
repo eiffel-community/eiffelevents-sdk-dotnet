@@ -1,0 +1,28 @@
+image: mcr.microsoft.com/dotnet/sdk:6.0
+
+pipelines:
+  pull-requests:
+    # Run pipeline on pull-requests
+    '**':
+        - step: &eiffel-main
+            name: eiffel
+            caches:
+              - dotnetcore
+              - docker
+            script:
+              # install nuget 
+              - apt-get update
+              - apt-get install nuget -y
+              # build and run tests
+              - dotnet build
+              - dotnet test --no-build --logger junit --results-directory "./test-results/"
+            services:
+              - docker
+  branches:
+    # Release on commit to master branch
+    master:
+      - step:
+          name: Release
+          deployment: production
+          script:
+            - echo "Deploy some where"

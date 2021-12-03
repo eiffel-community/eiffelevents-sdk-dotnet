@@ -1,0 +1,17 @@
+.dockerignore
+.git
+.gitignore
+.vs
+.vscode
+*/bin
+*/obj
+**/.toolstarget
+.idea/
+*Dockerfile*
+deploy/docker-compose.yml
+*.mk
+*.md
+*.env
+deploy/services
+deploy/shared-volume
+Makefile
