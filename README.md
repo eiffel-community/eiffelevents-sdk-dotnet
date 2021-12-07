@@ -14,29 +14,6 @@ It consists of two packages; 1) **Eiffel.Net** for events' implementation, 2) **
 
 
 
-# Requirements For Development #
-
-- .NET 6 ([Installation](https://dotnet.microsoft.com/download/dotnet/6.0)).
-- C# (9)
-
-## Dependencies
-
-- **RabbitMQ.Client 6.2.2**:  An external [library](https://github.com/rabbitmq/rabbitmq-dotnet-client) RabbitMQ communication, NuGet [link](https://www.nuget.org/packages/RabbitMQ.Client/).
-- **FluentResult 2.5.0**: An external [library](https://github.com/altmann/FluentResults) for Result object implementation, NuGet [link](https://www.nuget.org/packages/FluentResults/).
-- **Newtonsoft.Json 13.0.1**:  An external [library](https://github.com/JamesNK/Newtonsoft.Json) for serialization/deserialization support, NuGet [link](https://www.nuget.org/packages/Newtonsoft.Json).
-- **[DocFX](https://dotnet.github.io/docfx/index.html)** documentation generation tool.
-
-# Components
-
-## SDK Projects
-
-- [src/Eiffel.Net](src/Eiffel.Net): Events implementation.
-- [src/Eiffel.RabbitMq.Client](src/Src/Eiffel.RabbitMq.Client): Event Publishing service.
-
-## Tests
-
-A unit tests reside under [tests/Eiffel.Net.Tests](tests/Eiffel.Net.Tests) to test event validation, signing, verifying the signature, serialization, and deserialization.
-
 # Quick Start #
 
 ## Using Events Package ([src/Eiffel.Net](src/Eiffel.Net))
@@ -166,9 +143,36 @@ static void HandleEventReceived(EiffelActivityTriggeredEvent eiffelEvent, ulong 
 }
 ```
 
+
+
 # Usage
 
 Example projects are created for demo purposes and reside on the [examples](examples) directory.
+
+
+
+# Requirements For Development #
+
+- .NET 6 ([Installation](https://dotnet.microsoft.com/download/dotnet/6.0)).
+- C# (9)
+
+## Dependencies
+
+- **RabbitMQ.Client 6.2.2**:  An external [library](https://github.com/rabbitmq/rabbitmq-dotnet-client) RabbitMQ communication, NuGet [link](https://www.nuget.org/packages/RabbitMQ.Client/).
+- **FluentResult 2.5.0**: An external [library](https://github.com/altmann/FluentResults) for Result object implementation, NuGet [link](https://www.nuget.org/packages/FluentResults/).
+- **Newtonsoft.Json 13.0.1**:  An external [library](https://github.com/JamesNK/Newtonsoft.Json) for serialization/deserialization support, NuGet [link](https://www.nuget.org/packages/Newtonsoft.Json).
+- **[DocFX](https://dotnet.github.io/docfx/index.html)** documentation generation tool.
+
+# Components
+
+## SDK Projects
+
+- [src/Eiffel.Net](src/Eiffel.Net): Events implementation.
+- [src/Eiffel.RabbitMq.Client](src/Src/Eiffel.RabbitMq.Client): Event Publishing service.
+
+## Tests
+
+A unit tests reside under [tests/Eiffel.Net.Tests](tests/Eiffel.Net.Tests) to test event validation, signing, verifying the signature, serialization, and deserialization.
 
 # Docs
 
