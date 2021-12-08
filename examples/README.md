@@ -8,6 +8,7 @@
 
 ## Examples Projects
 
+- [EiffelClient.BasicPublisher](EiffelClient.BasicPublisher): A basic publisher example with an Eiffel event.
 - [EiffelClient.PublisherOne](EiffelClient.PublisherOne): example project to publish Eiffel events refined to easily try different events.
 - [EiffelClient.SubscriberOne](EiffelClient.SubscriberOne): example project to subscribe for Eiffel events.
 - [EiffelClient.SubscriberTwo](EiffelClient.SubscriberTwo): another example project to subscribe for Eiffel events, to try scenarios such as:
