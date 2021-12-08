@@ -13,8 +13,8 @@
 //    limitations under the License.
 
 using System;
-using Eiffel.Net.Events.Core;
-using Eiffel.Net.Events.Edition_Paris;
+using EiffelEvents.Net.Events.Core;
+using EiffelEvents.Net.Events.Edition_Paris;
 using EiffelEvents.Net.Tests.TestData;
 using FluentAssertions;
 using FluentResults;

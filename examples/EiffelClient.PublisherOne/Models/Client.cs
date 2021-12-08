@@ -12,8 +12,8 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 
-using Eiffel.Net.Clients;
-using Eiffel.Net.Events.Edition_Paris;
+using EiffelEvents.Net.Clients;
+using EiffelEvents.Net.Events.Edition_Paris;
 using Eiffel.RabbitMq.Client;
 
 namespace EiffelClient.PublisherOne.Models

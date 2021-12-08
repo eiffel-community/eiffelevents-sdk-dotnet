@@ -13,7 +13,7 @@
 //    limitations under the License.
 
 using System;
-using Eiffel.Net.Events.Edition_Paris;
+using EiffelEvents.Net.Events.Edition_Paris;
 
 namespace EiffelClient.PublisherOne.Models
 {

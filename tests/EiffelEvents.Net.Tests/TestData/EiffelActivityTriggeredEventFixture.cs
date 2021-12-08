@@ -12,8 +12,8 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 
-using Eiffel.Net.Events.Edition_Paris;
-using Eiffel.Net.Events.Edition_Paris.Shared.Enums;
+using EiffelEvents.Net.Events.Edition_Paris;
+using EiffelEvents.Net.Events.Edition_Paris.Shared.Enums;
 using Newtonsoft.Json.Linq;
 
 namespace EiffelEvents.Net.Tests.TestData
@@ -98,7 +98,7 @@ namespace EiffelEvents.Net.Tests.TestData
                                         'activity_block'
                                             ],
                                         'source': {
-                                                    'serializer': 'pkg:nuget/Eiffel.Net@1.0.0.0'
+                                                    'serializer': 'pkg:nuget/EiffelEvents.Net@1.0.0.0'
                                          },
                                         'security': {
                                             'authorIdentity': 'Flower'
@@ -244,7 +244,7 @@ namespace EiffelEvents.Net.Tests.TestData
                                         'activity_block'
                                             ],
                                         'source': {
-                                                    'serializer': 'pkg:nuget/Eiffel.Net@1.0.0.0'
+                                                    'serializer': 'pkg:nuget/EiffelEvents.Net@1.0.0.0'
                                          },
                                         'security': {
                                             'authorIdentity': 'Flower'
@@ -366,7 +366,7 @@ namespace EiffelEvents.Net.Tests.TestData
                                         'activity_block'
                                             ],
                                         'source': {
-                                                    'serializer': 'pkg:nuget/Eiffel.Net@1.0.0.0'
+                                                    'serializer': 'pkg:nuget/EiffelEvents.Net@1.0.0.0'
                                          },
                                         'security': {
                                             'authorIdentity': 'Flower'
@@ -481,7 +481,7 @@ namespace EiffelEvents.Net.Tests.TestData
                                         'activity_block'
                                             ],
                                         'source': {
-                                                    'serializer': 'pkg:nuget/Eiffel.Net@1.0.0.0'
+                                                    'serializer': 'pkg:nuget/EiffelEvents.Net@1.0.0.0'
                                          },
                                         'security': {
                                             'authorIdentity': 'Flower'

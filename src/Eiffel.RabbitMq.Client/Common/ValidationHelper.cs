@@ -13,8 +13,8 @@
 //    limitations under the License.
 
 using System;
-using Eiffel.Net.Events.Core;
-using Eiffel.Net.Exceptions;
+using EiffelEvents.Net.Events.Core;
+using EiffelEvents.Net.Exceptions;
 
 namespace Eiffel.RabbitMq.Client.Common
 {

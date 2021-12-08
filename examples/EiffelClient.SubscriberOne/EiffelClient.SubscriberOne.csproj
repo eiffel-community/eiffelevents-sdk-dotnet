@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Eiffel.Net\Eiffel.Net.csproj" />
+    <ProjectReference Include="..\..\src\EiffelEvents.Net\EiffelEvents.Net.csproj" />
     <ProjectReference Include="..\..\src\Eiffel.RabbitMq.Client\Eiffel.RabbitMq.Client.csproj" />
   </ItemGroup>
 

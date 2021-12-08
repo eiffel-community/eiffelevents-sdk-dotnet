@@ -11,7 +11,7 @@
     </ItemGroup>
     
     <ItemGroup>
-      <ProjectReference Include="..\Eiffel.Net\Eiffel.Net.csproj" />
+      <ProjectReference Include="..\EiffelEvents.Net\EiffelEvents.Net.csproj" />
     </ItemGroup>
 
 </Project>

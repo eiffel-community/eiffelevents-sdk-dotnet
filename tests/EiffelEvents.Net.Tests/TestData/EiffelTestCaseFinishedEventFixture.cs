@@ -14,10 +14,10 @@
 
 using System;
 using System.Collections.Generic;
-using Eiffel.Net.Events.Edition_Paris;
-using Eiffel.Net.Events.Edition_Paris.Shared.Data;
-using Eiffel.Net.Events.Edition_Paris.Shared.Enums;
-using Eiffel.Net.Events.Edition_Paris.Shared.Security;
+using EiffelEvents.Net.Events.Edition_Paris;
+using EiffelEvents.Net.Events.Edition_Paris.Shared.Data;
+using EiffelEvents.Net.Events.Edition_Paris.Shared.Enums;
+using EiffelEvents.Net.Events.Edition_Paris.Shared.Security;
 
 namespace EiffelEvents.Net.Tests.TestData
 {

@@ -13,9 +13,9 @@
 //    limitations under the License.
 
 using System;
-using Eiffel.Net.Events.Core;
+using EiffelEvents.Net.Events.Core;
 using System.Text;
-using Eiffel.Net.Clients;
+using EiffelEvents.Net.Clients;
 using Eiffel.RabbitMq.Client.Common;
 using Eiffel.RabbitMq.Client.Exceptions;
 using FluentResults;

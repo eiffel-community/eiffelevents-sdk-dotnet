@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Eiffel.Net\Eiffel.Net.csproj" />
+    <ProjectReference Include="..\..\src\EiffelEvents.Net\EiffelEvents.Net.csproj" />
   </ItemGroup>
 
 </Project>

@@ -13,7 +13,7 @@
 //    limitations under the License.
 
 using System;
-using Eiffel.Net.Exceptions;
+using EiffelEvents.Net.Exceptions;
 
 namespace Eiffel.RabbitMq.Client.Exceptions
 {
