@@ -10,7 +10,7 @@
     </ItemGroup>
     
     <ItemGroup>
-        <InternalsVisibleTo Include="Eiffel.Net.Tests" />
+        <InternalsVisibleTo Include="EiffelEvents.Net.Tests" />
     </ItemGroup>
     
    

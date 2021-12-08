@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eiffel.Net", "src\Eiffel.Ne
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{19342CCD-41B3-444B-AACF-6EE534B570B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eiffel.Net.Tests", "tests\Eiffel.Net.Tests\Eiffel.Net.Tests.csproj", "{6B9E1E42-70B4-4E58-AFC1-56C02B9CA3F0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EiffelEvents.Net.Tests", "tests\EiffelEvents.Net.Tests\EiffelEvents.Net.Tests.csproj", "{6B9E1E42-70B4-4E58-AFC1-56C02B9CA3F0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eiffel.RabbitMq.Client", "src\Eiffel.RabbitMq.Client\Eiffel.RabbitMq.Client.csproj", "{5D9782A0-FF62-4B6A-B24D-9BFFF19D8E2F}"
 EndProject
