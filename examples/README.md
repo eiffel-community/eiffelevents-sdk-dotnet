@@ -25,8 +25,8 @@ The following files are used to configure project services:
 ## Docker Compose Services
 
 - **rabbitmq**: RabbitMQ service to handle messages queues, it exists in `deploy/services/rabbitmq` directory.
-- **subscriber-one**: a console app referencing the Eiffel.NET library that subscribes to some events and logs them when received.
-- **subscriber-two**: a console app referencing the Eiffel.NET library that subscribes to some events and logs them when received.
+- **subscriber-one**: a console app referencing the EiffelEvents.NET project that subscribes to some events and logs them when received.
+- **subscriber-two**: a console app referencing the EiffelEvents.NET project that subscribes to some events and logs them when received.
 
 ## Running Samples
 
