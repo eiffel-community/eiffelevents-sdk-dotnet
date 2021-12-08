@@ -65,8 +65,8 @@
     "cleanupCacheHistory": false,
     "disableGitFeatures": false,
     "globalMetadata": {
-      "_appTitle": "Eiffel.NET",
-      "_appFooter": "Eiffel.NET Docs 2021",
+      "_appTitle": "EiffelEvents.NET",
+      "_appFooter": "EiffelEvents.NET Docs 2021",
       "_disableContribution": true,
       "_appLogoPath":"images/dowhile-favicon.png",
       "_appFaviconPath": "images/dowhile-favicon.png",
