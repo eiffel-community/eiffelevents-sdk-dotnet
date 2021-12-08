@@ -7,8 +7,8 @@ help:
 
 
 
-include ./deploy/.env
--include ./deploy/local.env
+include ./examples/deploy/.env
+-include ./examples/deploy/local.env
 export
 
 include ./scripts/docker.mk
