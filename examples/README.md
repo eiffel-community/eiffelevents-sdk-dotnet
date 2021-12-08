@@ -8,9 +8,9 @@
 
 ## Examples Projects
 
-- [examples/EiffelClient.PublisherOne](examples/EiffelClient.PublisherOne): example project to publish Eiffel events refined to easily try different events.
-- [examples/EiffelClient.SubscriberOne](examples/EiffelClient.SubscriberOne): example project to subscribe for Eiffel events.
-- [examples/EiffelClient.SubscriberTwo](examples/EiffelClient.SubscriberTwo): another example project to subscribe for Eiffel events, to try scenarios such as:
+- [EiffelClient.PublisherOne](EiffelClient.PublisherOne): example project to publish Eiffel events refined to easily try different events.
+- [EiffelClient.SubscriberOne](EiffelClient.SubscriberOne): example project to subscribe for Eiffel events.
+- [EiffelClient.SubscriberTwo](EiffelClient.SubscriberTwo): another example project to subscribe for Eiffel events, to try scenarios such as:
   - When there are different subscribers for the same event.
   - When the Same subscriber has multi instances of a service that runs simultaneously where the message will be delivered to only one instance.
 
