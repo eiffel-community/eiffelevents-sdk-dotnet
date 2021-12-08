@@ -13,7 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{19
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EiffelEvents.Net.Tests", "tests\EiffelEvents.Net.Tests\EiffelEvents.Net.Tests.csproj", "{6B9E1E42-70B4-4E58-AFC1-56C02B9CA3F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eiffel.RabbitMq.Client", "src\Eiffel.RabbitMq.Client\Eiffel.RabbitMq.Client.csproj", "{5D9782A0-FF62-4B6A-B24D-9BFFF19D8E2F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EiffelEvents.RabbitMq.Client", "src\EiffelEvents.RabbitMq.Client\EiffelEvents.RabbitMq.Client.csproj", "{5D9782A0-FF62-4B6A-B24D-9BFFF19D8E2F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EiffelClient.PublisherOne", "examples\EiffelClient.PublisherOne\EiffelClient.PublisherOne.csproj", "{25643B1F-F55E-4685-BD4D-6EED5573F329}"
 EndProject

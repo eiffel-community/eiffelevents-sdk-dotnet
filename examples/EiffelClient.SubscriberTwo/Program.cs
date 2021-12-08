@@ -17,7 +17,7 @@ using System.Threading;
 using EiffelEvents.Net.Clients;
 using EiffelEvents.Net.Events.Core;
 using EiffelEvents.Net.Events.Edition_Paris;
-using Eiffel.RabbitMq.Client;
+using EiffelEvents.RabbitMq.Client;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 

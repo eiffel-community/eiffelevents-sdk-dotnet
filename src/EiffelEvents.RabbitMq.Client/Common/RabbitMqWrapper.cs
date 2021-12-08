@@ -14,12 +14,12 @@
 
 using System;
 using System.Threading;
-using Eiffel.RabbitMq.Client.Exceptions;
+using EiffelEvents.RabbitMq.Client.Exceptions;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using RabbitMQ.Client.Exceptions;
 
-namespace Eiffel.RabbitMq.Client.Common
+namespace EiffelEvents.RabbitMq.Client.Common
 {
     internal class RabbitMqWrapper : IRabbitMqWrapper
     {

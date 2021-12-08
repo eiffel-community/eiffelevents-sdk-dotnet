@@ -17,7 +17,7 @@ using System.Collections.Generic;
 using EiffelEvents.Net.Clients;
 using EiffelEvents.Net.Events.Edition_Paris;
 using EiffelEvents.Net.Events.Edition_Paris.Shared.Enums;
-using Eiffel.RabbitMq.Client;
+using EiffelEvents.RabbitMq.Client;
 
 namespace EiffelClient.BasicPublisher
 {

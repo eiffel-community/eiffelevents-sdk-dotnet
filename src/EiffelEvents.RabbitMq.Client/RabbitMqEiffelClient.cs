@@ -16,11 +16,11 @@ using System;
 using EiffelEvents.Net.Events.Core;
 using System.Text;
 using EiffelEvents.Net.Clients;
-using Eiffel.RabbitMq.Client.Common;
-using Eiffel.RabbitMq.Client.Exceptions;
+using EiffelEvents.RabbitMq.Client.Common;
+using EiffelEvents.RabbitMq.Client.Exceptions;
 using FluentResults;
 
-namespace Eiffel.RabbitMq.Client
+namespace EiffelEvents.RabbitMq.Client
 {
     /// <summary>
     /// Provides publishing and subscription of Eiffel events on RabbitMQ.

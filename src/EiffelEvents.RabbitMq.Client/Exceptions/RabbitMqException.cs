@@ -15,7 +15,7 @@
 using System;
 using EiffelEvents.Net.Exceptions;
 
-namespace Eiffel.RabbitMq.Client.Exceptions
+namespace EiffelEvents.RabbitMq.Client.Exceptions
 {
     /// <summary>
     /// RabbitMqException is an exception wrapper for RabbitMQ exceptions.

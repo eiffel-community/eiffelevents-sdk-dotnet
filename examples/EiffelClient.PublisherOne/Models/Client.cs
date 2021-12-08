@@ -14,7 +14,7 @@
 
 using EiffelEvents.Net.Clients;
 using EiffelEvents.Net.Events.Edition_Paris;
-using Eiffel.RabbitMq.Client;
+using EiffelEvents.RabbitMq.Client;
 
 namespace EiffelClient.PublisherOne.Models
 {

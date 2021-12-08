@@ -12,7 +12,7 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 
-namespace Eiffel.RabbitMq.Client.Exceptions
+namespace EiffelEvents.RabbitMq.Client.Exceptions
 {
     /// <summary>
     /// RabbitMqNullArgumentException is an exception wrapper for RabbitMQ null argument exceptions.
