@@ -8,9 +8,9 @@
 
 ## Examples Projects
 
-- [clients/EiffelClient.PublisherOne](clients/EiffelClient.PublisherOne): example project to publish Eiffel events refined to easily try different events.
-- [clients/EiffelClient.SubscriberOne](clients/EiffelClient.SubscriberOne): example project to subscribe for Eiffel events.
-- [clients/EiffelClient.SubscriberTwo](clients/EiffelClient.SubscriberTwo): another example project to subscribe for Eiffel events, to try scenarios such as:
+- [examples/EiffelClient.PublisherOne](examples/EiffelClient.PublisherOne): example project to publish Eiffel events refined to easily try different events.
+- [examples/EiffelClient.SubscriberOne](examples/EiffelClient.SubscriberOne): example project to subscribe for Eiffel events.
+- [examples/EiffelClient.SubscriberTwo](examples/EiffelClient.SubscriberTwo): another example project to subscribe for Eiffel events, to try scenarios such as:
   - When there are different subscribers for the same event.
   - When the Same subscriber has multi instances of a service that runs simultaneously where the message will be delivered to only one instance.
 
@@ -37,9 +37,9 @@ For demo purposes, we provided sample projects and the Docker services section f
    1. URL: http://localhost:15672/
    1. Username: admin
    1. Password: admin
-1. Open another terminal then change directory to `clients/EiffelClient.EiffelClient.SubscriberOne` then run the command `dotnet run` to run the **subscriber-one**.
-1. Open another terminal then change directory to `clients/EiffelClient.EiffelClient.SubscriberTwo` then run the command `dotnet run` to run the **subscriber-two**.
-1. Open another terminal then change directory to `clients/EiffelClient.PublisherOne` then run the command `dotnet run` to run the publisher.
+1. Open another terminal then change directory to `examples/EiffelClient.EiffelClient.SubscriberOne` then run the command `dotnet run` to run the **subscriber-one**.
+1. Open another terminal then change directory to `examples/EiffelClient.EiffelClient.SubscriberTwo` then run the command `dotnet run` to run the **subscriber-two**.
+1. Open another terminal then change directory to `examples/EiffelClient.PublisherOne` then run the command `dotnet run` to run the publisher.
 1. Note: all publish and subscribe events should be the same.
 
 ## Make Commands ##
