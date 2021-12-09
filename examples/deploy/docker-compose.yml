@@ -28,7 +28,7 @@ services:
   subscriber-one:
     build:
       context: 
-        ../
+        ../../
     networks:
       - eiffel_internal    
     restart: on-failure
@@ -47,7 +47,7 @@ services:
   subscriber-two:
     build:
       context: 
-        ../
+        ../../
     networks:
       - eiffel_internal    
     restart: on-failure

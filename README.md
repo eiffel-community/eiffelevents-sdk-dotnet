@@ -168,7 +168,7 @@ Example projects are created for demo purposes and reside on the [examples](exam
 ## SDK Projects
 
 - [src/Eiffel.Net](src/Eiffel.Net): Events implementation.
-- [src/Eiffel.RabbitMq.Client](src/Src/Eiffel.RabbitMq.Client): Event Publishing service.
+- [src/Eiffel.RabbitMq.Client](src/Eiffel.RabbitMq.Client): Event Publishing service.
 
 ## Tests
 

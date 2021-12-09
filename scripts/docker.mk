@@ -2,8 +2,8 @@ DOCKER := docker
 
 DOCKER_COMPOSE := docker compose \
 	--project-name "eiffel" \
-	--project-directory "./deploy" \
-	--file "./deploy/docker-compose.yml"
+	--project-directory "./examples/deploy" \
+	--file "./examples/deploy/docker-compose.yml"
 
 DOCKER_COMPOSE_UP         = $(DOCKER_COMPOSE) up --no-deps
 DOCKER_COMPOSE_CONFIG     = $(DOCKER_COMPOSE) config
