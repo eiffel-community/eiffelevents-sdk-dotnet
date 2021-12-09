@@ -8,6 +8,7 @@
 
 ## Examples Projects
 
+- [EiffelClient.BasicPublisher](EiffelClient.BasicPublisher): A basic publisher example with an Eiffel event.
 - [EiffelClient.PublisherOne](EiffelClient.PublisherOne): example project to publish Eiffel events refined to easily try different events.
 - [EiffelClient.SubscriberOne](EiffelClient.SubscriberOne): example project to subscribe for Eiffel events.
 - [EiffelClient.SubscriberTwo](EiffelClient.SubscriberTwo): another example project to subscribe for Eiffel events, to try scenarios such as:
@@ -24,8 +25,8 @@ The following files are used to configure project services:
 ## Docker Compose Services
 
 - **rabbitmq**: RabbitMQ service to handle messages queues, it exists in `deploy/services/rabbitmq` directory.
-- **subscriber-one**: a console app referencing the Eiffel.NET library that subscribes to some events and logs them when received.
-- **subscriber-two**: a console app referencing the Eiffel.NET library that subscribes to some events and logs them when received.
+- **subscriber-one**: a console app referencing the EiffelEvents.NET project that subscribes to some events and logs them when received.
+- **subscriber-two**: a console app referencing the EiffelEvents.NET project that subscribes to some events and logs them when received.
 
 ## Running Samples
 

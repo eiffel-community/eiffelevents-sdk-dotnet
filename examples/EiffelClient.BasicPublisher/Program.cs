@@ -14,10 +14,10 @@
 
 using System;
 using System.Collections.Generic;
-using Eiffel.Net.Clients;
-using Eiffel.Net.Events.Edition_Paris;
-using Eiffel.Net.Events.Edition_Paris.Shared.Enums;
-using Eiffel.RabbitMq.Client;
+using EiffelEvents.Net.Clients;
+using EiffelEvents.Net.Events.Edition_Paris;
+using EiffelEvents.Net.Events.Edition_Paris.Shared.Enums;
+using EiffelEvents.RabbitMq.Client;
 
 namespace EiffelClient.BasicPublisher
 {

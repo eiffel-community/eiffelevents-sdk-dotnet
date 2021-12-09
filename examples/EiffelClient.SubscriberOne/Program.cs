@@ -14,10 +14,10 @@
 
 using System;
 using System.Threading;
-using Eiffel.Net.Clients;
-using Eiffel.Net.Events.Core;
-using Eiffel.Net.Events.Edition_Paris;
-using Eiffel.RabbitMq.Client;
+using EiffelEvents.Net.Clients;
+using EiffelEvents.Net.Events.Core;
+using EiffelEvents.Net.Events.Edition_Paris;
+using EiffelEvents.RabbitMq.Client;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 

@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <Nullable>disable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="FluentResults" Version="2.5.0" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />        
+    </ItemGroup>
+    
+    <ItemGroup>
+        <InternalsVisibleTo Include="EiffelEvents.Net.Tests" />
+    </ItemGroup>
+    
+   
+</Project>

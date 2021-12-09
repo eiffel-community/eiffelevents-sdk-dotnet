@@ -1,8 +1,8 @@
-# Eiffel Events SDK DOTNET #
+# EiffelEvents .NET SDK #
 
-**EiffelEvents-SDK-DOTNET** is a .NET implementation for Eiffel events and  Assisted publishing service, which acts as an intermediate between the event author (publisher) and the Message Broker (RabbitMQ for instance).
+**EiffelEvents .NET SDK** is a .NET implementation for Eiffel events and  Assisted publishing service, which acts as an intermediate between the event author (publisher) and the Message Broker (RabbitMQ for instance).
 
-EiffelEvents-SDK-DOTNET features include:
+EiffelEvents .NET SDK features include:
 
 - Implement Eiffel events vocabularies as described in [Eiffel-edition-paris](https://github.com/eiffel-community/eiffel/tree/edition-paris) 
 - Validate events' schema regarding target event’s version.
@@ -10,21 +10,21 @@ EiffelEvents-SDK-DOTNET features include:
 - Serialization/deserialization of events.
 - Provide  APIs for users to publish, subscribe, acknowledge, reject and unsubscribe for strongly-typed Eiffel events to RabbitMQ.
 
-It consists of two packages; 1) **Eiffel.Net** for events' implementation, 2) **Eiffel.RabbitMq.Client** for assisted publishing to RabbitMQ.
+It consists of two packages; 1) **EiffelEvents.Net** for events' implementation, 2) **EiffelEvents.RabbitMq.Client** for assisted publishing to RabbitMQ.
 
 
 
 # Quick Start #
 
-## Using Events Package ([src/Eiffel.Net](src/Eiffel.Net))
+## Using Events Package ([src/EiffelEvents.Net](src/EiffelEvents.Net))
 
-To get started install requirements then reference the events library, [src/Eiffel.Net](src/Eiffel.Net) in a project, then start using the events as follows:
+To get started install requirements then reference the events library, [src/EiffelEvents.Net](src/EiffelEvents.Net) in a project, then start using the events as follows:
 
 ```c#
 // Use required namespaces
 using System;
-using Eiffel.Net.Events.Edition_Paris;
-using Eiffel.Net.Events.Edition_Paris.Shared.Enums;
+using EiffelEvents.Net.Events.Edition_Paris;
+using EiffelEvents.Net.Events.Edition_Paris.Shared.Enums;
 
  // Declare event object
 var activityTriggeredEvent = new EiffelActivityTriggeredEvent()
@@ -60,7 +60,7 @@ var activityTriggeredEvent = new EiffelActivityTriggeredEvent()
     }
 };
 
-// Validate the event accorrding to schema
+// Validate the event according to schema
 Result result = activityTriggeredEvent.Validate();
 Console.WriteLine(result);
 
@@ -74,9 +74,9 @@ Console.WriteLine(json);
 
 
 
-## Using Publishing Package ([src/Eiffel.RabbitMq.Client](src/Eiffel.RabbitMq.Client))
+## Using Publishing Package ([src/EiffelEvents.RabbitMq.Client](src/EiffelEvents.RabbitMq.Client))
 
-To get started install requirements then reference the events library, [src/Eiffel.RabbitMq.Client](src/Eiffel.RabbitMq.Client) in a project, then start processing using the publishing client.
+To get started install requirements then reference the events library, [src/EiffelEvents.RabbitMq.Client](src/EiffelEvents.RabbitMq.Client) in a project, then start processing using the publishing client.
 
 Note: make sure that a RabbitMQ instance is up and running, then provide its configurations to `RabbitMqEiffelClient`
 
@@ -84,7 +84,7 @@ Note: make sure that a RabbitMQ instance is up and running, then provide its con
 
 ```c#
 // Use required namespaces
-using Eiffel.RabbitMq.Client;
+using EiffelEvents.RabbitMq.Client;
 
 // Init client
 IEiffelClient eiffelClient = new RabbitMqEiffelClient(new RabbitMqConfig
@@ -95,7 +95,7 @@ IEiffelClient eiffelClient = new RabbitMqEiffelClient(new RabbitMqConfig
             Port = 5672
         }, 1);
         
-// Declare event as done in Using Events Package (src/Eiffel.Net) section
+// Declare event as done in Using Events Package (src/EiffelEvents.Net) section
 //...
 // Signing event
 var signedEvent = activityTriggeredEvent.Sign<EiffelActivityTriggeredEvent>();
@@ -167,12 +167,12 @@ Example projects are created for demo purposes and reside on the [examples](exam
 
 ## SDK Projects
 
-- [src/Eiffel.Net](src/Eiffel.Net): Events implementation.
-- [src/Eiffel.RabbitMq.Client](src/Eiffel.RabbitMq.Client): Event Publishing service.
+- [src/EiffelEvents.Net](src/EiffelEvents.Net): Events implementation.
+- [src/EiffelEvents.RabbitMq.Client](src/EiffelEvents.RabbitMq.Client): Event Publishing service.
 
 ## Tests
 
-A unit tests reside under [tests/Eiffel.Net.Tests](tests/Eiffel.Net.Tests) to test event validation, signing, verifying the signature, serialization, and deserialization.
+A unit tests reside under [tests/EiffelEvents.Net.Tests](tests/EiffelEvents.Net.Tests) to test event validation, signing, verifying the signature, serialization, and deserialization.
 
 # Docs
 

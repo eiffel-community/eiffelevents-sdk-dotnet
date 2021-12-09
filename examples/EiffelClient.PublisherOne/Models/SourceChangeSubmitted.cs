@@ -14,8 +14,8 @@
 
 using System;
 using System.Collections.Generic;
-using Eiffel.Net.Events.Edition_Paris;
-using Eiffel.Net.Events.Edition_Paris.Shared.Security;
+using EiffelEvents.Net.Events.Edition_Paris;
+using EiffelEvents.Net.Events.Edition_Paris.Shared.Security;
 
 namespace EiffelClient.PublisherOne.Models
 {
