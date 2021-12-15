@@ -14,7 +14,7 @@
 
 namespace EiffelEvents.Net.Events.Core.Links
 {
-    public record EiffelSerializedLink
+    public interface IEiffelSerializedLink
     {
         public string Type { get; init; }
         public string Target { get; init; }
