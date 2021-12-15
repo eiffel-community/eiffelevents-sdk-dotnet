@@ -13,29 +13,30 @@
 //    limitations under the License.
 
 using System;
+using System.Collections.Generic;
 using EiffelEvents.Net.Events.Edition_Paris;
 using EiffelEvents.Net.Events.Edition_Paris.Shared.Enums;
+using EiffelEvents.Net.Events.Edition_Paris.Shared.Security;
 
-namespace EiffelEvents.Net.Tests.TestData
+namespace EiffelEvents.Net.Tests.TestData.Edition_Paris
 {
-    public class EiffelConfidenceLevelModifiedEventFixture
+    public class EiffelIssueDefinedEventFixture
     {
         /// <summary>
-        /// Get a complete valid instance of EiffelConfidenceLevelModifiedEvent.
+        /// Get a complete valid instance of EiffelIssueDefinedEvent.
         /// </summary>
-        /// <returns>EiffelConfidenceLevelModifiedEvent</returns>
-        public EiffelConfidenceLevelModifiedEvent GetValidCompleteEvent()
+        /// <returns></returns>
+        public EiffelIssueDefinedEvent GetValidCompleteEvent()
         {
-            return new EiffelConfidenceLevelModifiedEvent
+            return new EiffelIssueDefinedEvent
             {
                 Data = new()
                 {
-                    Name = "Test",
-                    Value = EiffelDataConfidenceLevelValue.SUCCESS,
-                    Issuer = new()
-                    {
-                        Email = "test@test.co"
-                    },
+                    Id = "id",
+                    Title = "title-1",
+                    Tracker = "Jira",
+                    Type = EiffelIssueType.BUG,
+                    Uri = "uri.xyz",
                     CustomData = new()
                     {
                         { "key1", "test" },
@@ -45,16 +46,25 @@ namespace EiffelEvents.Net.Tests.TestData
                 Meta = new()
                 {
                     Id = Guid.NewGuid().ToString(),
-                    Tags = new() { "Confidence Level Modified" },
-                    Security = new()
+                    Tags = new List<string> { "docker env" },
+                    Security = new EiffelSecurity()
                     {
                         AuthorIdentity = "Flower"
                     }
                 },
                 Links = new()
                 {
-                    Subject = new() { "82f11609-bd5b-4c82-a5f2-c2a9d982cdbd" },
-                    SubConfidenceLevel = new() { "82f11609-bd5b-4c82-a5f2-c2a9d982cdbd" }
+                    Context = Guid.NewGuid().ToString(),
+                    Cause = new()
+                    {
+                        Guid.NewGuid().ToString(),
+                        Guid.NewGuid().ToString()
+                    },
+                    FlowContext = new()
+                    {
+                        Guid.NewGuid().ToString(),
+                        Guid.NewGuid().ToString()
+                    }
                 }
             };
         }

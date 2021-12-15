@@ -15,7 +15,7 @@
 using System;
 using EiffelEvents.Net.Events.Edition_Paris;
 
-namespace EiffelEvents.Net.Tests.TestData
+namespace EiffelEvents.Net.Tests.TestData.Edition_Paris
 {
     public class EiffelArtifactCreatedEventFixture
     {

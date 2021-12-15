@@ -13,46 +13,50 @@
 //    limitations under the License.
 
 using System;
+using System.Collections.Generic;
 using EiffelEvents.Net.Events.Edition_Paris;
+using EiffelEvents.Net.Events.Edition_Paris.Shared.Security;
 
-namespace EiffelEvents.Net.Tests.TestData
+namespace EiffelEvents.Net.Tests.TestData.Edition_Paris
 {
-    public class EiffelActivityStartedEventFixture
+    public class EiffelFlowContextDefinedEventFixture
     {
-        public EiffelActivityStartedEvent GetValidCompleteEvent()
+        /// <summary>
+        /// Get a complete valid instance of EiffelFlowContextDefinedEvent.
+        /// </summary>
+        /// <returns></returns>
+        public EiffelFlowContextDefinedEvent GetValidCompleteEvent()
         {
-            return new EiffelActivityStartedEvent
+            return new EiffelFlowContextDefinedEvent
             {
                 Data = new()
                 {
-                    ExecutionUri = "test",
-                    LiveLogs = new()
+                    Product = "test product",
+                    Program = "test program",
+                    Project = "test project",
+                    Track = "test track",
+                    Version = "1.0.0",
+                    CustomData = new()
                     {
-                        new()
-                        {
-                            Name = "test",
-                            Uri = "test"
-                        }
+                        { "key1", "test" },
+                        { "key2", new[] { 1, 2, 3 } }
                     }
                 },
                 Meta = new()
                 {
                     Id = Guid.NewGuid().ToString(),
-                    Tags = new() { "activity_block" },
-                    Security = new()
+                    Tags = new List<string> { "docker env" },
+                    Security = new EiffelSecurity()
                     {
                         AuthorIdentity = "Flower"
                     }
                 },
-                Links = new ()
+                Links = new()
                 {
-                    Context = Guid.NewGuid().ToString(),
-                    FlowContext = new ()
+                    Cause = new List<string>
                     {
-                        Guid.NewGuid().ToString(),
-                        Guid.NewGuid().ToString()
-                    },
-                    ActivityExecution = Guid.NewGuid().ToString()
+                        "cf056717-201b-43f6-9f2c-839b33b71baf"
+                    }
                 }
             };
         }

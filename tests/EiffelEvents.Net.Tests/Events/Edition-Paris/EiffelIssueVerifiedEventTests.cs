@@ -15,6 +15,7 @@
 using System;
 using EiffelEvents.Net.Events.Edition_Paris;
 using EiffelEvents.Net.Tests.TestData;
+using EiffelEvents.Net.Tests.TestData.Edition_Paris;
 using FluentAssertions;
 using FluentResults;
 using Xunit;

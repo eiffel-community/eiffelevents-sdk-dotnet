@@ -15,23 +15,38 @@
 using System;
 using System.Collections.Generic;
 using EiffelEvents.Net.Events.Edition_Paris;
+using EiffelEvents.Net.Events.Edition_Paris.Shared.Data;
+using EiffelEvents.Net.Events.Edition_Paris.Shared.Enums;
 using EiffelEvents.Net.Events.Edition_Paris.Shared.Security;
 
-namespace EiffelEvents.Net.Tests.TestData
+namespace EiffelEvents.Net.Tests.TestData.Edition_Paris
 {
-    public class EiffelTestCaseCanceledEventFixture
+    public class EiffelTestCaseFinishedEventFixture
     {
         /// <summary>
-        /// Get a complete valid instance of EiffelTestCaseCanceledEvent.
+        /// Get a complete valid instance of EiffelTestCaseFinishedEvent.
         /// </summary>
         /// <returns></returns>
-        public EiffelTestCaseCanceledEvent GetValidCompleteEvent()
+        public EiffelTestCaseFinishedEvent GetValidCompleteEvent()
         {
-            return new EiffelTestCaseCanceledEvent
+            return new EiffelTestCaseFinishedEvent
             {
                 Data = new()
                 {
-                    Reason = "very random reason",
+                    Outcome = new()
+                    {
+                        Conclusion = EiffelTestCaseOutcomeConclusion.SUCCESSFUL,
+                        Verdict = EiffelTestVerdict.PASSED,
+                        Description = "blah blah blah",
+                        Metrics = new()
+                        {
+                            new()
+                            {
+                                Name = "Metric 1",
+                                Value = 95.5
+                            }
+                        }
+                    },
                     CustomData = new()
                     {
                         { "key1", "test" },

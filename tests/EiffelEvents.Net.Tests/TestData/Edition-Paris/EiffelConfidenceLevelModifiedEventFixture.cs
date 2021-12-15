@@ -14,28 +14,27 @@
 
 using System;
 using EiffelEvents.Net.Events.Edition_Paris;
+using EiffelEvents.Net.Events.Edition_Paris.Shared.Enums;
 
-namespace EiffelEvents.Net.Tests.TestData
+namespace EiffelEvents.Net.Tests.TestData.Edition_Paris
 {
-    public class EiffelEnvironmentDefinedEventFixture
+    public class EiffelConfidenceLevelModifiedEventFixture
     {
         /// <summary>
-        /// Get a complete valid instance of EiffelEnvironmentDefinedEvent.
+        /// Get a complete valid instance of EiffelConfidenceLevelModifiedEvent.
         /// </summary>
-        /// <returns></returns>
-        public EiffelEnvironmentDefinedEvent GetValidCompleteEvent()
+        /// <returns>EiffelConfidenceLevelModifiedEvent</returns>
+        public EiffelConfidenceLevelModifiedEvent GetValidCompleteEvent()
         {
-            return new EiffelEnvironmentDefinedEvent
+            return new EiffelConfidenceLevelModifiedEvent
             {
                 Data = new()
                 {
-                    Name = "env name",
-                    Image = "docker/image",
-                    Version = "2",
-                    Host = new()
+                    Name = "Test",
+                    Value = EiffelDataConfidenceLevelValue.SUCCESS,
+                    Issuer = new()
                     {
-                        Name = "name-1",
-                        User = "user-1"
+                        Email = "test@test.co"
                     },
                     CustomData = new()
                     {
@@ -46,7 +45,7 @@ namespace EiffelEvents.Net.Tests.TestData
                 Meta = new()
                 {
                     Id = Guid.NewGuid().ToString(),
-                    Tags = new() { "docker env" },
+                    Tags = new() { "Confidence Level Modified" },
                     Security = new()
                     {
                         AuthorIdentity = "Flower"
@@ -54,7 +53,8 @@ namespace EiffelEvents.Net.Tests.TestData
                 },
                 Links = new()
                 {
-                    PreviousVersion = new() { "cf056717-201b-43f6-9f2c-839b33b71baf" }
+                    Subject = new() { "82f11609-bd5b-4c82-a5f2-c2a9d982cdbd" },
+                    SubConfidenceLevel = new() { "82f11609-bd5b-4c82-a5f2-c2a9d982cdbd" }
                 }
             };
         }

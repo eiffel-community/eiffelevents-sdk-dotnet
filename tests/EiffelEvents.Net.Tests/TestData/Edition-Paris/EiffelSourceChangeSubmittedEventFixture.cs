@@ -15,43 +15,53 @@
 using System;
 using System.Collections.Generic;
 using EiffelEvents.Net.Events.Edition_Paris;
-using EiffelEvents.Net.Events.Edition_Paris.Shared.Data;
-using EiffelEvents.Net.Events.Edition_Paris.Shared.Enums;
 using EiffelEvents.Net.Events.Edition_Paris.Shared.Security;
 
-namespace EiffelEvents.Net.Tests.TestData
+namespace EiffelEvents.Net.Tests.TestData.Edition_Paris
 {
-    public class EiffelTestCaseFinishedEventFixture
+    public class EiffelSourceChangeSubmittedEventFixture
     {
         /// <summary>
-        /// Get a complete valid instance of EiffelTestCaseFinishedEvent.
+        /// Get a complete valid instance of EiffelSourceChangeSubmittedEvent.
         /// </summary>
         /// <returns></returns>
-        public EiffelTestCaseFinishedEvent GetValidCompleteEvent()
+        public EiffelSourceChangeSubmittedEvent GetValidCompleteEvent()
         {
-            return new EiffelTestCaseFinishedEvent
+            return new EiffelSourceChangeSubmittedEvent
             {
                 Data = new()
                 {
-                    Outcome = new()
+                    Submitter = new()
                     {
-                        Conclusion = EiffelTestCaseOutcomeConclusion.SUCCESSFUL,
-                        Verdict = EiffelTestVerdict.PASSED,
-                        Description = "blah blah blah",
-                        Metrics = new()
-                        {
-                            new()
-                            {
-                                Name = "Metric 1",
-                                Value = 95.5
-                            }
-                        }
+                        Email = "test@example.com"
                     },
-                    CustomData = new()
+                    GitIdentifier = new()
                     {
-                        { "key1", "test" },
-                        { "key2", new[] { 1, 2, 3 } }
+                        Branch = "test",
+                        CommitId = "test",
+                        RepoUri = "https://test.com/"
+                    },
+                    HgIdentifier = new()
+                    {
+                        Branch = "test",
+                        CommitId = "test",
+                        RepoUri = "https://test.com/"
+                    },
+                    SvnIdentifier = new()
+                    {
+                        Directory = "test",
+                        RepoUri = "https://test.com/"
+                    },
+                    CcCompositeIdentifier = new()
+                    {
+                        Branch = "test",
+                        Vobs = new List<string> { "test" },
+                        ConfigSpec = "test"
                     }
+                },
+                Links = new()
+                {
+                    Change = Guid.NewGuid().ToString()
                 },
                 Meta = new()
                 {
@@ -61,10 +71,6 @@ namespace EiffelEvents.Net.Tests.TestData
                     {
                         AuthorIdentity = "Flower"
                     }
-                },
-                Links = new()
-                {
-                    TestCaseExecution = Guid.NewGuid().ToString()
                 }
             };
         }

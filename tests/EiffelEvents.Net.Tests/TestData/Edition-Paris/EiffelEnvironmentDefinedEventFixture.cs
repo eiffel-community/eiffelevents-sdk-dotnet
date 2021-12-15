@@ -13,24 +13,30 @@
 //    limitations under the License.
 
 using System;
-using System.Collections.Generic;
 using EiffelEvents.Net.Events.Edition_Paris;
-using EiffelEvents.Net.Events.Edition_Paris.Shared.Security;
 
-namespace EiffelEvents.Net.Tests.TestData
+namespace EiffelEvents.Net.Tests.TestData.Edition_Paris
 {
-    public class EiffelIssueVerifiedEventFixture
+    public class EiffelEnvironmentDefinedEventFixture
     {
         /// <summary>
-        /// Get a complete valid instance of EiffelIssueVerifiedEvent.
+        /// Get a complete valid instance of EiffelEnvironmentDefinedEvent.
         /// </summary>
         /// <returns></returns>
-        public EiffelIssueVerifiedEvent GetValidCompleteEvent()
+        public EiffelEnvironmentDefinedEvent GetValidCompleteEvent()
         {
-            return new EiffelIssueVerifiedEvent
+            return new EiffelEnvironmentDefinedEvent
             {
                 Data = new()
                 {
+                    Name = "env name",
+                    Image = "docker/image",
+                    Version = "2",
+                    Host = new()
+                    {
+                        Name = "name-1",
+                        User = "user-1"
+                    },
                     CustomData = new()
                     {
                         { "key1", "test" },
@@ -40,27 +46,15 @@ namespace EiffelEvents.Net.Tests.TestData
                 Meta = new()
                 {
                     Id = Guid.NewGuid().ToString(),
-                    Tags = new List<string> { "docker env" },
-                    Security = new EiffelSecurity()
+                    Tags = new() { "docker env" },
+                    Security = new()
                     {
                         AuthorIdentity = "Flower"
                     }
                 },
                 Links = new()
                 {
-                    Iut = Guid.NewGuid().ToString(),
-                    SuccessfulIssue = Guid.NewGuid().ToString(),
-                    Context = Guid.NewGuid().ToString(),
-                    Cause = new()
-                    {
-                        Guid.NewGuid().ToString(),
-                        Guid.NewGuid().ToString()
-                    },
-                    FlowContext = new()
-                    {
-                        Guid.NewGuid().ToString(),
-                        Guid.NewGuid().ToString()
-                    }
+                    PreviousVersion = new() { "cf056717-201b-43f6-9f2c-839b33b71baf" }
                 }
             };
         }

@@ -14,46 +14,50 @@
 
 using System;
 using EiffelEvents.Net.Events.Edition_Paris;
+using EiffelEvents.Net.Events.Edition_Paris.Shared.Enums;
 
-namespace EiffelEvents.Net.Tests.TestData
+namespace EiffelEvents.Net.Tests.TestData.Edition_Paris
 {
-    public class EiffelArtifactReusedEventFixture
+    public class EiffelArtifactPublishedEventFixture
     {
         /// <summary>
-        /// Get a complete valid instance of EiffelArtifactReusedEvent.
+        /// Get a complete valid instance of EiffelArtifactPublishedEvent.
         /// </summary>
         /// <returns></returns>
-        public EiffelArtifactReusedEvent GetValidCompleteEvent()
+        public EiffelArtifactPublishedEvent GetValidCompleteEvent()
         {
-            return new EiffelArtifactReusedEvent
+            return new EiffelArtifactPublishedEvent
             {
-                Data = new()
+                Data = new ()
                 {
+                    Locations = new ()
+                    {
+                        new ()
+                        {
+                            Name = "location-name",
+                            Type = EiffelArtifactLocationType.NEXUS,
+                            Uri = "sample.URI"
+                        }
+                    },
                     CustomData = new()
                     {
                         { "key1", "test" },
                         { "key2", new[] { 1, 2, 3 } }
                     }
                 },
+
                 Meta = new()
                 {
                     Id = Guid.NewGuid().ToString(),
-                    Tags = new() { "artifact reused" },
-                    Security = new()
+                    Tags = new () { "artifactPublished" },
+                    Security = new ()
                     {
                         AuthorIdentity = "Flower"
                     }
                 },
-                Links = new EiffelArtifactReusedLinks
+                Links = new ()
                 {
-                    Composition = "82f11609-bd5b-4c82-a5f2-c2a9d982cdbd",
-                    ReusedArtifact = "cf056717-201b-43f6-9f2c-839b33b71baf",
-                    Cause = new()
-                    {
-                        Guid.NewGuid().ToString(),
-                        Guid.NewGuid().ToString(),
-                        Guid.NewGuid().ToString()
-                    }
+                    Artifact = "cf056717-201b-43f6-9f2c-839b33b71baf"
                 }
             };
         }

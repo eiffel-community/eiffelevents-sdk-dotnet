@@ -13,29 +13,23 @@
 //    limitations under the License.
 
 using System;
-using System.Collections.Generic;
 using EiffelEvents.Net.Events.Edition_Paris;
-using EiffelEvents.Net.Events.Edition_Paris.Shared.Enums;
-using EiffelEvents.Net.Events.Edition_Paris.Shared.Security;
 
-namespace EiffelEvents.Net.Tests.TestData
+namespace EiffelEvents.Net.Tests.TestData.Edition_Paris
 {
-    public class EiffelAnnouncementPublishedEventFixture
+    public class EiffelCompositionDefinedEventFixture
     {
         /// <summary>
-        /// Get a complete valid instance of EiffelAnnouncementPublishedEvent.
+        /// Get a complete valid instance of EiffelCompositionDefinedEvent.
         /// </summary>
-        /// <returns></returns>
-        public EiffelAnnouncementPublishedEvent GetValidCompleteEvent()
+        /// <returns>EiffelConfidenceLevelModifiedEvent</returns>
+        public EiffelCompositionDefinedEvent GetValidCompleteEvent()
         {
-            return new EiffelAnnouncementPublishedEvent
+            return new EiffelCompositionDefinedEvent
             {
                 Data = new()
                 {
-                    Heading = "heading-1",
-                    Body = "body -1 ",
-                    Severity = EiffelAnnouncementSeverity.MAJOR,
-                    Uri = "uri.xyz",
+                    Name = "Test",
                     CustomData = new()
                     {
                         { "key1", "test" },
@@ -45,26 +39,16 @@ namespace EiffelEvents.Net.Tests.TestData
                 Meta = new()
                 {
                     Id = Guid.NewGuid().ToString(),
-                    Tags = new List<string> { "docker env" },
-                    Security = new EiffelSecurity()
+                    Tags = new() { "Confidence Level Modified" },
+                    Security = new()
                     {
                         AuthorIdentity = "Flower"
                     }
                 },
                 Links = new()
                 {
-                    ModifiedAnnouncement = Guid.NewGuid().ToString(),
-                    Context = Guid.NewGuid().ToString(),
-                    Cause = new()
-                    {
-                        Guid.NewGuid().ToString(),
-                        Guid.NewGuid().ToString()
-                    },
-                    FlowContext = new()
-                    {
-                        Guid.NewGuid().ToString(),
-                        Guid.NewGuid().ToString()
-                    }
+                    Element = new() { "82f11609-bd5b-4c82-a5f2-c2a9d982cdbd" },
+                    PreviousVersion = new() { "82f11609-bd5b-4c82-a5f2-c2a9d982cdbd" }
                 }
             };
         }

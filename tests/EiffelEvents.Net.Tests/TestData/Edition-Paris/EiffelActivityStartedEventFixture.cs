@@ -15,40 +15,44 @@
 using System;
 using EiffelEvents.Net.Events.Edition_Paris;
 
-namespace EiffelEvents.Net.Tests.TestData
+namespace EiffelEvents.Net.Tests.TestData.Edition_Paris
 {
-    public class EiffelCompositionDefinedEventFixture
+    public class EiffelActivityStartedEventFixture
     {
-        /// <summary>
-        /// Get a complete valid instance of EiffelCompositionDefinedEvent.
-        /// </summary>
-        /// <returns>EiffelConfidenceLevelModifiedEvent</returns>
-        public EiffelCompositionDefinedEvent GetValidCompleteEvent()
+        public EiffelActivityStartedEvent GetValidCompleteEvent()
         {
-            return new EiffelCompositionDefinedEvent
+            return new EiffelActivityStartedEvent
             {
                 Data = new()
                 {
-                    Name = "Test",
-                    CustomData = new()
+                    ExecutionUri = "test",
+                    LiveLogs = new()
                     {
-                        { "key1", "test" },
-                        { "key2", new[] { 1, 2, 3 } }
+                        new()
+                        {
+                            Name = "test",
+                            Uri = "test"
+                        }
                     }
                 },
                 Meta = new()
                 {
                     Id = Guid.NewGuid().ToString(),
-                    Tags = new() { "Confidence Level Modified" },
+                    Tags = new() { "activity_block" },
                     Security = new()
                     {
                         AuthorIdentity = "Flower"
                     }
                 },
-                Links = new()
+                Links = new ()
                 {
-                    Element = new() { "82f11609-bd5b-4c82-a5f2-c2a9d982cdbd" },
-                    PreviousVersion = new() { "82f11609-bd5b-4c82-a5f2-c2a9d982cdbd" }
+                    Context = Guid.NewGuid().ToString(),
+                    FlowContext = new ()
+                    {
+                        Guid.NewGuid().ToString(),
+                        Guid.NewGuid().ToString()
+                    },
+                    ActivityExecution = Guid.NewGuid().ToString()
                 }
             };
         }

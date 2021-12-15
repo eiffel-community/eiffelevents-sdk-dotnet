@@ -15,29 +15,35 @@
 using System;
 using System.Collections.Generic;
 using EiffelEvents.Net.Events.Edition_Paris;
+using EiffelEvents.Net.Events.Edition_Paris.Shared.Enums;
 using EiffelEvents.Net.Events.Edition_Paris.Shared.Security;
 
-namespace EiffelEvents.Net.Tests.TestData
+namespace EiffelEvents.Net.Tests.TestData.Edition_Paris
 {
-    public class EiffelTestCaseStartedEventFixture
+    public class EiffelTestSuiteFinishedEventFixture
     {
         /// <summary>
-        /// Get a complete valid instance of EiffelTestCaseStartedEvent.
+        /// Get a complete valid instance of EiffelTestSuiteFinishedEvent.
         /// </summary>
         /// <returns></returns>
-        public EiffelTestCaseStartedEvent GetValidCompleteEvent()
+        public EiffelTestSuiteFinishedEvent GetValidCompleteEvent()
         {
-            return new EiffelTestCaseStartedEvent
+            return new EiffelTestSuiteFinishedEvent
             {
                 Data = new()
                 {
-                    Executor = "Test",
-                    LiveLogs = new()
+                    Outcome = new()
+                    {
+                        Conclusion = EiffelTestSuiteOutcomeConclusion.ABORTED,
+                        Description = "my desvription",
+                        Verdict = EiffelTestVerdict.PASSED
+                    },
+                    PersistentLogs = new()
                     {
                         new()
                         {
-                            Name = "Log1",
-                            Uri = "Log1.log"
+                            Name = "log-1",
+                            Uri = "url.xyz"
                         }
                     },
                     CustomData = new()
@@ -57,8 +63,18 @@ namespace EiffelEvents.Net.Tests.TestData
                 },
                 Links = new()
                 {
-                    TestCaseExecution = Guid.NewGuid().ToString(),
-                    Environment = Guid.NewGuid().ToString()
+                    TestSuiteExecution = Guid.NewGuid().ToString(),
+                    Context = Guid.NewGuid().ToString(),
+                    Cause = new()
+                    {
+                        Guid.NewGuid().ToString(),
+                        Guid.NewGuid().ToString()
+                    },
+                    FlowContext = new()
+                    {
+                        Guid.NewGuid().ToString(),
+                        Guid.NewGuid().ToString()
+                    }
                 }
             };
         }

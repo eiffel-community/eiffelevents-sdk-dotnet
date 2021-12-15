@@ -13,30 +13,22 @@
 //    limitations under the License.
 
 using System;
-using System.Collections.Generic;
 using EiffelEvents.Net.Events.Edition_Paris;
-using EiffelEvents.Net.Events.Edition_Paris.Shared.Enums;
-using EiffelEvents.Net.Events.Edition_Paris.Shared.Security;
 
-namespace EiffelEvents.Net.Tests.TestData
+namespace EiffelEvents.Net.Tests.TestData.Edition_Paris
 {
-    public class EiffelIssueDefinedEventFixture
+    public class EiffelArtifactReusedEventFixture
     {
         /// <summary>
-        /// Get a complete valid instance of EiffelIssueDefinedEvent.
+        /// Get a complete valid instance of EiffelArtifactReusedEvent.
         /// </summary>
         /// <returns></returns>
-        public EiffelIssueDefinedEvent GetValidCompleteEvent()
+        public EiffelArtifactReusedEvent GetValidCompleteEvent()
         {
-            return new EiffelIssueDefinedEvent
+            return new EiffelArtifactReusedEvent
             {
                 Data = new()
                 {
-                    Id = "id",
-                    Title = "title-1",
-                    Tracker = "Jira",
-                    Type = EiffelIssueType.BUG,
-                    Uri = "uri.xyz",
                     CustomData = new()
                     {
                         { "key1", "test" },
@@ -46,22 +38,19 @@ namespace EiffelEvents.Net.Tests.TestData
                 Meta = new()
                 {
                     Id = Guid.NewGuid().ToString(),
-                    Tags = new List<string> { "docker env" },
-                    Security = new EiffelSecurity()
+                    Tags = new() { "artifact reused" },
+                    Security = new()
                     {
                         AuthorIdentity = "Flower"
                     }
                 },
-                Links = new()
+                Links = new EiffelArtifactReusedLinks
                 {
-                    Context = Guid.NewGuid().ToString(),
+                    Composition = "82f11609-bd5b-4c82-a5f2-c2a9d982cdbd",
+                    ReusedArtifact = "cf056717-201b-43f6-9f2c-839b33b71baf",
                     Cause = new()
                     {
                         Guid.NewGuid().ToString(),
-                        Guid.NewGuid().ToString()
-                    },
-                    FlowContext = new()
-                    {
                         Guid.NewGuid().ToString(),
                         Guid.NewGuid().ToString()
                     }
