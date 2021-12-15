@@ -16,7 +16,7 @@ using System;
 using System.Threading;
 using EiffelEvents.Net.Clients;
 using EiffelEvents.Net.Events.Core;
-using EiffelEvents.Net.Events.Edition_Paris;
+using EiffelEvents.Net.Events.Edition_Lyon;
 using EiffelEvents.RabbitMq.Client;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -38,8 +38,8 @@ namespace EiffelClient.SubscriberTwo
             Console.WriteLine("Started ....");
 
             // Subscribe to events
-            _subscriptionId = _client.Subscribe<EiffelActivityStartedEvent>(_queueIdentifier, GeneralHandleEvent);
-            Console.WriteLine($"Subscription done to event {nameof(EiffelActivityStartedEvent)} !");
+            _subscriptionId = _client.Subscribe<EiffelActivityTriggeredEvent>(_queueIdentifier, GeneralHandleEvent);
+            Console.WriteLine($"Subscription done to event {nameof(EiffelActivityTriggeredEvent)} !");
 
             while (true)
             {

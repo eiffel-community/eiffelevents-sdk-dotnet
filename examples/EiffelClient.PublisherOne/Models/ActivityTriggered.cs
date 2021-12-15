@@ -13,7 +13,8 @@
 //    limitations under the License.
 
 using System;
-using EiffelEvents.Net.Events.Edition_Paris;
+using EiffelEvents.Net.Events.Edition_Lyon;
+using EiffelEvents.Net.Events.Edition_Lyon.Shared.Links;
 using EiffelEvents.Net.Events.Edition_Paris.Shared.Enums;
 
 namespace EiffelClient.PublisherOne.Models
@@ -50,8 +51,36 @@ namespace EiffelClient.PublisherOne.Models
                 },
                 Links = new ()
                 {
-                    Context = "82f11609-bd5b-4c82-a5f2-c2a9d982cdbd",
-                    FlowContext = new () { "cf056717-201b-43f6-9f2c-839b33b71baf" }
+                    Cause = new ()
+                    {
+                        new()
+                        {
+                            Target = Guid.NewGuid().ToString(),
+                            DomainId = "12345" 
+                        },
+                        new()
+                        {
+                            Target = Guid.NewGuid().ToString(),
+                            DomainId = "987654" 
+                        }
+                    },
+                    Context = new ()
+                    {
+                        Target = "82f11609-bd5b-4c82-a5f2-c2a9d982cdbd",
+                        DomainId = "oiyturew"
+                    },
+                    FlowContext = new ()
+                    {
+                        new ()
+                        {
+                            Target = "cf056717-201b-43f6-9f2c-839b33b71baf"
+                        },
+                        new ()
+                        {
+                            Target = "82f11609-bd5b-4c82-a5f2-c2a9d982cdbd",
+                            DomainId = "oiyturew"
+                        }
+                    }
                 }
             };
         }
