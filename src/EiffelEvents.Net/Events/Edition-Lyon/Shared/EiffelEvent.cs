@@ -105,37 +105,6 @@ namespace EiffelEvents.Net.Events.Edition_Lyon.Shared
                     var linkInstance = mapLink(propertyInfo.Name, serializeLink);
                     propertyInfo.SetValue(objectInstance, linkInstance);
                 }
-                // if (propertyInfo.PropertyType.IsSubclassOf(typeof(EiffelLink))) // is single link object
-                // {
-                //     var serializedLink = ((EiffelSerializedLinkCollection)eventObj.SerializedLinks)
-                //         .FirstOrDefault(x => x.Type == propertyInfo.Name.ToUpperUnderscoreSeparated());
-                //
-                //     if (serializedLink == null) continue;
-                //
-                //     var linkInstance =
-                //         Activator.CreateInstance(propertyInfo.PropertyType, serializedLink.Target,
-                //             serializedLink.DomainId);
-                //
-                //     propertyInfo.SetValue(objectInstance, linkInstance);
-                // }
-                // else if (propertyInfo.PropertyType.GetInterface(nameof(IList)) != null) // is collection of link objects
-                // {
-                //     var serializeLink = ((EiffelSerializedLinkCollection)eventObj.SerializedLinks)
-                //         .Where(x => x.Type == propertyInfo.Name.ToUpperUnderscoreSeparated())
-                //         .ToList();
-                //
-                //     if (serializeLink.Count <= 0) continue;
-                //
-                //     var linkInstance = Activator.CreateInstance(propertyInfo.PropertyType) as IList;
-                //
-                //     foreach (var item in serializeLink)
-                //     {
-                //         linkInstance?.Add(Activator.CreateInstance(propertyInfo.PropertyType.GenericTypeArguments[0],
-                //             item.Target, item.DomainId));
-                //     }
-                //
-                //     propertyInfo.SetValue(objectInstance, linkInstance);
-                // }
                 else
                 {
                     throw new EiffelUnhandledLinkTypeException(propertyInfo.PropertyType);

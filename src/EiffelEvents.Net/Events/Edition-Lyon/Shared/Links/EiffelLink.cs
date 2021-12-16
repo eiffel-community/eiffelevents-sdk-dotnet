@@ -24,14 +24,19 @@ namespace EiffelEvents.Net.Events.Edition_Lyon.Shared.Links
         /// </summary>
         public string DomainId { get; init; }
 
-        // public EiffelLink(string target, string domainId)
-        // {
-        //     Target = target;
-        //     DomainId = domainId;
-        // }
-        //
-        // public EiffelLink()
-        // {
-        // }
+        /// <summary>
+        /// Map serialized link object to the corresponding link type 
+        /// </summary>
+        /// <param name="serializedLink">Serialized Link Object</param>
+        /// <typeparam name="T">Link type</typeparam>
+        /// <returns>Link object</returns>
+        public static T MapInstance<T>(EiffelSerializedLink serializedLink) where T : EiffelLink, new()
+        {
+            return new T
+            {
+                Target = serializedLink.Target,
+                DomainId = serializedLink.DomainId
+            };
+        }
     }
 }

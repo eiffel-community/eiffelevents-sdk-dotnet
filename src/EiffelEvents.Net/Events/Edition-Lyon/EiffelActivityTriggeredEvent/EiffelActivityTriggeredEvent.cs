@@ -32,26 +32,11 @@ namespace EiffelEvents.Net.Events.Edition_Lyon
             return linkName switch
             {
                 nameof(Links.Cause) =>
-                    serializedLinks.Select(x => new EiffelCauseLink
-                    {
-                        Target = x.Target,
-                        DomainId = x.DomainId
-                    }).ToList(),
-                
+                    serializedLinks.Select(EiffelLink.MapInstance<EiffelCauseLink>).ToList(),
                 nameof(Links.Context) =>
-                    serializedLinks.Select(x => new EiffelContextLink
-                    {
-                        Target = x.Target,
-                        DomainId = x.DomainId
-                    }).FirstOrDefault(),
-                
+                    serializedLinks.Select(EiffelLink.MapInstance<EiffelContextLink>).FirstOrDefault(),
                 nameof(Links.FlowContext) =>
-                    serializedLinks.Select(x => new EiffelFlowContextLink
-                    {
-                        Target = x.Target,
-                        DomainId = x.DomainId
-                    }).ToList(),
-                
+                    serializedLinks.Select(EiffelLink.MapInstance<EiffelFlowContextLink>).ToList(),
                 _ => null
             };
         }
