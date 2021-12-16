@@ -24,13 +24,11 @@ namespace EiffelEvents.Net.Events.Edition_Lyon
         /// <inheritdoc/>
         public override IEiffelEvent FromJson(string json)
         {
-            return Deserialize<EiffelActivityTriggeredEvent>(json);
+            return Deserialize<EiffelActivityTriggeredEvent>(json, MapLink);
         }
 
         private object MapLink(string linkName, List<EiffelSerializedLink> serializedLinks)
         {
-            if (serializedLinks.Count <= 0) return null;
-
             return linkName switch
             {
                 nameof(Links.Cause) =>
