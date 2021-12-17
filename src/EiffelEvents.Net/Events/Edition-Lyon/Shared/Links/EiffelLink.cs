@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.Text;
 using EiffelEvents.Net.Validation;
 
 namespace EiffelEvents.Net.Events.Edition_Lyon.Shared.Links
@@ -8,7 +10,7 @@ namespace EiffelEvents.Net.Events.Edition_Lyon.Shared.Links
         /// <summary>
         /// Link type
         /// </summary>
-        public abstract string Type { get; init; }
+        public abstract string Type { get; }
 
         /// <summary>
         /// UUID corresponding to the meta.id of the target event, on string format
@@ -24,19 +26,15 @@ namespace EiffelEvents.Net.Events.Edition_Lyon.Shared.Links
         /// </summary>
         public string DomainId { get; init; }
 
-        /// <summary>
-        /// Map serialized link object to the corresponding link type 
-        /// </summary>
-        /// <param name="serializedLink">Serialized Link Object</param>
-        /// <typeparam name="T">Link type</typeparam>
-        /// <returns>Link object</returns>
-        public static T MapInstance<T>(EiffelSerializedLink serializedLink) where T : EiffelLink, new()
+        protected EiffelLink()
         {
-            return new T
-            {
-                Target = serializedLink.Target,
-                DomainId = serializedLink.DomainId
-            };
+        }
+
+        protected EiffelLink(string target, string domainId = "")
+        {
+            Target = target;
+            if (!string.IsNullOrWhiteSpace(domainId)) 
+                DomainId = domainId;
         }
     }
 }

@@ -24,29 +24,10 @@ namespace EiffelEvents.Net.Events.Edition_Lyon.Shared
 
         #endregion
 
-        /// <summary>
-        /// Returns a JSON representation of the event in the format given.
-        /// </summary>
-        /// <param name="format">Format of JSON output, default indented</param>
-        /// <returns>JSON content as string</returns>
-        public override string ToJson(JsonFormat format = JsonFormat.INDENTED)
-        {
-            return Serialize(format);
-        }
-
-        /// <inheritdoc/>
-        public abstract override IEiffelEvent FromJson(string json);
-
-
         #region Event Serialization / Deserialization
 
-        private string Serialize(JsonFormat format = JsonFormat.INDENTED)
+        protected override void SerializeLinks()
         {
-            var jsonFormat = format == JsonFormat.INDENTED ? Formatting.Indented : Formatting.None;
-
-            if (SerializedLinks.Count > 0 || Links == null)
-                return JsonHelper.Serialize(this, jsonFormat);
-
             foreach (var propertyInfo in
                      Links.GetType().GetProperties().Where(x => x.GetValue(Links) != null))
             {
@@ -81,28 +62,43 @@ namespace EiffelEvents.Net.Events.Edition_Lyon.Shared
                         throw new EiffelUnhandledLinkTypeException(propertyInfo.PropertyType);
                 }
             }
-
-            return JsonHelper.Serialize(this, jsonFormat);
         }
 
-        protected IEiffelEvent Deserialize<T>(string json, Func<string, List<EiffelSerializedLink>, object> mapLink)
-            where T : EiffelEvent<TData, TMeta, TLinks>
+        protected override TLinks DeserializeLinks(IEiffelSerializedLinkCollection serializedLinks)
         {
-            var eventObj = JsonHelper.Deserialize<T>(json);
-
-            if (eventObj == null) return null;
+            var links = (EiffelSerializedLinkCollection)serializedLinks;
 
             var objectInstance = Activator.CreateInstance(typeof(TLinks));
+
             foreach (var propertyInfo in typeof(TLinks).GetProperties())
             {
-                if (propertyInfo.PropertyType.IsSubclassOf(typeof(EiffelLink)) ||
-                    propertyInfo.PropertyType.GetInterface(nameof(IList)) != null)
+                if (propertyInfo.PropertyType.IsSubclassOf(typeof(EiffelLink))) // is single link object
                 {
-                    var serializeLink = ((EiffelSerializedLinkCollection)eventObj.SerializedLinks)
+                    var serializedLink = links
+                        .FirstOrDefault(x => x.Type == propertyInfo.Name.ToUpperUnderscoreSeparated());
+
+                    if (serializedLink == null) continue;
+
+                    var linkInstance =
+                        Activator.CreateInstance(propertyInfo.PropertyType, serializedLink.Target,
+                            serializedLink.DomainId);
+
+                    propertyInfo.SetValue(objectInstance, linkInstance);
+                }
+                else if (propertyInfo.PropertyType.GetInterface(nameof(IList)) != null) // is collection of link objects
+                {
+                    var serializeLink = links
                         .Where(x => x.Type == propertyInfo.Name.ToUpperUnderscoreSeparated())
                         .ToList();
 
-                    var linkInstance = mapLink(propertyInfo.Name, serializeLink);
+                    var linkInstance = Activator.CreateInstance(propertyInfo.PropertyType) as IList;
+
+                    foreach (var item in serializeLink)
+                    {
+                        linkInstance?.Add(Activator.CreateInstance(propertyInfo.PropertyType.GenericTypeArguments[0],
+                            item.Target, item.DomainId));
+                    }
+
                     propertyInfo.SetValue(objectInstance, linkInstance);
                 }
                 else
@@ -110,9 +106,7 @@ namespace EiffelEvents.Net.Events.Edition_Lyon.Shared
                     throw new EiffelUnhandledLinkTypeException(propertyInfo.PropertyType);
                 }
             }
-
-            var copied = eventObj with { Links = objectInstance as TLinks };
-            return copied;
+            return objectInstance as TLinks;
         }
 
         #endregion
