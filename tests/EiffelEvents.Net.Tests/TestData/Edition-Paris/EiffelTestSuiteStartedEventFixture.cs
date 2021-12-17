@@ -15,27 +15,42 @@
 using System;
 using System.Collections.Generic;
 using EiffelEvents.Net.Events.Edition_Paris;
+using EiffelEvents.Net.Events.Edition_Paris.Shared.Enums;
 using EiffelEvents.Net.Events.Edition_Paris.Shared.Security;
 
-namespace EiffelEvents.Net.Tests.TestData
+namespace EiffelEvents.Net.Tests.TestData.Edition_Paris
 {
-    public class EiffelFlowContextDefinedEventFixture
+    public class EiffelTestSuiteStartedEventFixture
     {
         /// <summary>
-        /// Get a complete valid instance of EiffelFlowContextDefinedEvent.
+        /// Get a complete valid instance of EiffelTestSuiteStartedEvent.
         /// </summary>
         /// <returns></returns>
-        public EiffelFlowContextDefinedEvent GetValidCompleteEvent()
+        public EiffelTestSuiteStartedEvent GetValidCompleteEvent()
         {
-            return new EiffelFlowContextDefinedEvent
+            return new EiffelTestSuiteStartedEvent
             {
                 Data = new()
                 {
-                    Product = "test product",
-                    Program = "test program",
-                    Project = "test project",
-                    Track = "test track",
-                    Version = "1.0.0",
+                    Categories = new()
+                    {"category-1",
+                        "category-1"
+                        
+                    },
+                    LiveLogs = new()
+                    {
+                        new()
+                        {
+                            Name = "live-log-1",
+                            Uri = "livelog.xyz"
+                        }
+                    },
+                    Name = "test-suite-1",
+                    Types = new()
+                    {
+                        EiffelDataTestingType.USABILITY,
+                        EiffelDataTestingType.SECURITY
+                    },
                     CustomData = new()
                     {
                         { "key1", "test" },
@@ -53,9 +68,17 @@ namespace EiffelEvents.Net.Tests.TestData
                 },
                 Links = new()
                 {
-                    Cause = new List<string>
+                    Terc = Guid.NewGuid().ToString(),
+                    Cause = new()
                     {
-                        "cf056717-201b-43f6-9f2c-839b33b71baf"
+                        Guid.NewGuid().ToString(),
+                        Guid.NewGuid().ToString()
+                    },
+                    Context = Guid.NewGuid().ToString(),
+                    FlowContext = new ()
+                    {
+                        Guid.NewGuid().ToString(),
+                        Guid.NewGuid().ToString()
                     }
                 }
             };

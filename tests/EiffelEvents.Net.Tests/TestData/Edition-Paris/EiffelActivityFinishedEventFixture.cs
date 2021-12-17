@@ -16,40 +16,25 @@ using System;
 using EiffelEvents.Net.Events.Edition_Paris;
 using EiffelEvents.Net.Events.Edition_Paris.Shared.Enums;
 
-namespace EiffelEvents.Net.Tests.TestData
+namespace EiffelEvents.Net.Tests.TestData.Edition_Paris
 {
-    public class EiffelArtifactPublishedEventFixture
+    public class EiffelActivityFinishedEventFixture
     {
-        /// <summary>
-        /// Get a complete valid instance of EiffelArtifactPublishedEvent.
-        /// </summary>
-        /// <returns></returns>
-        public EiffelArtifactPublishedEvent GetValidCompleteEvent()
+        public EiffelActivityFinishedEvent GetValidCompleteEvent()
         {
-            return new EiffelArtifactPublishedEvent
+            return new EiffelActivityFinishedEvent
             {
                 Data = new ()
                 {
-                    Locations = new ()
+                    Outcome = new ()
                     {
-                        new ()
-                        {
-                            Name = "location-name",
-                            Type = EiffelArtifactLocationType.NEXUS,
-                            Uri = "sample.URI"
-                        }
-                    },
-                    CustomData = new()
-                    {
-                        { "key1", "test" },
-                        { "key2", new[] { 1, 2, 3 } }
+                        Conclusion = EiffelDataOutcomeConclusion.FAILED,
+                        Description = "bla bla bla"
                     }
                 },
-
-                Meta = new()
+                Meta = new ()
                 {
                     Id = Guid.NewGuid().ToString(),
-                    Tags = new () { "artifactPublished" },
                     Security = new ()
                     {
                         AuthorIdentity = "Flower"
@@ -57,7 +42,8 @@ namespace EiffelEvents.Net.Tests.TestData
                 },
                 Links = new ()
                 {
-                    Artifact = "cf056717-201b-43f6-9f2c-839b33b71baf"
+                    ActivityExecution = "aaaaaaaa-bbbb-5ccc-8ddd-eeeeeeeeeee1",
+                    Cause = new () { "aaaaaaaa-bbbb-5ccc-8ddd-eeeeeeeeeee2" }
                 }
             };
         }

@@ -16,7 +16,7 @@ using EiffelEvents.Net.Events.Edition_Paris;
 using EiffelEvents.Net.Events.Edition_Paris.Shared.Enums;
 using Newtonsoft.Json.Linq;
 
-namespace EiffelEvents.Net.Tests.TestData
+namespace EiffelEvents.Net.Tests.TestData.Edition_Paris
 {
     public class EiffelActivityTriggeredEventFixture
     {

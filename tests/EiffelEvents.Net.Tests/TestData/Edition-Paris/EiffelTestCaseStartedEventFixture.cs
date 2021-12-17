@@ -15,35 +15,29 @@
 using System;
 using System.Collections.Generic;
 using EiffelEvents.Net.Events.Edition_Paris;
-using EiffelEvents.Net.Events.Edition_Paris.Shared.Enums;
 using EiffelEvents.Net.Events.Edition_Paris.Shared.Security;
 
-namespace EiffelEvents.Net.Tests.TestData
+namespace EiffelEvents.Net.Tests.TestData.Edition_Paris
 {
-    public class EiffelTestSuiteFinishedEventFixture
+    public class EiffelTestCaseStartedEventFixture
     {
         /// <summary>
-        /// Get a complete valid instance of EiffelTestSuiteFinishedEvent.
+        /// Get a complete valid instance of EiffelTestCaseStartedEvent.
         /// </summary>
         /// <returns></returns>
-        public EiffelTestSuiteFinishedEvent GetValidCompleteEvent()
+        public EiffelTestCaseStartedEvent GetValidCompleteEvent()
         {
-            return new EiffelTestSuiteFinishedEvent
+            return new EiffelTestCaseStartedEvent
             {
                 Data = new()
                 {
-                    Outcome = new()
-                    {
-                        Conclusion = EiffelTestSuiteOutcomeConclusion.ABORTED,
-                        Description = "my desvription",
-                        Verdict = EiffelTestVerdict.PASSED
-                    },
-                    PersistentLogs = new()
+                    Executor = "Test",
+                    LiveLogs = new()
                     {
                         new()
                         {
-                            Name = "log-1",
-                            Uri = "url.xyz"
+                            Name = "Log1",
+                            Uri = "Log1.log"
                         }
                     },
                     CustomData = new()
@@ -63,18 +57,8 @@ namespace EiffelEvents.Net.Tests.TestData
                 },
                 Links = new()
                 {
-                    TestSuiteExecution = Guid.NewGuid().ToString(),
-                    Context = Guid.NewGuid().ToString(),
-                    Cause = new()
-                    {
-                        Guid.NewGuid().ToString(),
-                        Guid.NewGuid().ToString()
-                    },
-                    FlowContext = new()
-                    {
-                        Guid.NewGuid().ToString(),
-                        Guid.NewGuid().ToString()
-                    }
+                    TestCaseExecution = Guid.NewGuid().ToString(),
+                    Environment = Guid.NewGuid().ToString()
                 }
             };
         }

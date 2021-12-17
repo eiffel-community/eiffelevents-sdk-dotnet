@@ -17,7 +17,7 @@ using System.Collections.Generic;
 using EiffelEvents.Net.Events.Edition_Paris;
 using EiffelEvents.Net.Events.Edition_Paris.Shared.Security;
 
-namespace EiffelEvents.Net.Tests.TestData
+namespace EiffelEvents.Net.Tests.TestData.Edition_Paris
 {
     public class EiffelTestExecutionRecipeCollectionCreatedEventFixture
     {
