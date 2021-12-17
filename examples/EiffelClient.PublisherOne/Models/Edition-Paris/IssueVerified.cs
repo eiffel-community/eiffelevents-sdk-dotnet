@@ -17,22 +17,17 @@ using System.Collections.Generic;
 using EiffelEvents.Net.Events.Edition_Paris;
 using EiffelEvents.Net.Events.Edition_Paris.Shared.Security;
 
-namespace EiffelClient.PublisherOne.Models
+namespace EiffelClient.PublisherOne.Models.Edition_Paris
 {
-    public class FlowContextDefined
+    public static class IssueVerified
     {
-        public static EiffelFlowContextDefinedEvent GetEvent()
+        public static EiffelIssueVerifiedEvent GetEvent()
         {
-            return new EiffelFlowContextDefinedEvent
+            return new EiffelIssueVerifiedEvent
             {
                 Data = new()
                 {
-                    Product = "test product",
-                    Program = "test program",
-                    Project = "test project",
-                    Track = "test track",
-                    Version = "1.0.0",
-                    CustomData = new()
+                   CustomData = new()
                     {
                         { "key1", "test" },
                         { "key2", new[] { 1, 2, 3 } }
@@ -49,8 +44,19 @@ namespace EiffelClient.PublisherOne.Models
                 },
                 Links = new()
                 {
-                    Cause = new () { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() },
-                    Context = Guid.NewGuid().ToString()
+                    Iut = Guid.NewGuid().ToString(),
+                    SuccessfulIssue = Guid.NewGuid().ToString(),
+                    Context = Guid.NewGuid().ToString(),
+                    Cause = new()
+                    {
+                        Guid.NewGuid().ToString(),
+                        Guid.NewGuid().ToString()
+                    },
+                    FlowContext = new()
+                    {
+                        Guid.NewGuid().ToString(),
+                        Guid.NewGuid().ToString()
+                    }
                 }
             };
         }

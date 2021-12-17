@@ -15,49 +15,28 @@
 using System;
 using System.Collections.Generic;
 using EiffelEvents.Net.Events.Edition_Paris;
+using EiffelEvents.Net.Events.Edition_Paris.Shared.Enums;
 using EiffelEvents.Net.Events.Edition_Paris.Shared.Security;
 
-namespace EiffelClient.PublisherOne.Models
+namespace EiffelClient.PublisherOne.Models.Edition_Paris
 {
-    public class SourceChangeSubmitted
+    public class AnnouncementPublished
     {
-        public static EiffelSourceChangeSubmittedEvent GetEvent()
+        public static EiffelAnnouncementPublishedEvent GetEvent()
         {
-            return new EiffelSourceChangeSubmittedEvent
+            return new EiffelAnnouncementPublishedEvent
             {
                 Data = new()
                 {
-                    Submitter = new()
+                    Heading = "heading-1",
+                    Body = "body -1 ",
+                    Severity = EiffelAnnouncementSeverity.MAJOR,
+                    Uri = "uri.xyz",
+                   CustomData = new()
                     {
-                        Email = "test@example.com"
-                    },
-                    GitIdentifier = new()
-                    {
-                        Branch = "test",
-                        CommitId = "test",
-                        RepoUri = "https://test.com/"
-                    },
-                    HgIdentifier = new()
-                    {
-                        Branch = "test",
-                        CommitId = "test",
-                        RepoUri = "https://test.com/"
-                    },
-                    SvnIdentifier = new()
-                    {
-                        Directory = "test",
-                        RepoUri = "https://test.com/"
-                    },
-                    CcCompositeIdentifier = new()
-                    {
-                        Branch = "test",
-                        Vobs = new List<string> { "test" },
-                        ConfigSpec = "test"
+                        { "key1", "test" },
+                        { "key2", new[] { 1, 2, 3 } }
                     }
-                },
-                Links = new()
-                {
-                    Change = Guid.NewGuid().ToString()
                 },
                 Meta = new()
                 {
@@ -66,6 +45,21 @@ namespace EiffelClient.PublisherOne.Models
                     Security = new EiffelSecurity()
                     {
                         AuthorIdentity = "Flower"
+                    }
+                },
+                Links = new()
+                {
+                    ModifiedAnnouncement = Guid.NewGuid().ToString(),
+                    Context = Guid.NewGuid().ToString(),
+                    Cause = new()
+                    {
+                        Guid.NewGuid().ToString(),
+                        Guid.NewGuid().ToString()
+                    },
+                    FlowContext = new()
+                    {
+                        Guid.NewGuid().ToString(),
+                        Guid.NewGuid().ToString()
                     }
                 }
             };

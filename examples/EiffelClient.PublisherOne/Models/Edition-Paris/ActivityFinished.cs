@@ -13,48 +13,37 @@
 //    limitations under the License.
 
 using System;
-using System.Collections.Generic;
 using EiffelEvents.Net.Events.Edition_Paris;
-using EiffelEvents.Net.Events.Edition_Paris.Shared.Security;
+using EiffelEvents.Net.Events.Edition_Paris.Shared.Enums;
 
-namespace EiffelClient.PublisherOne.Models
+namespace EiffelClient.PublisherOne.Models.Edition_Paris
 {
-    public class TestCaseStarted
+    public class ActivityFinished
     {
-        public static EiffelTestCaseStartedEvent GetEvent()
+        public static EiffelActivityFinishedEvent GetEvent()
         {
-            return new EiffelTestCaseStartedEvent
+            return new EiffelActivityFinishedEvent
             {
-                Data = new()
+                Data = new ()
                 {
-                    Executor = "Test",
-                    LiveLogs = new()
+                    Outcome = new ()
                     {
-                        new()
-                        {
-                            Name = "Log1",
-                            Uri = "Log1.log"
-                        }
-                    },
-                    CustomData = new()
-                    {
-                        { "key1", "test" },
-                        { "key2", new[] { 1, 2, 3 } }
+                        Conclusion = EiffelDataOutcomeConclusion.FAILED,
+                        Description = "bla bla bla"
                     }
                 },
-                Meta = new()
+                Meta = new ()
                 {
                     Id = Guid.NewGuid().ToString(),
-                    Tags = new List<string> { "docker env" },
-                    Security = new EiffelSecurity()
+                    Security = new ()
                     {
                         AuthorIdentity = "Flower"
                     }
                 },
-                Links = new()
+                Links = new ()
                 {
-                    TestCaseExecution = Guid.NewGuid().ToString(),
-                    Environment = Guid.NewGuid().ToString()
+                    ActivityExecution = "aaaaaaaa-bbbb-5ccc-8ddd-eeeeeeeeeee1",
+                    Cause = new () { "aaaaaaaa-bbbb-5ccc-8ddd-eeeeeeeeeee2" }
                 }
             };
         }

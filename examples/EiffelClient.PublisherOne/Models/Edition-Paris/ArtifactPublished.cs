@@ -13,34 +13,26 @@
 //    limitations under the License.
 
 using System;
-using System.Collections.Generic;
 using EiffelEvents.Net.Events.Edition_Paris;
-using EiffelEvents.Net.Events.Edition_Paris.Shared.Data;
 using EiffelEvents.Net.Events.Edition_Paris.Shared.Enums;
-using EiffelEvents.Net.Events.Edition_Paris.Shared.Security;
 
-namespace EiffelClient.PublisherOne.Models
+namespace EiffelClient.PublisherOne.Models.Edition_Paris
 {
-    public class TestCaseFinished
+    public class ArtifactPublished
     {
-        public static EiffelTestCaseFinishedEvent GetEvent()
+        public static EiffelArtifactPublishedEvent GetEvent()
         {
-            return new EiffelTestCaseFinishedEvent
+            return new EiffelArtifactPublishedEvent
             {
-                Data = new()
+                Data = new ()
                 {
-                    Outcome = new()
+                    Locations = new ()
                     {
-                        Conclusion = EiffelTestCaseOutcomeConclusion.SUCCESSFUL,
-                        Verdict = EiffelTestVerdict.PASSED,
-                        Description = "blah blah blah",
-                        Metrics = new()
+                        new ()
                         {
-                            new()
-                            {
-                                Name = "Metric 1",
-                                Value = 95.5
-                            }
+                            Name = "location-name",
+                            Type = EiffelArtifactLocationType.NEXUS,
+                            Uri = "sample.URI"
                         }
                     },
                     CustomData = new()
@@ -49,18 +41,19 @@ namespace EiffelClient.PublisherOne.Models
                         { "key2", new[] { 1, 2, 3 } }
                     }
                 },
+
                 Meta = new()
                 {
                     Id = Guid.NewGuid().ToString(),
-                    Tags = new List<string> { "docker env" },
-                    Security = new EiffelSecurity()
+                    Tags = new () { "artifactPublished" },
+                    Security = new ()
                     {
                         AuthorIdentity = "Flower"
                     }
                 },
-                Links = new()
+                Links = new ()
                 {
-                    TestCaseExecution = Guid.NewGuid().ToString()
+                    Artifact = "cf056717-201b-43f6-9f2c-839b33b71baf"
                 }
             };
         }

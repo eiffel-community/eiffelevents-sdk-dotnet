@@ -13,46 +13,54 @@
 //    limitations under the License.
 
 using System;
+using System.Collections.Generic;
 using EiffelEvents.Net.Events.Edition_Paris;
+using EiffelEvents.Net.Events.Edition_Paris.Shared.Enums;
+using EiffelEvents.Net.Events.Edition_Paris.Shared.Security;
 
-namespace EiffelClient.PublisherOne.Models
+namespace EiffelClient.PublisherOne.Models.Edition_Paris
 {
-    public class ActivityStarted
+    public class IssueDefined
     {
-        public static EiffelActivityStartedEvent GetEvent()
+        public static EiffelIssueDefinedEvent GetEvent()
         {
-            return new EiffelActivityStartedEvent
+            return new EiffelIssueDefinedEvent
             {
                 Data = new()
                 {
-                    ExecutionUri = "test",
-                    LiveLogs = new()
+                    Id = "id",
+                    Title = "title-1",
+                    Tracker = "Jira",
+                    Type = EiffelIssueType.BUG,
+                    Uri = "uri.xyz",
+                    CustomData = new()
                     {
-                        new()
-                        {
-                            Name = "test",
-                            Uri = "test"
-                        }
+                        { "key1", "test" },
+                        { "key2", new[] { 1, 2, 3 } }
                     }
                 },
                 Meta = new()
                 {
                     Id = Guid.NewGuid().ToString(),
-                    Tags = new() { "activity_block" },
-                    Security = new()
+                    Tags = new List<string> { "docker env" },
+                    Security = new EiffelSecurity()
                     {
                         AuthorIdentity = "Flower"
                     }
                 },
-                Links = new ()
+                Links = new()
                 {
-                    Context = "82f11609-bd5b-4c82-a5f2-c2a9d982cdbd",
-                    FlowContext = new ()
+                    Context = Guid.NewGuid().ToString(),
+                    Cause = new()
                     {
-                        "cf056717-201b-43f6-9f2c-839b33b71baf",
-                        "zzzzzz-bd5b-4c82-a5f2-xxxxxxxxx"
+                        Guid.NewGuid().ToString(),
+                        Guid.NewGuid().ToString()
                     },
-                    ActivityExecution = "82f11609-bd5b-4c82-a5f2-xxxxxxxxx"
+                    FlowContext = new()
+                    {
+                        Guid.NewGuid().ToString(),
+                        Guid.NewGuid().ToString()
+                    }
                 }
             };
         }

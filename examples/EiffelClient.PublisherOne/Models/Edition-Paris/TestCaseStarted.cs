@@ -13,24 +13,28 @@
 //    limitations under the License.
 
 using System;
+using System.Collections.Generic;
 using EiffelEvents.Net.Events.Edition_Paris;
-using EiffelEvents.Net.Events.Edition_Paris.Shared.Enums;
+using EiffelEvents.Net.Events.Edition_Paris.Shared.Security;
 
-namespace EiffelClient.PublisherOne.Models
+namespace EiffelClient.PublisherOne.Models.Edition_Paris
 {
-    public class ConfidenceLevelModified
+    public class TestCaseStarted
     {
-        public static EiffelConfidenceLevelModifiedEvent GetEvent()
+        public static EiffelTestCaseStartedEvent GetEvent()
         {
-            return new EiffelConfidenceLevelModifiedEvent
+            return new EiffelTestCaseStartedEvent
             {
                 Data = new()
                 {
-                    Name = "Test",
-                    Value = EiffelDataConfidenceLevelValue.SUCCESS,
-                    Issuer = new()
+                    Executor = "Test",
+                    LiveLogs = new()
                     {
-                        Email = "test@test.co"
+                        new()
+                        {
+                            Name = "Log1",
+                            Uri = "Log1.log"
+                        }
                     },
                     CustomData = new()
                     {
@@ -41,16 +45,16 @@ namespace EiffelClient.PublisherOne.Models
                 Meta = new()
                 {
                     Id = Guid.NewGuid().ToString(),
-                    Tags = new() { "Confidence Level Modified" },
-                    Security = new()
+                    Tags = new List<string> { "docker env" },
+                    Security = new EiffelSecurity()
                     {
                         AuthorIdentity = "Flower"
                     }
                 },
                 Links = new()
                 {
-                    Subject = new() { "82f11609-bd5b-4c82-a5f2-c2a9d982cdbd" },
-                    SubConfidenceLevel = new() { "82f11609-bd5b-4c82-a5f2-c2a9d982cdbd" }
+                    TestCaseExecution = Guid.NewGuid().ToString(),
+                    Environment = Guid.NewGuid().ToString()
                 }
             };
         }

@@ -13,34 +13,24 @@
 //    limitations under the License.
 
 using System;
-using System.Collections.Generic;
 using EiffelEvents.Net.Events.Edition_Paris;
 using EiffelEvents.Net.Events.Edition_Paris.Shared.Enums;
-using EiffelEvents.Net.Events.Edition_Paris.Shared.Security;
 
-namespace EiffelClient.PublisherOne.Models
+namespace EiffelClient.PublisherOne.Models.Edition_Paris
 {
-    public class TestSuiteFinished
+    public class ConfidenceLevelModified
     {
-        public static EiffelTestSuiteFinishedEvent GetEvent()
+        public static EiffelConfidenceLevelModifiedEvent GetEvent()
         {
-            return new EiffelTestSuiteFinishedEvent
+            return new EiffelConfidenceLevelModifiedEvent
             {
                 Data = new()
                 {
-                    Outcome = new()
+                    Name = "Test",
+                    Value = EiffelDataConfidenceLevelValue.SUCCESS,
+                    Issuer = new()
                     {
-                        Conclusion = EiffelTestSuiteOutcomeConclusion.ABORTED,
-                        Description = "my desvription",
-                        Verdict = EiffelTestVerdict.PASSED
-                    },
-                    PersistentLogs = new()
-                    {
-                      new()
-                      {
-                          Name = "log-1",
-                          Uri = "url.xyz"
-                      }
+                        Email = "test@test.co"
                     },
                     CustomData = new()
                     {
@@ -51,26 +41,16 @@ namespace EiffelClient.PublisherOne.Models
                 Meta = new()
                 {
                     Id = Guid.NewGuid().ToString(),
-                    Tags = new List<string> { "docker env" },
-                    Security = new EiffelSecurity()
+                    Tags = new() { "Confidence Level Modified" },
+                    Security = new()
                     {
                         AuthorIdentity = "Flower"
                     }
                 },
                 Links = new()
                 {
-                    TestSuiteExecution = Guid.NewGuid().ToString(),
-                    Context = Guid.NewGuid().ToString(),
-                    Cause = new()
-                    {
-                        Guid.NewGuid().ToString(),
-                        Guid.NewGuid().ToString()
-                    },
-                    FlowContext = new()
-                    {
-                        Guid.NewGuid().ToString(),
-                        Guid.NewGuid().ToString()
-                    }
+                    Subject = new() { "82f11609-bd5b-4c82-a5f2-c2a9d982cdbd" },
+                    SubConfidenceLevel = new() { "82f11609-bd5b-4c82-a5f2-c2a9d982cdbd" }
                 }
             };
         }

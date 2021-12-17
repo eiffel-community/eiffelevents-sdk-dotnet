@@ -14,36 +14,37 @@
 
 using System;
 using EiffelEvents.Net.Events.Edition_Paris;
-using EiffelEvents.Net.Events.Edition_Paris.Shared.Enums;
 
-namespace EiffelClient.PublisherOne.Models
+namespace EiffelClient.PublisherOne.Models.Edition_Paris
 {
-    public class ActivityFinished
+    public class CompositionDefined
     {
-        public static EiffelActivityFinishedEvent GetEvent()
+        public static EiffelCompositionDefinedEvent GetEvent()
         {
-            return new EiffelActivityFinishedEvent
+            return new EiffelCompositionDefinedEvent
             {
-                Data = new ()
+                Data = new()
                 {
-                    Outcome = new ()
+                    Name = "Test",
+                    CustomData = new()
                     {
-                        Conclusion = EiffelDataOutcomeConclusion.FAILED,
-                        Description = "bla bla bla"
+                        { "key1", "test" },
+                        { "key2", new[] { 1, 2, 3 } }
                     }
                 },
-                Meta = new ()
+                Meta = new()
                 {
                     Id = Guid.NewGuid().ToString(),
-                    Security = new ()
+                    Tags = new() { "Confidence Level Modified" },
+                    Security = new()
                     {
                         AuthorIdentity = "Flower"
                     }
                 },
-                Links = new ()
+                Links = new()
                 {
-                    ActivityExecution = "aaaaaaaa-bbbb-5ccc-8ddd-eeeeeeeeeee1",
-                    Cause = new () { "aaaaaaaa-bbbb-5ccc-8ddd-eeeeeeeeeee2" }
+                    Element = new() { "82f11609-bd5b-4c82-a5f2-c2a9d982cdbd" },
+                    PreviousVersion = new() { "82f11609-bd5b-4c82-a5f2-c2a9d982cdbd" }
                 }
             };
         }

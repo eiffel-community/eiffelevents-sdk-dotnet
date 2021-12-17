@@ -15,25 +15,19 @@
 using System;
 using System.Collections.Generic;
 using EiffelEvents.Net.Events.Edition_Paris;
-using EiffelEvents.Net.Events.Edition_Paris.Shared.Data;
-using EiffelEvents.Net.Events.Edition_Paris.Shared.Enums;
 using EiffelEvents.Net.Events.Edition_Paris.Shared.Security;
 
-namespace EiffelClient.PublisherOne.Models
+namespace EiffelClient.PublisherOne.Models.Edition_Paris
 {
-    public class IssueDefined
+    public class TestCaseCanceled
     {
-        public static EiffelIssueDefinedEvent GetEvent()
+        public static EiffelTestCaseCanceledEvent GetEvent()
         {
-            return new EiffelIssueDefinedEvent
+            return new EiffelTestCaseCanceledEvent
             {
                 Data = new()
                 {
-                    Id = "id",
-                    Title = "title-1",
-                    Tracker = "Jira",
-                    Type = EiffelIssueType.BUG,
-                    Uri = "uri.xyz",
+                    Reason = "very random reason",
                     CustomData = new()
                     {
                         { "key1", "test" },
@@ -51,17 +45,7 @@ namespace EiffelClient.PublisherOne.Models
                 },
                 Links = new()
                 {
-                    Context = Guid.NewGuid().ToString(),
-                    Cause = new()
-                    {
-                        Guid.NewGuid().ToString(),
-                        Guid.NewGuid().ToString()
-                    },
-                    FlowContext = new()
-                    {
-                        Guid.NewGuid().ToString(),
-                        Guid.NewGuid().ToString()
-                    }
+                    TestCaseExecution = Guid.NewGuid().ToString()
                 }
             };
         }

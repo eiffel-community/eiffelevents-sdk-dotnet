@@ -13,39 +13,44 @@
 //    limitations under the License.
 
 using System;
+using System.Collections.Generic;
 using EiffelEvents.Net.Events.Edition_Paris;
+using EiffelEvents.Net.Events.Edition_Paris.Shared.Security;
 
-namespace EiffelClient.PublisherOne.Models
+namespace EiffelClient.PublisherOne.Models.Edition_Paris
 {
-    public class ArtifactCreated
+    public class FlowContextDefined
     {
-        public static EiffelArtifactCreatedEvent GetEvent()
+        public static EiffelFlowContextDefinedEvent GetEvent()
         {
-            return new EiffelArtifactCreatedEvent
+            return new EiffelFlowContextDefinedEvent
             {
-                Data = new ()
+                Data = new()
                 {
-                    Name = "My Artifact",
-                    Identity = "Test 1",
+                    Product = "test product",
+                    Program = "test program",
+                    Project = "test project",
+                    Track = "test track",
+                    Version = "1.0.0",
                     CustomData = new()
                     {
                         { "key1", "test" },
                         { "key2", new[] { 1, 2, 3 } }
                     }
                 },
-                Meta = new ()
+                Meta = new()
                 {
                     Id = Guid.NewGuid().ToString(),
-                    Tags = new () { "artifact" },
-                    Security = new ()
+                    Tags = new List<string> { "docker env" },
+                    Security = new EiffelSecurity()
                     {
                         AuthorIdentity = "Flower"
                     }
                 },
-                Links = new ()
+                Links = new()
                 {
-                    Context = "82f11609-bd5b-4c82-a5f2-c2a9d982cdbd",
-                    FlowContext = new (){ "cf056717-201b-43f6-9f2c-839b33b71baf" }
+                    Cause = new () { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() },
+                    Context = Guid.NewGuid().ToString()
                 }
             };
         }

@@ -13,27 +13,19 @@
 //    limitations under the License.
 
 using System;
-using System.Collections.Generic;
 using EiffelEvents.Net.Events.Edition_Paris;
-using EiffelEvents.Net.Events.Edition_Paris.Shared.Data;
-using EiffelEvents.Net.Events.Edition_Paris.Shared.Enums;
-using EiffelEvents.Net.Events.Edition_Paris.Shared.Security;
 
-namespace EiffelClient.PublisherOne.Models
+namespace EiffelClient.PublisherOne.Models.Edition_Paris
 {
-    public class AnnouncementPublished
+    public class ArtifactReused
     {
-        public static EiffelAnnouncementPublishedEvent GetEvent()
+        public static EiffelArtifactReusedEvent GetEvent()
         {
-            return new EiffelAnnouncementPublishedEvent
+            return new EiffelArtifactReusedEvent
             {
                 Data = new()
                 {
-                    Heading = "heading-1",
-                    Body = "body -1 ",
-                    Severity = EiffelAnnouncementSeverity.MAJOR,
-                    Uri = "uri.xyz",
-                   CustomData = new()
+                    CustomData = new()
                     {
                         { "key1", "test" },
                         { "key2", new[] { 1, 2, 3 } }
@@ -42,25 +34,21 @@ namespace EiffelClient.PublisherOne.Models
                 Meta = new()
                 {
                     Id = Guid.NewGuid().ToString(),
-                    Tags = new List<string> { "docker env" },
-                    Security = new EiffelSecurity()
+                    Tags = new() { "artifact reused" },
+                    Security = new()
                     {
                         AuthorIdentity = "Flower"
                     }
                 },
-                Links = new()
+                Links = new EiffelArtifactReusedLinks
                 {
-                    ModifiedAnnouncement = Guid.NewGuid().ToString(),
-                    Context = Guid.NewGuid().ToString(),
+                    Composition = "82f11609-bd5b-4c82-a5f2-c2a9d982cdbd",
+                    ReusedArtifact = "cf056717-201b-43f6-9f2c-839b33b71baf",
                     Cause = new()
                     {
-                        Guid.NewGuid().ToString(),
-                        Guid.NewGuid().ToString()
-                    },
-                    FlowContext = new()
-                    {
-                        Guid.NewGuid().ToString(),
-                        Guid.NewGuid().ToString()
+                        "111",
+                        "222",
+                        "333"
                     }
                 }
             };

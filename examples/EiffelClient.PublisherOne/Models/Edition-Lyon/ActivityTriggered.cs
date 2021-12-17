@@ -14,10 +14,9 @@
 
 using System;
 using EiffelEvents.Net.Events.Edition_Lyon;
-using EiffelEvents.Net.Events.Edition_Lyon.Shared.Links;
 using EiffelEvents.Net.Events.Edition_Paris.Shared.Enums;
 
-namespace EiffelClient.PublisherOne.Models
+namespace EiffelClient.PublisherOne.Models.Edition_Lyon
 {
     public class ActivityTriggered
     {
@@ -25,11 +24,11 @@ namespace EiffelClient.PublisherOne.Models
         {
             return new EiffelActivityTriggeredEvent()
             {
-                Data = new ()
+                Data = new()
                 {
                     Name = "My activity",
-                    Categories = new () { "category 1", "category 2" },
-                    Triggers = new ()
+                    Categories = new() { "category 1", "category 2" },
+                    Triggers = new()
                     {
                         new() { Type = EiffelDataTriggerType.SOURCE_CHANGE, Description = "Description" }
                     },
@@ -40,42 +39,36 @@ namespace EiffelClient.PublisherOne.Models
                         { "key2", new[] { 1, 2, 3 } }
                     }
                 },
-                Meta = new ()
+                Meta = new()
                 {
                     Id = Guid.NewGuid().ToString(),
-                    Tags = new () { "activity_block" },
-                    Security = new ()
+                    Tags = new() { "activity_block" },
+                    Security = new()
                     {
                         AuthorIdentity = "Flower"
                     }
                 },
-                Links = new ()
+                Links = new()
                 {
-                    Cause = new ()
+                    Cause = new()
                     {
-                        new()
+                        new(Guid.NewGuid().ToString(), "12345"),
+                        new(Guid.NewGuid().ToString()),
+                        new ()
                         {
                             Target = Guid.NewGuid().ToString(),
-                            DomainId = "12345" 
-                        },
-                        new()
-                        {
-                            Target = Guid.NewGuid().ToString(),
-                            DomainId = "987654" 
+                            DomainId = "oiyturew"
                         }
                     },
-                    Context = new ()
+                    Context = new()
                     {
                         Target = "82f11609-bd5b-4c82-a5f2-c2a9d982cdbd",
                         DomainId = "oiyturew"
                     },
-                    FlowContext = new ()
+                    FlowContext = new()
                     {
-                        new ()
-                        {
-                            Target = "cf056717-201b-43f6-9f2c-839b33b71baf"
-                        },
-                        new ()
+                        new("cf056717-201b-43f6-9f2c-839b33b71baf"),
+                        new()
                         {
                             Target = "82f11609-bd5b-4c82-a5f2-c2a9d982cdbd",
                             DomainId = "oiyturew"

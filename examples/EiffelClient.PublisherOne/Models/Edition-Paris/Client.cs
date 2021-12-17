@@ -16,7 +16,7 @@ using EiffelEvents.Net.Clients;
 using EiffelEvents.Net.Events.Edition_Paris;
 using EiffelEvents.RabbitMq.Client;
 
-namespace EiffelClient.PublisherOne.Models
+namespace EiffelClient.PublisherOne.Models.Edition_Paris
 {
     public class TryClient
     {

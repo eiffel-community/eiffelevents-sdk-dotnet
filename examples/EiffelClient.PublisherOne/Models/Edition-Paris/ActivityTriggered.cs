@@ -14,17 +14,25 @@
 
 using System;
 using EiffelEvents.Net.Events.Edition_Paris;
+using EiffelEvents.Net.Events.Edition_Paris.Shared.Enums;
 
-namespace EiffelClient.PublisherOne.Models
+namespace EiffelClient.PublisherOne.Models.Edition_Paris
 {
-    public class ArtifactReused
+    public class ActivityTriggered
     {
-        public static EiffelArtifactReusedEvent GetEvent()
+        public static EiffelActivityTriggeredEvent GetEvent()
         {
-            return new EiffelArtifactReusedEvent
+            return new EiffelActivityTriggeredEvent()
             {
                 Data = new()
                 {
+                    Name = "My activity",
+                    Categories = new() { "category 1", "category 2" },
+                    Triggers = new()
+                    {
+                        new() { Type = EiffelDataTriggerType.SOURCE_CHANGE, Description = "Description" }
+                    },
+                    ExecutionType = EiffelDataExecutionType.AUTOMATED,
                     CustomData = new()
                     {
                         { "key1", "test" },
@@ -34,21 +42,25 @@ namespace EiffelClient.PublisherOne.Models
                 Meta = new()
                 {
                     Id = Guid.NewGuid().ToString(),
-                    Tags = new() { "artifact reused" },
+                    Tags = new() { "activity_block" },
                     Security = new()
                     {
                         AuthorIdentity = "Flower"
                     }
                 },
-                Links = new EiffelArtifactReusedLinks
+                Links = new()
                 {
-                    Composition = "82f11609-bd5b-4c82-a5f2-c2a9d982cdbd",
-                    ReusedArtifact = "cf056717-201b-43f6-9f2c-839b33b71baf",
                     Cause = new()
                     {
-                        "111",
-                        "222",
-                        "333"
+                        Guid.NewGuid().ToString(),
+                        Guid.NewGuid().ToString()
+                    },
+                    Context = "82f11609-bd5b-4c82-a5f2-c2a9d982cdbd",
+
+                    FlowContext = new()
+                    {
+                        "cf056717-201b-43f6-9f2c-839b33b71baf",
+                        "82f11609-bd5b-4c82-a5f2-c2a9d982cdbd"
                     }
                 }
             };

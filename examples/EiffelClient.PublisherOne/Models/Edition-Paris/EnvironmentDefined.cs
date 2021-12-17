@@ -15,30 +15,42 @@
 using System;
 using EiffelEvents.Net.Events.Edition_Paris;
 
-namespace EiffelClient.PublisherOne.Models
+namespace EiffelClient.PublisherOne.Models.Edition_Paris
 {
-    public class ActivityCanceled
+    public class EnvironmentDefined
     {
-        public static EiffelActivityCanceledEvent GetEvent()
+        public static EiffelEnvironmentDefinedEvent GetEvent()
         {
-            return new EiffelActivityCanceledEvent
+            return new EiffelEnvironmentDefinedEvent
             {
-                Data = new ()
+                Data = new()
                 {
-                    Reason = "Made irrelevant by newly scheduled execution"
+                    Name = "env name",
+                    Image = "docker/image",
+                    Version = "2",
+                    Host = new()
+                    {
+                        Name = "name-1",
+                        User = "user-1"
+                    },
+                    CustomData = new()
+                    {
+                        { "key1", "test" },
+                        { "key2", new[] { 1, 2, 3 } }
+                    }
                 },
-                Meta = new ()
+                Meta = new()
                 {
                     Id = Guid.NewGuid().ToString(),
-                    Security = new ()
+                    Tags = new() { "docker env" },
+                    Security = new()
                     {
                         AuthorIdentity = "Flower"
                     }
                 },
-                Links = new ()
+                Links = new()
                 {
-                    ActivityExecution = "aaaaaaaa-bbbb-5ccc-8ddd-eeeeeeeeeee1",
-                    Cause = new () { "aaaaaaaa-bbbb-5ccc-8ddd-eeeeeeeeeee2" }
+                    PreviousVersion = new() { "cf056717-201b-43f6-9f2c-839b33b71baf" }
                 }
             };
         }

@@ -14,38 +14,29 @@
 
 using System;
 using EiffelEvents.Net.Events.Edition_Paris;
-using EiffelEvents.Net.Events.Edition_Paris.Shared.Enums;
 
-namespace EiffelClient.PublisherOne.Models
+namespace EiffelClient.PublisherOne.Models.Edition_Paris
 {
-    public class ArtifactPublished
+    public class ArtifactCreated
     {
-        public static EiffelArtifactPublishedEvent GetEvent()
+        public static EiffelArtifactCreatedEvent GetEvent()
         {
-            return new EiffelArtifactPublishedEvent
+            return new EiffelArtifactCreatedEvent
             {
                 Data = new ()
                 {
-                    Locations = new ()
-                    {
-                        new ()
-                        {
-                            Name = "location-name",
-                            Type = EiffelArtifactLocationType.NEXUS,
-                            Uri = "sample.URI"
-                        }
-                    },
+                    Name = "My Artifact",
+                    Identity = "Test 1",
                     CustomData = new()
                     {
                         { "key1", "test" },
                         { "key2", new[] { 1, 2, 3 } }
                     }
                 },
-
-                Meta = new()
+                Meta = new ()
                 {
                     Id = Guid.NewGuid().ToString(),
-                    Tags = new () { "artifactPublished" },
+                    Tags = new () { "artifact" },
                     Security = new ()
                     {
                         AuthorIdentity = "Flower"
@@ -53,7 +44,8 @@ namespace EiffelClient.PublisherOne.Models
                 },
                 Links = new ()
                 {
-                    Artifact = "cf056717-201b-43f6-9f2c-839b33b71baf"
+                    Context = "82f11609-bd5b-4c82-a5f2-c2a9d982cdbd",
+                    FlowContext = new (){ "cf056717-201b-43f6-9f2c-839b33b71baf" }
                 }
             };
         }

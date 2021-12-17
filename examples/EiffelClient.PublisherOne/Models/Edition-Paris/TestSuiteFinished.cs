@@ -15,19 +15,33 @@
 using System;
 using System.Collections.Generic;
 using EiffelEvents.Net.Events.Edition_Paris;
+using EiffelEvents.Net.Events.Edition_Paris.Shared.Enums;
 using EiffelEvents.Net.Events.Edition_Paris.Shared.Security;
 
-namespace EiffelClient.PublisherOne.Models
+namespace EiffelClient.PublisherOne.Models.Edition_Paris
 {
-    public class TestCaseCanceled
+    public class TestSuiteFinished
     {
-        public static EiffelTestCaseCanceledEvent GetEvent()
+        public static EiffelTestSuiteFinishedEvent GetEvent()
         {
-            return new EiffelTestCaseCanceledEvent
+            return new EiffelTestSuiteFinishedEvent
             {
                 Data = new()
                 {
-                    Reason = "very random reason",
+                    Outcome = new()
+                    {
+                        Conclusion = EiffelTestSuiteOutcomeConclusion.ABORTED,
+                        Description = "my desvription",
+                        Verdict = EiffelTestVerdict.PASSED
+                    },
+                    PersistentLogs = new()
+                    {
+                      new()
+                      {
+                          Name = "log-1",
+                          Uri = "url.xyz"
+                      }
+                    },
                     CustomData = new()
                     {
                         { "key1", "test" },
@@ -45,7 +59,18 @@ namespace EiffelClient.PublisherOne.Models
                 },
                 Links = new()
                 {
-                    TestCaseExecution = Guid.NewGuid().ToString()
+                    TestSuiteExecution = Guid.NewGuid().ToString(),
+                    Context = Guid.NewGuid().ToString(),
+                    Cause = new()
+                    {
+                        Guid.NewGuid().ToString(),
+                        Guid.NewGuid().ToString()
+                    },
+                    FlowContext = new()
+                    {
+                        Guid.NewGuid().ToString(),
+                        Guid.NewGuid().ToString()
+                    }
                 }
             };
         }

@@ -13,19 +13,36 @@
 //    limitations under the License.
 
 using System;
+using System.Collections.Generic;
 using EiffelEvents.Net.Events.Edition_Paris;
+using EiffelEvents.Net.Events.Edition_Paris.Shared.Data;
+using EiffelEvents.Net.Events.Edition_Paris.Shared.Enums;
+using EiffelEvents.Net.Events.Edition_Paris.Shared.Security;
 
-namespace EiffelClient.PublisherOne.Models
+namespace EiffelClient.PublisherOne.Models.Edition_Paris
 {
-    public class CompositionDefined
+    public class TestCaseFinished
     {
-        public static EiffelCompositionDefinedEvent GetEvent()
+        public static EiffelTestCaseFinishedEvent GetEvent()
         {
-            return new EiffelCompositionDefinedEvent
+            return new EiffelTestCaseFinishedEvent
             {
                 Data = new()
                 {
-                    Name = "Test",
+                    Outcome = new()
+                    {
+                        Conclusion = EiffelTestCaseOutcomeConclusion.SUCCESSFUL,
+                        Verdict = EiffelTestVerdict.PASSED,
+                        Description = "blah blah blah",
+                        Metrics = new()
+                        {
+                            new()
+                            {
+                                Name = "Metric 1",
+                                Value = 95.5
+                            }
+                        }
+                    },
                     CustomData = new()
                     {
                         { "key1", "test" },
@@ -35,16 +52,15 @@ namespace EiffelClient.PublisherOne.Models
                 Meta = new()
                 {
                     Id = Guid.NewGuid().ToString(),
-                    Tags = new() { "Confidence Level Modified" },
-                    Security = new()
+                    Tags = new List<string> { "docker env" },
+                    Security = new EiffelSecurity()
                     {
                         AuthorIdentity = "Flower"
                     }
                 },
                 Links = new()
                 {
-                    Element = new() { "82f11609-bd5b-4c82-a5f2-c2a9d982cdbd" },
-                    PreviousVersion = new() { "82f11609-bd5b-4c82-a5f2-c2a9d982cdbd" }
+                    TestCaseExecution = Guid.NewGuid().ToString()
                 }
             };
         }

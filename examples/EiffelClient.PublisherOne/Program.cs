@@ -14,8 +14,8 @@
 
 using System;
 using System.Linq;
-using EiffelClient.PublisherOne.Models;
-using  EiffelEvents.Net.Events.Edition_Lyon;
+using EiffelClient.PublisherOne.Models.Edition_Paris;
+using EiffelEvents.Net.Events.Edition_Paris;
 
 namespace EiffelClient.PublisherOne
 {
@@ -36,7 +36,7 @@ namespace EiffelClient.PublisherOne
                     ? $"Failed to publish!! - errors: {string.Join(", ", result.Errors.Select(x => x.Message))}"
                     : $"Event {signedEvent?.Meta.Type} published to RabbitMQ  !!");
 
-            if (!result.IsFailed) 
+            if (!result.IsFailed)
                 Console.WriteLine(signedEvent?.ToJson());
             //}
         }
