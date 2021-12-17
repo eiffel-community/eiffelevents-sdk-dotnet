@@ -36,7 +36,7 @@ namespace EiffelEvents.Net.Events.Edition_Paris.Shared
     /// <typeparam name="TMeta">Type of meta carried by this event</typeparam>
     /// <typeparam name="TLinks">Type of links carried by this event</typeparam>
     public abstract record EiffelEvent<TData, TMeta, TLinks> : IEiffelEvent
-        where TData : EiffelData where TMeta : EiffelSharedMeta, new() where TLinks : EiffelSharedLinks
+        where TData : EiffelData where TMeta : EiffelSharedMeta, new() where TLinks : EiffelLinks
     {
         #region Props
 
@@ -59,7 +59,9 @@ namespace EiffelEvents.Net.Events.Edition_Paris.Shared
         [NestedObject]
         public abstract TLinks Links { get; init; }
 
-        [JsonProperty("links")] internal List<EiffelSerializedLink> SerializedLinks { get; init; } = new();
+        [JsonProperty("links")]
+        internal virtual IEiffelSerializedLinkCollection SerializedLinks { get; init; } =
+            new EiffelSerializedLinkCollection();
 
         #endregion
 
@@ -75,7 +77,7 @@ namespace EiffelEvents.Net.Events.Edition_Paris.Shared
             1- Generate the entire event, but with the meta.security.integrityProtection.signature 
             value set to an empty string.
             */
-            RSA rsa = RSA.Create();
+            var rsa = RSA.Create();
             var thisCopied = this with
             {
                 Meta = Meta with
@@ -200,7 +202,7 @@ namespace EiffelEvents.Net.Events.Edition_Paris.Shared
         }
 
         /// <inheritdoc/>
-        public string ToJson(JsonFormat format = JsonFormat.INDENTED)
+        public virtual string ToJson(JsonFormat format = JsonFormat.INDENTED)
         {
             return this.Serialize(format);
         }
@@ -239,12 +241,14 @@ namespace EiffelEvents.Net.Events.Edition_Paris.Shared
                 else if (propertyInfo.PropertyType == typeof(List<string>))
                 {
                     var items = (List<string>)propertyInfo.GetValue(Links);
+
                     if (items is { Count: > 0 })
-                        SerializedLinks.AddRange(items.Select(x => new EiffelSerializedLink
-                        {
-                            Type = propertyInfo.Name.ToUpperUnderscoreSeparated(),
-                            Target = x
-                        }));
+                        ((EiffelSerializedLinkCollection)SerializedLinks).AddRange(items.Select(x =>
+                            new EiffelSerializedLink
+                            {
+                                Type = propertyInfo.Name.ToUpperUnderscoreSeparated(),
+                                Target = x
+                            }));
                 }
                 else
                 {
@@ -256,7 +260,7 @@ namespace EiffelEvents.Net.Events.Edition_Paris.Shared
             return JsonHelper.Serialize(this, jsonFormat);
         }
 
-        protected internal IEiffelEvent Deserialize<T>(string json) where T : EiffelEvent<TData, TMeta, TLinks>
+        protected IEiffelEvent Deserialize<T>(string json) where T : EiffelEvent<TData, TMeta, TLinks>
         {
             /*
             * 1 take instance from Link type
@@ -272,16 +276,16 @@ namespace EiffelEvents.Net.Events.Edition_Paris.Shared
                 if (propertyInfo.PropertyType == typeof(string))
                 {
                     propertyInfo.SetValue(objectInstance,
-                        eventObj.SerializedLinks
-                            .FirstOrDefault(x => x.Type == propertyInfo.Name.ToUpperUnderscoreSeparated())?
-                            .Target);
+                        ((EiffelSerializedLinkCollection)eventObj.SerializedLinks)
+                        .FirstOrDefault(x => x.Type == propertyInfo.Name.ToUpperUnderscoreSeparated())?
+                        .Target);
                 }
                 else if (propertyInfo.PropertyType == typeof(List<string>))
                 {
                     propertyInfo.SetValue(objectInstance,
-                        eventObj.SerializedLinks
-                            .Where(x => x.Type == propertyInfo.Name.ToUpperUnderscoreSeparated())
-                            .Select(x => x.Target).ToList());
+                        ((EiffelSerializedLinkCollection)eventObj.SerializedLinks)
+                        .Where(x => x.Type == propertyInfo.Name.ToUpperUnderscoreSeparated())
+                        .Select(x => x.Target).ToList());
                 }
                 else
                 {

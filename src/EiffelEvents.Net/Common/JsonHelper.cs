@@ -15,7 +15,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -72,7 +71,6 @@ namespace EiffelEvents.Net.Common
         }
     }
 
-
     internal class CustomContractResolver : CamelCasePropertyNamesContractResolver
     {
         public static readonly CustomContractResolver Instance = new();
@@ -110,7 +108,9 @@ namespace EiffelEvents.Net.Common
         public CollectionValueProvider(IValueProvider innerProvider, Type collectionType)
         {
             _innerProvider = innerProvider;
-            _defaultValue = Activator.CreateInstance(collectionType);
+            _defaultValue = collectionType.IsInterface || collectionType.IsAbstract
+                ? null
+                : Activator.CreateInstance(collectionType);
         }
 
         public void SetValue(object target, object value)
