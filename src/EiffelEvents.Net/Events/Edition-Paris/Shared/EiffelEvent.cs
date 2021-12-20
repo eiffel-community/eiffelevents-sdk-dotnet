@@ -228,12 +228,18 @@ namespace EiffelEvents.Net.Events.Edition_Paris.Shared
             if (SerializedLinks.Count > 0 || Links == null)
                 return JsonHelper.Serialize(this, jsonFormat);
 
-            SerializeLinks();
+            PopulateSerializedLinks();
 
             return JsonHelper.Serialize(this, jsonFormat);
         }
 
-        protected virtual void SerializeLinks()
+        /// <summary>
+        /// Populate serialized links list of the current event.
+        /// </summary>
+        /// <exception cref="EiffelUnhandledLinkTypeException">
+        /// Thrown if the link data type isn't string or list of strings.
+        /// </exception>
+        protected virtual void PopulateSerializedLinks()
         {
             foreach (var propertyInfo in Links.GetType().GetProperties())
             {
@@ -277,13 +283,21 @@ namespace EiffelEvents.Net.Events.Edition_Paris.Shared
 
             if (eventObj == null) return null;
 
-            var objectInstance = DeserializeLinks(eventObj.SerializedLinks);
+            var objectInstance = GetLinksObject(eventObj.SerializedLinks);
 
             var copied = eventObj with { Links = objectInstance };
             return copied;
         }
 
-        protected virtual TLinks DeserializeLinks(IEiffelSerializedLinkCollection serializedLinks)
+        /// <summary>
+        /// Get links object for the corresponding event from the passed serialized links.
+        /// </summary>
+        /// <param name="serializedLinks">Collection of serialized links</param>
+        /// <returns>Links object</returns>
+        /// <exception cref="EiffelUnhandledLinkTypeException">
+        /// Thrown if the link data type isn't string or list of strings.
+        /// </exception>
+        protected virtual TLinks GetLinksObject(IEiffelSerializedLinkCollection serializedLinks)
         {
             var links = (EiffelSerializedLinkCollection)serializedLinks;
             var objectInstance = Activator.CreateInstance(typeof(TLinks));

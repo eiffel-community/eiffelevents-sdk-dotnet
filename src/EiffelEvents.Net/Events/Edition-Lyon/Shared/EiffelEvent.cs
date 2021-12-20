@@ -39,7 +39,8 @@ namespace EiffelEvents.Net.Events.Edition_Lyon.Shared
 
         #region Event Serialization / Deserialization
 
-        protected override void SerializeLinks()
+        /// <inheritdoc/>
+        protected override void PopulateSerializedLinks()
         {
             foreach (var propertyInfo in
                      Links.GetType().GetProperties().Where(x => x.GetValue(Links) != null))
@@ -77,7 +78,8 @@ namespace EiffelEvents.Net.Events.Edition_Lyon.Shared
             }
         }
 
-        protected override TLinks DeserializeLinks(IEiffelSerializedLinkCollection serializedLinks)
+        /// <inheritdoc/>
+        protected override TLinks GetLinksObject(IEiffelSerializedLinkCollection serializedLinks)
         {
             var links = (EiffelSerializedLinkCollection)serializedLinks;
 
