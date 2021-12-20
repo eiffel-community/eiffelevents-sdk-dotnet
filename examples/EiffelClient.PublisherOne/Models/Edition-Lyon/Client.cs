@@ -13,7 +13,7 @@
 //    limitations under the License.
 
 using EiffelEvents.Net.Clients;
-using EiffelEvents.Net.Events.Edition_Paris;
+using EiffelEvents.Net.Events.Edition_Lyon;
 using EiffelEvents.RabbitMq.Client;
 
 namespace EiffelClient.PublisherOne.Models.Edition_Lyon
