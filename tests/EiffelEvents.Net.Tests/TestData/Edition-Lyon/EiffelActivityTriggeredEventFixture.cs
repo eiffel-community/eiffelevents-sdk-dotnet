@@ -16,83 +16,83 @@ using EiffelEvents.Net.Events.Edition_Lyon;
 using EiffelEvents.Net.Events.Edition_Paris.Shared.Enums;
 using Newtonsoft.Json.Linq;
 
-namespace EiffelEvents.Net.Tests.TestData.Edition_Lyon;
-
-public class EiffelActivityTriggeredEventFixture
+namespace EiffelEvents.Net.Tests.TestData.Edition_Lyon
 {
-    #region Valid Event with all properties populated
-
-    /// <summary>
-    /// Get a complete valid instance of EiffelActivityTriggeredEvent.
-    /// </summary>
-    /// <returns></returns>
-    public EiffelActivityTriggeredEvent GetValidCompleteEvent()
+    public class EiffelActivityTriggeredEventFixture
     {
-        return new EiffelActivityTriggeredEvent()
+        #region Valid Event with all properties populated
+
+        /// <summary>
+        /// Get a complete valid instance of EiffelActivityTriggeredEvent.
+        /// </summary>
+        /// <returns></returns>
+        public EiffelActivityTriggeredEvent GetValidCompleteEvent()
         {
-            Data = new()
+            return new EiffelActivityTriggeredEvent()
             {
-                Name = "My activity",
-                Categories = new() { "category 1", "category 2" },
-                Triggers = new()
+                Data = new()
                 {
-                    new()
+                    Name = "My activity",
+                    Categories = new() { "category 1", "category 2" },
+                    Triggers = new()
                     {
-                        Type = EiffelDataTriggerType.SOURCE_CHANGE,
-                        Description = "Description"
+                        new()
+                        {
+                            Type = EiffelDataTriggerType.SOURCE_CHANGE,
+                            Description = "Description"
+                        }
+                    },
+                    ExecutionType = EiffelDataExecutionType.AUTOMATED,
+                    CustomData = new()
+                    {
+                        { "key1", "test" },
+                        { "key2", 1 }
                     }
                 },
-                ExecutionType = EiffelDataExecutionType.AUTOMATED,
-                CustomData = new()
+                Meta = new()
                 {
-                    { "key1", "test" },
-                    { "key2", 1 }
-                }
-            },
-            Meta = new()
-            {
-                Id = "91d0c7da-8d90-4033-8685-a035853aeea1",
-                Time = 1637001247776,
-                Tags = new() { "activity_block" },
-                Security = new()
-                {
-                    AuthorIdentity = "Flower"
-                }
-            },
-            Links = new()
-            {
-                Cause = new()
-                {
-                    new()
+                    Id = "91d0c7da-8d90-4033-8685-a035853aeea1",
+                    Time = 1637001247776,
+                    Tags = new() { "activity_block" },
+                    Security = new()
                     {
-                        Target = "91d0c7da-8d90-4033-8685-a035853aeea2",
+                        AuthorIdentity = "Flower"
+                    }
+                },
+                Links = new()
+                {
+                    Cause = new()
+                    {
+                        new()
+                        {
+                            Target = "91d0c7da-8d90-4033-8685-a035853aeea2",
+                            DomainId = "test-domain-id"
+                        },
+                        new()
+                        {
+                            Target = "91d0c7da-8d90-4033-8685-a035853aeea3"
+                        }
+                    },
+                    Context = new()
+                    {
+                        Target = "82f11609-bd5b-4c82-a5f2-c2a9d982cdbd",
                         DomainId = "test-domain-id"
                     },
-                    new()
+                    FlowContext = new()
                     {
-                        Target = "91d0c7da-8d90-4033-8685-a035853aeea3"
-                    }
-                },
-                Context = new()
-                {
-                    Target = "82f11609-bd5b-4c82-a5f2-c2a9d982cdbd",
-                    DomainId = "test-domain-id"
-                },
-                FlowContext = new()
-                {
-                    new()
-                    {
-                        Target = "cf056717-201b-43f6-9f2c-839b33b71baf",
-                        DomainId = "test-domain-id"
+                        new()
+                        {
+                            Target = "cf056717-201b-43f6-9f2c-839b33b71baf",
+                            DomainId = "test-domain-id"
+                        }
                     }
                 }
-            }
-        };
-    }
+            };
+        }
 
-    public string GetCompletedEventSerialized()
-    {
-        var json = JObject.Parse(@"{
+        public string GetCompletedEventSerialized()
+        {
+            var json = JObject.Parse(@"{
                               'data': {
                                         'name': 'My activity',
                                         'categories': [
@@ -154,133 +154,133 @@ public class EiffelActivityTriggeredEventFixture
                             }
                             ]
                             }");
-        return json.ToString();
-    }
+            return json.ToString();
+        }
 
-    public EiffelActivityTriggeredEvent GetCompletedEventDeserialized()
-    {
-        return new EiffelActivityTriggeredEvent()
+        public EiffelActivityTriggeredEvent GetCompletedEventDeserialized()
         {
-            Data = new()
+            return new EiffelActivityTriggeredEvent()
             {
-                Name = "My activity",
-                Categories = new() { "category 1", "category 2" },
-                Triggers = new()
+                Data = new()
                 {
-                    new() { Type = EiffelDataTriggerType.SOURCE_CHANGE, Description = "Description" }
-                },
-                ExecutionType = EiffelDataExecutionType.AUTOMATED,
-                CustomData = new()
-                {
-                    { "key1", "test" },
-                    { "key2", 1 }
-                }
-            },
-            Meta = new()
-            {
-                Id = "91d0c7da-8d90-4033-8685-a035853aeea1",
-                Time = 1637001247776,
-                Tags = new() { "activity_block" },
-                Security = new()
-                {
-                    AuthorIdentity = "Flower",
-                    SequenceProtection = new()
-                }
-            },
-            Links = new()
-            {
-                Cause = new()
-                {
-                    new()
+                    Name = "My activity",
+                    Categories = new() { "category 1", "category 2" },
+                    Triggers = new()
                     {
-                        Target = "91d0c7da-8d90-4033-8685-a035853aeea2",
+                        new() { Type = EiffelDataTriggerType.SOURCE_CHANGE, Description = "Description" }
+                    },
+                    ExecutionType = EiffelDataExecutionType.AUTOMATED,
+                    CustomData = new()
+                    {
+                        { "key1", "test" },
+                        { "key2", 1 }
+                    }
+                },
+                Meta = new()
+                {
+                    Id = "91d0c7da-8d90-4033-8685-a035853aeea1",
+                    Time = 1637001247776,
+                    Tags = new() { "activity_block" },
+                    Security = new()
+                    {
+                        AuthorIdentity = "Flower",
+                        SequenceProtection = new()
+                    }
+                },
+                Links = new()
+                {
+                    Cause = new()
+                    {
+                        new()
+                        {
+                            Target = "91d0c7da-8d90-4033-8685-a035853aeea2",
+                            DomainId = "test-domain-id"
+                        },
+                        new()
+                        {
+                            Target = "91d0c7da-8d90-4033-8685-a035853aeea3"
+                        }
+                    },
+                    Context = new()
+                    {
+                        Target = "82f11609-bd5b-4c82-a5f2-c2a9d982cdbd",
                         DomainId = "test-domain-id"
                     },
-                    new()
+                    FlowContext = new()
                     {
-                        Target = "91d0c7da-8d90-4033-8685-a035853aeea3"
-                    }
-                },
-                Context = new()
-                {
-                    Target = "82f11609-bd5b-4c82-a5f2-c2a9d982cdbd",
-                    DomainId = "test-domain-id"
-                },
-                FlowContext = new()
-                {
-                    new()
-                    {
-                        Target = "cf056717-201b-43f6-9f2c-839b33b71baf",
-                        DomainId = "test-domain-id"
+                        new()
+                        {
+                            Target = "cf056717-201b-43f6-9f2c-839b33b71baf",
+                            DomainId = "test-domain-id"
+                        }
                     }
                 }
-            }
-        };
-    }
+            };
+        }
 
-    #endregion
+        #endregion
 
-    #region Valid Event with null optional properties (primitive types)
+        #region Valid Event with null optional properties (primitive types)
 
-    /// <summary>
-    /// Get a valid instance of EiffelActivityTriggeredEvent with null for optional properties.
-    /// </summary>
-    /// <returns></returns>
-    public EiffelActivityTriggeredEvent GetEventWithNullProperties()
-    {
-        return new EiffelActivityTriggeredEvent()
+        /// <summary>
+        /// Get a valid instance of EiffelActivityTriggeredEvent with null for optional properties.
+        /// </summary>
+        /// <returns></returns>
+        public EiffelActivityTriggeredEvent GetEventWithNullProperties()
         {
-            Data = new()
+            return new EiffelActivityTriggeredEvent()
             {
-                Name = "My activity",
-                Categories = new() { "category 1", "category 2" },
-                Triggers = new()
+                Data = new()
                 {
-                    new() { Type = EiffelDataTriggerType.SOURCE_CHANGE, Description = "Description" }
-                },
-                CustomData = new()
-                {
-                    { "key1", "test" },
-                    { "key2", 1 }
-                }
-            },
-            Meta = new()
-            {
-                Id = "91d0c7da-8d90-4033-8685-a035853aeea1",
-                Time = 1637001247776,
-                Tags = new() { "activity_block" },
-                Security = new()
-                {
-                    AuthorIdentity = "Flower"
-                }
-            },
-            Links = new()
-            {
-                Cause = new()
-                {
-                    new()
+                    Name = "My activity",
+                    Categories = new() { "category 1", "category 2" },
+                    Triggers = new()
                     {
-                        Target = "91d0c7da-8d90-4033-8685-a035853aeea2"
+                        new() { Type = EiffelDataTriggerType.SOURCE_CHANGE, Description = "Description" }
                     },
-                    new()
+                    CustomData = new()
                     {
-                        Target = "91d0c7da-8d90-4033-8685-a035853aeea3"
+                        { "key1", "test" },
+                        { "key2", 1 }
                     }
                 },
-                FlowContext = new()
+                Meta = new()
                 {
-                    new()
+                    Id = "91d0c7da-8d90-4033-8685-a035853aeea1",
+                    Time = 1637001247776,
+                    Tags = new() { "activity_block" },
+                    Security = new()
                     {
-                        Target = "cf056717-201b-43f6-9f2c-839b33b71baf"
+                        AuthorIdentity = "Flower"
+                    }
+                },
+                Links = new()
+                {
+                    Cause = new()
+                    {
+                        new()
+                        {
+                            Target = "91d0c7da-8d90-4033-8685-a035853aeea2"
+                        },
+                        new()
+                        {
+                            Target = "91d0c7da-8d90-4033-8685-a035853aeea3"
+                        }
+                    },
+                    FlowContext = new()
+                    {
+                        new()
+                        {
+                            Target = "cf056717-201b-43f6-9f2c-839b33b71baf"
+                        }
                     }
                 }
-            }
-        };
-    }
+            };
+        }
 
-    public string GetEventWithNullPropertiesSerialized()
-    {
-        var json = JObject.Parse(@"{
+        public string GetEventWithNullPropertiesSerialized()
+        {
+            var json = JObject.Parse(@"{
                               'data': {
                                         'name': 'My activity',
                                         'categories': [
@@ -334,119 +334,119 @@ public class EiffelActivityTriggeredEventFixture
                             }
                             ]
                             }");
-        return json.ToString();
-    }
+            return json.ToString();
+        }
 
-    public EiffelActivityTriggeredEvent GetEventWithNullPropertiesDeserialized()
-    {
-        return new EiffelActivityTriggeredEvent()
+        public EiffelActivityTriggeredEvent GetEventWithNullPropertiesDeserialized()
         {
-            Data = new()
+            return new EiffelActivityTriggeredEvent()
             {
-                Name = "My activity",
-                Categories = new() { "category 1", "category 2" },
-                Triggers = new()
+                Data = new()
                 {
-                    new() { Type = EiffelDataTriggerType.SOURCE_CHANGE, Description = "Description" }
-                },
-                ExecutionType = null,
-                CustomData = new()
-                {
-                    { "key1", "test" },
-                    { "key2", 1 }
-                }
-            },
-            Meta = new()
-            {
-                Id = "91d0c7da-8d90-4033-8685-a035853aeea1",
-                Time = 1637001247776,
-                Tags = new() { "activity_block" },
-                Security = new()
-                {
-                    AuthorIdentity = "Flower",
-                    SequenceProtection = new()
-                }
-            },
-            Links = new()
-            {
-                Cause = new()
-                {
-                    new()
+                    Name = "My activity",
+                    Categories = new() { "category 1", "category 2" },
+                    Triggers = new()
                     {
-                        Target = "91d0c7da-8d90-4033-8685-a035853aeea2"
+                        new() { Type = EiffelDataTriggerType.SOURCE_CHANGE, Description = "Description" }
                     },
-                    new()
+                    ExecutionType = null,
+                    CustomData = new()
                     {
-                        Target = "91d0c7da-8d90-4033-8685-a035853aeea3"
+                        { "key1", "test" },
+                        { "key2", 1 }
                     }
                 },
-                Context = null,
-                FlowContext = new()
+                Meta = new()
                 {
-                    new()
+                    Id = "91d0c7da-8d90-4033-8685-a035853aeea1",
+                    Time = 1637001247776,
+                    Tags = new() { "activity_block" },
+                    Security = new()
                     {
-                        Target = "cf056717-201b-43f6-9f2c-839b33b71baf"
+                        AuthorIdentity = "Flower",
+                        SequenceProtection = new()
+                    }
+                },
+                Links = new()
+                {
+                    Cause = new()
+                    {
+                        new()
+                        {
+                            Target = "91d0c7da-8d90-4033-8685-a035853aeea2"
+                        },
+                        new()
+                        {
+                            Target = "91d0c7da-8d90-4033-8685-a035853aeea3"
+                        }
+                    },
+                    Context = null,
+                    FlowContext = new()
+                    {
+                        new()
+                        {
+                            Target = "cf056717-201b-43f6-9f2c-839b33b71baf"
+                        }
                     }
                 }
-            }
-        };
-    }
+            };
+        }
 
-    #endregion
+        #endregion
 
-    #region Valid Event null optional properties (ICollection types)
+        #region Valid Event null optional properties (ICollection types)
 
-    /// <summary>
-    /// Get a valid instance of EiffelActivityTriggeredEvent with null for optional (Collections) properties.
-    /// </summary>
-    /// <returns></returns>
-    public EiffelActivityTriggeredEvent GetEventWithNullCollections()
-    {
-        return new EiffelActivityTriggeredEvent()
+        /// <summary>
+        /// Get a valid instance of EiffelActivityTriggeredEvent with null for optional (Collections) properties.
+        /// </summary>
+        /// <returns></returns>
+        public EiffelActivityTriggeredEvent GetEventWithNullCollections()
         {
-            Data = new()
+            return new EiffelActivityTriggeredEvent()
             {
-                Name = "My activity",
-                Categories = new() { "category 1", "category 2" },
-                Triggers = null,
-                ExecutionType = EiffelDataExecutionType.AUTOMATED,
-                CustomData = null
-            },
-            Meta = new()
-            {
-                Id = "91d0c7da-8d90-4033-8685-a035853aeea1",
-                Time = 1637001247776,
-                Tags = new() { "activity_block" },
-                Security = new()
+                Data = new()
                 {
-                    AuthorIdentity = "Flower"
-                }
-            },
-            Links = new()
-            {
-                Cause = new()
+                    Name = "My activity",
+                    Categories = new() { "category 1", "category 2" },
+                    Triggers = null,
+                    ExecutionType = EiffelDataExecutionType.AUTOMATED,
+                    CustomData = null
+                },
+                Meta = new()
                 {
-                    new()
+                    Id = "91d0c7da-8d90-4033-8685-a035853aeea1",
+                    Time = 1637001247776,
+                    Tags = new() { "activity_block" },
+                    Security = new()
                     {
-                        Target = "91d0c7da-8d90-4033-8685-a035853aeea2"
-                    },
-                    new()
-                    {
-                        Target = "91d0c7da-8d90-4033-8685-a035853aeea3"
+                        AuthorIdentity = "Flower"
                     }
                 },
-                Context = new()
+                Links = new()
                 {
-                    Target = "82f11609-bd5b-4c82-a5f2-c2a9d982cdbd"
-                },
-                FlowContext = null
-            }
-        };
-    }
+                    Cause = new()
+                    {
+                        new()
+                        {
+                            Target = "91d0c7da-8d90-4033-8685-a035853aeea2"
+                        },
+                        new()
+                        {
+                            Target = "91d0c7da-8d90-4033-8685-a035853aeea3"
+                        }
+                    },
+                    Context = new()
+                    {
+                        Target = "82f11609-bd5b-4c82-a5f2-c2a9d982cdbd"
+                    },
+                    FlowContext = null
+                }
+            };
+        }
 
-    public string GetEventWithNullCollectionsSerialized()
-    {
-        var json = JObject.Parse(@"{
+        public string GetEventWithNullCollectionsSerialized()
+        {
+            var json = JObject.Parse(@"{
                               'data': {
                                         'name': 'My activity',
                                         'categories': [
@@ -485,109 +485,109 @@ public class EiffelActivityTriggeredEventFixture
                                 }
                             ]
                             }");
-        return json.ToString();
-    }
+            return json.ToString();
+        }
 
-    public EiffelActivityTriggeredEvent GetEventWithNullCollectionsDeserialized()
-    {
-        return new EiffelActivityTriggeredEvent()
+        public EiffelActivityTriggeredEvent GetEventWithNullCollectionsDeserialized()
         {
-            Data = new()
+            return new EiffelActivityTriggeredEvent()
             {
-                Name = "My activity",
-                Categories = new() { "category 1", "category 2" },
-                Triggers = new(),
-                ExecutionType = EiffelDataExecutionType.AUTOMATED,
-                CustomData = new()
-            },
-            Meta = new()
-            {
-                Id = "91d0c7da-8d90-4033-8685-a035853aeea1",
-                Time = 1637001247776,
-                Tags = new() { "activity_block" },
-                Security = new()
+                Data = new()
                 {
-                    AuthorIdentity = "Flower",
-                    SequenceProtection = new()
-                }
-            },
-            Links = new()
-            {
-                Cause = new()
+                    Name = "My activity",
+                    Categories = new() { "category 1", "category 2" },
+                    Triggers = new(),
+                    ExecutionType = EiffelDataExecutionType.AUTOMATED,
+                    CustomData = new()
+                },
+                Meta = new()
                 {
-                    new()
+                    Id = "91d0c7da-8d90-4033-8685-a035853aeea1",
+                    Time = 1637001247776,
+                    Tags = new() { "activity_block" },
+                    Security = new()
                     {
-                        Target = "91d0c7da-8d90-4033-8685-a035853aeea2"
-                    },
-                    new()
-                    {
-                        Target = "91d0c7da-8d90-4033-8685-a035853aeea3"
+                        AuthorIdentity = "Flower",
+                        SequenceProtection = new()
                     }
                 },
-                Context = new()
+                Links = new()
                 {
-                    Target = "82f11609-bd5b-4c82-a5f2-c2a9d982cdbd"
-                },
-                FlowContext = new()
-            }
-        };
-    }
-
-    #endregion
-
-    #region Valid Event empty optional properties (ICollection types)
-
-    /// <summary>
-    /// Get a valid instance of EiffelActivityTriggeredEvent with empty for optional (Collections) properties.
-    /// </summary>
-    /// <returns></returns>
-    public EiffelActivityTriggeredEvent GetEventWithEmptyCollections()
-    {
-        return new EiffelActivityTriggeredEvent()
-        {
-            Data = new()
-            {
-                Name = "My activity",
-                Categories = new() { "category 1", "category 2" },
-                Triggers = new(),
-                ExecutionType = EiffelDataExecutionType.AUTOMATED,
-                CustomData = new()
-            },
-            Meta = new()
-            {
-                Id = "91d0c7da-8d90-4033-8685-a035853aeea1",
-                Time = 1637001247776,
-                Tags = new() { "activity_block" },
-                Security = new()
-                {
-                    AuthorIdentity = "Flower"
-                }
-            },
-            Links = new()
-            {
-                Cause = new()
-                {
-                    new()
+                    Cause = new()
                     {
-                        Target = "91d0c7da-8d90-4033-8685-a035853aeea2"
+                        new()
+                        {
+                            Target = "91d0c7da-8d90-4033-8685-a035853aeea2"
+                        },
+                        new()
+                        {
+                            Target = "91d0c7da-8d90-4033-8685-a035853aeea3"
+                        }
                     },
-                    new()
+                    Context = new()
                     {
-                        Target = "91d0c7da-8d90-4033-8685-a035853aeea3"
+                        Target = "82f11609-bd5b-4c82-a5f2-c2a9d982cdbd"
+                    },
+                    FlowContext = new()
+                }
+            };
+        }
+
+        #endregion
+
+        #region Valid Event empty optional properties (ICollection types)
+
+        /// <summary>
+        /// Get a valid instance of EiffelActivityTriggeredEvent with empty for optional (Collections) properties.
+        /// </summary>
+        /// <returns></returns>
+        public EiffelActivityTriggeredEvent GetEventWithEmptyCollections()
+        {
+            return new EiffelActivityTriggeredEvent()
+            {
+                Data = new()
+                {
+                    Name = "My activity",
+                    Categories = new() { "category 1", "category 2" },
+                    Triggers = new(),
+                    ExecutionType = EiffelDataExecutionType.AUTOMATED,
+                    CustomData = new()
+                },
+                Meta = new()
+                {
+                    Id = "91d0c7da-8d90-4033-8685-a035853aeea1",
+                    Time = 1637001247776,
+                    Tags = new() { "activity_block" },
+                    Security = new()
+                    {
+                        AuthorIdentity = "Flower"
                     }
                 },
-                Context = new()
+                Links = new()
                 {
-                    Target = "82f11609-bd5b-4c82-a5f2-c2a9d982cdbd"
-                },
-                FlowContext = new()
-            }
-        };
-    }
+                    Cause = new()
+                    {
+                        new()
+                        {
+                            Target = "91d0c7da-8d90-4033-8685-a035853aeea2"
+                        },
+                        new()
+                        {
+                            Target = "91d0c7da-8d90-4033-8685-a035853aeea3"
+                        }
+                    },
+                    Context = new()
+                    {
+                        Target = "82f11609-bd5b-4c82-a5f2-c2a9d982cdbd"
+                    },
+                    FlowContext = new()
+                }
+            };
+        }
 
-    public string GetEventWithEmptyCollectionsSerialized()
-    {
-        var json = JObject.Parse(@"{
+        public string GetEventWithEmptyCollectionsSerialized()
+        {
+            var json = JObject.Parse(@"{
                               'data': {
                                         'name': 'My activity',
                                         'categories': [
@@ -626,195 +626,196 @@ public class EiffelActivityTriggeredEventFixture
                                 }
                             ]
                             }");
-        return json.ToString();
-    }
+            return json.ToString();
+        }
 
-    #endregion
+        #endregion
 
-    #region Not Valid Guids
+        #region Not Valid Guids
 
-    /// <summary>
-    /// Get a complete instance of EiffelActivityTriggeredEvent with invalid Guid.
-    /// </summary>
-    /// <returns></returns>
-    public EiffelActivityTriggeredEvent GetEventWithInvalidGuid()
-    {
-        return new EiffelActivityTriggeredEvent()
+        /// <summary>
+        /// Get a complete instance of EiffelActivityTriggeredEvent with invalid Guid.
+        /// </summary>
+        /// <returns></returns>
+        public EiffelActivityTriggeredEvent GetEventWithInvalidGuid()
         {
-            Data = new()
+            return new EiffelActivityTriggeredEvent()
             {
-                Name = "My activity",
-                Categories = new() { "category 1", "category 2" },
-                Triggers = new()
+                Data = new()
                 {
-                    new() { Type = EiffelDataTriggerType.SOURCE_CHANGE, Description = "Description" }
-                },
-                ExecutionType = EiffelDataExecutionType.AUTOMATED,
-                CustomData = new()
-                {
-                    { "key1", "test" },
-                    { "key2", 1 }
-                }
-            },
-            Meta = new()
-            {
-                Id = "91d0c7da-8d90-4033-8685-a035853aeea1",
-                Time = 1637001247776,
-                Tags = new() { "activity_block" },
-                Security = new()
-                {
-                    AuthorIdentity = "Flower"
-                }
-            },
-            Links = new()
-            {
-                Cause = new()
-                {
-                    new()
+                    Name = "My activity",
+                    Categories = new() { "category 1", "category 2" },
+                    Triggers = new()
                     {
-                        Target = "91d0c7da-8d90-4033-8685-a035853aeea2"
+                        new() { Type = EiffelDataTriggerType.SOURCE_CHANGE, Description = "Description" }
                     },
-                    new()
+                    ExecutionType = EiffelDataExecutionType.AUTOMATED,
+                    CustomData = new()
                     {
-                        Target = "91d0c7da-8d90-4033-8685-a035853aeea3"
+                        { "key1", "test" },
+                        { "key2", 1 }
                     }
                 },
-                Context = new()
+                Meta = new()
                 {
-                    Target = "test-guid"
-                },
-                FlowContext = new()
-                {
-                    new()
+                    Id = "91d0c7da-8d90-4033-8685-a035853aeea1",
+                    Time = 1637001247776,
+                    Tags = new() { "activity_block" },
+                    Security = new()
                     {
-                        Target = "cf056717-201b-43f6-9f2c-839b33b71baf"
+                        AuthorIdentity = "Flower"
+                    }
+                },
+                Links = new()
+                {
+                    Cause = new()
+                    {
+                        new()
+                        {
+                            Target = "91d0c7da-8d90-4033-8685-a035853aeea2"
+                        },
+                        new()
+                        {
+                            Target = "91d0c7da-8d90-4033-8685-a035853aeea3"
+                        }
+                    },
+                    Context = new()
+                    {
+                        Target = "test-guid"
+                    },
+                    FlowContext = new()
+                    {
+                        new()
+                        {
+                            Target = "cf056717-201b-43f6-9f2c-839b33b71baf"
+                        }
                     }
                 }
-            }
-        };
-    }
+            };
+        }
 
-    /// <summary>
-    /// Get a complete instance of EiffelActivityTriggeredEvent with empty Guid ("00000000-0000-0000-0000-000000000000")
-    /// </summary>
-    /// <returns></returns>
-    public EiffelActivityTriggeredEvent GetEventWithEmptyGuid()
-    {
-        return new EiffelActivityTriggeredEvent()
+        /// <summary>
+        /// Get a complete instance of EiffelActivityTriggeredEvent with empty Guid ("00000000-0000-0000-0000-000000000000")
+        /// </summary>
+        /// <returns></returns>
+        public EiffelActivityTriggeredEvent GetEventWithEmptyGuid()
         {
-            Data = new()
+            return new EiffelActivityTriggeredEvent()
             {
-                Name = "My activity",
-                Categories = new() { "category 1", "category 2" },
-                Triggers = new()
+                Data = new()
                 {
-                    new() { Type = EiffelDataTriggerType.SOURCE_CHANGE, Description = "Description" }
-                },
-                ExecutionType = EiffelDataExecutionType.AUTOMATED,
-                CustomData = new()
-                {
-                    { "key1", "test" },
-                    { "key2", 1 }
-                }
-            },
-            Meta = new()
-            {
-                Id = "91d0c7da-8d90-4033-8685-a035853aeea1",
-                Time = 1637001247776,
-                Tags = new() { "activity_block" },
-                Security = new()
-                {
-                    AuthorIdentity = "Flower"
-                }
-            },
-            Links = new()
-            {
-                Cause = new()
-                {
-                    new()
+                    Name = "My activity",
+                    Categories = new() { "category 1", "category 2" },
+                    Triggers = new()
                     {
-                        Target = "91d0c7da-8d90-4033-8685-a035853aeea2"
+                        new() { Type = EiffelDataTriggerType.SOURCE_CHANGE, Description = "Description" }
                     },
-                    new()
+                    ExecutionType = EiffelDataExecutionType.AUTOMATED,
+                    CustomData = new()
                     {
-                        Target = "91d0c7da-8d90-4033-8685-a035853aeea3"
+                        { "key1", "test" },
+                        { "key2", 1 }
                     }
                 },
-                Context = new()
+                Meta = new()
                 {
-                    Target = "00000000-0000-0000-0000-000000000000"
-                },
-                FlowContext = new()
-                {
-                    new()
+                    Id = "91d0c7da-8d90-4033-8685-a035853aeea1",
+                    Time = 1637001247776,
+                    Tags = new() { "activity_block" },
+                    Security = new()
                     {
-                        Target = "cf056717-201b-43f6-9f2c-839b33b71baf"
+                        AuthorIdentity = "Flower"
+                    }
+                },
+                Links = new()
+                {
+                    Cause = new()
+                    {
+                        new()
+                        {
+                            Target = "91d0c7da-8d90-4033-8685-a035853aeea2"
+                        },
+                        new()
+                        {
+                            Target = "91d0c7da-8d90-4033-8685-a035853aeea3"
+                        }
+                    },
+                    Context = new()
+                    {
+                        Target = "00000000-0000-0000-0000-000000000000"
+                    },
+                    FlowContext = new()
+                    {
+                        new()
+                        {
+                            Target = "cf056717-201b-43f6-9f2c-839b33b71baf"
+                        }
                     }
                 }
-            }
-        };
-    }
+            };
+        }
 
-    /// <summary>
-    /// Get a complete instance of EiffelActivityTriggeredEvent with invalid Guid list.
-    /// </summary>
-    /// <returns></returns>
-    public EiffelActivityTriggeredEvent GetEventWithInvalidGuidList()
-    {
-        return new EiffelActivityTriggeredEvent()
+        /// <summary>
+        /// Get a complete instance of EiffelActivityTriggeredEvent with invalid Guid list.
+        /// </summary>
+        /// <returns></returns>
+        public EiffelActivityTriggeredEvent GetEventWithInvalidGuidList()
         {
-            Data = new()
+            return new EiffelActivityTriggeredEvent()
             {
-                Name = "My activity",
-                Categories = new() { "category 1", "category 2" },
-                Triggers = new()
+                Data = new()
                 {
-                    new() { Type = EiffelDataTriggerType.SOURCE_CHANGE, Description = "Description" }
-                },
-                ExecutionType = EiffelDataExecutionType.AUTOMATED,
-                CustomData = new()
-                {
-                    { "key1", "test" },
-                    { "key2", 1 }
-                }
-            },
-            Meta = new()
-            {
-                Id = "91d0c7da-8d90-4033-8685-a035853aeea1",
-                Time = 1637001247776,
-                Tags = new() { "activity_block" },
-                Security = new()
-                {
-                    AuthorIdentity = "Flower"
-                }
-            },
-            Links = new()
-            {
-                Cause = new()
-                {
-                    new()
+                    Name = "My activity",
+                    Categories = new() { "category 1", "category 2" },
+                    Triggers = new()
                     {
-                        Target = "test1"
+                        new() { Type = EiffelDataTriggerType.SOURCE_CHANGE, Description = "Description" }
                     },
-                    new()
+                    ExecutionType = EiffelDataExecutionType.AUTOMATED,
+                    CustomData = new()
                     {
-                        Target = "test2"
+                        { "key1", "test" },
+                        { "key2", 1 }
                     }
                 },
-                Context = new()
+                Meta = new()
                 {
-                    Target = "82f11609-bd5b-4c82-a5f2-c2a9d982cdbd"
-                },
-                FlowContext = new()
-                {
-                    new()
+                    Id = "91d0c7da-8d90-4033-8685-a035853aeea1",
+                    Time = 1637001247776,
+                    Tags = new() { "activity_block" },
+                    Security = new()
                     {
-                        Target = "cf056717-201b-43f6-9f2c-839b33b71baf"
+                        AuthorIdentity = "Flower"
+                    }
+                },
+                Links = new()
+                {
+                    Cause = new()
+                    {
+                        new()
+                        {
+                            Target = "test1"
+                        },
+                        new()
+                        {
+                            Target = "test2"
+                        }
+                    },
+                    Context = new()
+                    {
+                        Target = "82f11609-bd5b-4c82-a5f2-c2a9d982cdbd"
+                    },
+                    FlowContext = new()
+                    {
+                        new()
+                        {
+                            Target = "cf056717-201b-43f6-9f2c-839b33b71baf"
+                        }
                     }
                 }
-            }
-        };
-    }
+            };
+        }
 
-    #endregion
+        #endregion
+    }
 }

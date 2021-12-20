@@ -20,18 +20,18 @@ using FluentAssertions;
 using FluentResults;
 using Xunit;
 
-namespace EiffelEvents.Net.Tests.Events.Edition_Lyon;
-
-public class EiffelActivityTriggeredEventTests : IClassFixture<EiffelActivityTriggeredEventFixture>
+namespace EiffelEvents.Net.Tests.Events.Edition_Lyon
 {
-    private readonly EiffelActivityTriggeredEventFixture _eventFixture;
-
-    public EiffelActivityTriggeredEventTests(EiffelActivityTriggeredEventFixture eventFixture)
+    public class EiffelActivityTriggeredEventTests : IClassFixture<EiffelActivityTriggeredEventFixture>
     {
-        _eventFixture = eventFixture;
-    }
-    
-    [Fact]
+        private readonly EiffelActivityTriggeredEventFixture _eventFixture;
+
+        public EiffelActivityTriggeredEventTests(EiffelActivityTriggeredEventFixture eventFixture)
+        {
+            _eventFixture = eventFixture;
+        }
+
+        [Fact]
         public void Validate_CompleteAttributes_Success()
         {
             //Arrange
@@ -43,7 +43,7 @@ public class EiffelActivityTriggeredEventTests : IClassFixture<EiffelActivityTri
             //Assert
             result.IsSuccess.Should().BeTrue();
         }
-        
+
         [Fact]
         public void Validate_NotValidGuid_Failed()
         {
@@ -56,7 +56,7 @@ public class EiffelActivityTriggeredEventTests : IClassFixture<EiffelActivityTri
             //Assert
             result.IsSuccess.Should().BeFalse();
         }
-        
+
         [Fact]
         public void Validate_EmptyGuid_Failed()
         {
@@ -69,7 +69,7 @@ public class EiffelActivityTriggeredEventTests : IClassFixture<EiffelActivityTri
             //Assert
             result.IsSuccess.Should().BeFalse();
         }
-        
+
         [Fact]
         public void Validate_NotValidGuidList_Failed()
         {
@@ -236,4 +236,5 @@ public class EiffelActivityTriggeredEventTests : IClassFixture<EiffelActivityTri
             //Assert
             actualSerializedEvent.Should().BeEquivalentTo(expected);
         }
+    }
 }
