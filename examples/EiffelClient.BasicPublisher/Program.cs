@@ -12,10 +12,8 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 
-using System;
-using System.Collections.Generic;
 using EiffelEvents.Net.Clients;
-using EiffelEvents.Net.Events.Edition_Paris;
+using EiffelEvents.Net.Events.Edition_Lyon;
 using EiffelEvents.Net.Events.Edition_Paris.Shared.Enums;
 using EiffelEvents.RabbitMq.Client;
 
@@ -63,8 +61,11 @@ namespace EiffelClient.BasicPublisher
                 },
                 Links = new()
                 {
-                    Context = "82f11609-bd5b-4c82-a5f2-c2a9d982cdbd",
-                    FlowContext = new List<string> { "cf056717-201b-43f6-9f2c-839b33b71baf" }
+                    Context = new("82f11609-bd5b-4c82-a5f2-c2a9d982cdbd"),
+                    FlowContext = new ()
+                    {
+                        new("cf056717-201b-43f6-9f2c-839b33b71baf")
+                    }
                 }
             };
 

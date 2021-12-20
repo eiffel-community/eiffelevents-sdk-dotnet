@@ -44,12 +44,14 @@ namespace EiffelEvents.Net.Events.Edition_Paris.Shared
         /// Data carried by this event
         /// </summary>
         [NestedObject]
+        [Required]
         public abstract TData Data { get; init; }
 
         /// <summary>
         /// Meta carried by this event
         /// </summary>
         [NestedObject]
+        [Required]
         public abstract TMeta Meta { get; init; }
 
         /// <summary>
@@ -57,6 +59,7 @@ namespace EiffelEvents.Net.Events.Edition_Paris.Shared
         /// </summary>
         [JsonIgnore]
         [NestedObject]
+        [Required]
         public abstract TLinks Links { get; init; }
 
         [JsonProperty("links")]
@@ -225,6 +228,19 @@ namespace EiffelEvents.Net.Events.Edition_Paris.Shared
             if (SerializedLinks.Count > 0 || Links == null)
                 return JsonHelper.Serialize(this, jsonFormat);
 
+            PopulateSerializedLinks();
+
+            return JsonHelper.Serialize(this, jsonFormat);
+        }
+
+        /// <summary>
+        /// Populate serialized links list of the current event.
+        /// </summary>
+        /// <exception cref="EiffelUnhandledLinkTypeException">
+        /// Thrown if the link data type isn't string or list of strings.
+        /// </exception>
+        protected virtual void PopulateSerializedLinks()
+        {
             foreach (var propertyInfo in Links.GetType().GetProperties())
             {
                 if (propertyInfo.PropertyType == typeof(string))
@@ -255,12 +271,9 @@ namespace EiffelEvents.Net.Events.Edition_Paris.Shared
                     throw new EiffelUnhandledLinkTypeException(propertyInfo.PropertyType);
                 }
             }
-
-
-            return JsonHelper.Serialize(this, jsonFormat);
         }
 
-        protected IEiffelEvent Deserialize<T>(string json) where T : EiffelEvent<TData, TMeta, TLinks>
+        protected virtual IEiffelEvent Deserialize<T>(string json) where T : EiffelEvent<TData, TMeta, TLinks>
         {
             /*
             * 1 take instance from Link type
@@ -270,20 +283,37 @@ namespace EiffelEvents.Net.Events.Edition_Paris.Shared
 
             if (eventObj == null) return null;
 
+            var objectInstance = GetLinksObject(eventObj.SerializedLinks);
+
+            var copied = eventObj with { Links = objectInstance };
+            return copied;
+        }
+
+        /// <summary>
+        /// Get links object for the corresponding event from the passed serialized links.
+        /// </summary>
+        /// <param name="serializedLinks">Collection of serialized links</param>
+        /// <returns>Links object</returns>
+        /// <exception cref="EiffelUnhandledLinkTypeException">
+        /// Thrown if the link data type isn't string or list of strings.
+        /// </exception>
+        protected virtual TLinks GetLinksObject(IEiffelSerializedLinkCollection serializedLinks)
+        {
+            var links = (EiffelSerializedLinkCollection)serializedLinks;
             var objectInstance = Activator.CreateInstance(typeof(TLinks));
             foreach (var propertyInfo in typeof(TLinks).GetProperties())
             {
                 if (propertyInfo.PropertyType == typeof(string))
                 {
                     propertyInfo.SetValue(objectInstance,
-                        ((EiffelSerializedLinkCollection)eventObj.SerializedLinks)
+                        links
                         .FirstOrDefault(x => x.Type == propertyInfo.Name.ToUpperUnderscoreSeparated())?
                         .Target);
                 }
                 else if (propertyInfo.PropertyType == typeof(List<string>))
                 {
                     propertyInfo.SetValue(objectInstance,
-                        ((EiffelSerializedLinkCollection)eventObj.SerializedLinks)
+                        links
                         .Where(x => x.Type == propertyInfo.Name.ToUpperUnderscoreSeparated())
                         .Select(x => x.Target).ToList());
                 }
@@ -293,8 +323,7 @@ namespace EiffelEvents.Net.Events.Edition_Paris.Shared
                 }
             }
 
-            var copied = eventObj with { Links = objectInstance as TLinks };
-            return copied;
+            return objectInstance as TLinks;
         }
 
         #endregion

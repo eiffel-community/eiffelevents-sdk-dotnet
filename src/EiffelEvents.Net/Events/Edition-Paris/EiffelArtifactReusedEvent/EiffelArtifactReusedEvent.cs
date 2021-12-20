@@ -30,11 +30,9 @@ namespace EiffelEvents.Net.Events.Edition_Paris
         public override EiffelArtifactReusedData Data { get; init; } = new();
 
         /// <inheritdoc/>
-        [Required]
         public override EiffelArtifactReusedMeta Meta { get; init; }
 
         /// <inheritdoc/>
-        [Required]
         public override EiffelArtifactReusedLinks Links { get; init; }
 
 

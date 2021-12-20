@@ -32,7 +32,6 @@ namespace EiffelEvents.Net.Events.Edition_Paris
         public override EiffelSourceChangeSubmittedData Data { get; init; }
 
         /// <inheritdoc/>
-        [Required]
         public override EiffelSourceChangeSubmittedMeta Meta { get; init; }
 
         /// <inheritdoc/>

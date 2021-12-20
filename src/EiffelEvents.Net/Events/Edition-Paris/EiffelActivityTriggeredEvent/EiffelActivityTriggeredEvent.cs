@@ -31,11 +31,9 @@ namespace EiffelEvents.Net.Events.Edition_Paris
         #region Props
 
         /// <inheritdoc/>
-        [Required]
         public override EiffelActivityTriggeredData Data { get; init; }
 
         /// <inheritdoc/>
-        [Required]
         public override EiffelActivityTriggeredMeta Meta { get; init; }
 
         /// <inheritdoc/>

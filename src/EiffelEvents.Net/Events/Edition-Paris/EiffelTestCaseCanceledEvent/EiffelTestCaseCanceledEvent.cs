@@ -32,11 +32,9 @@ namespace EiffelEvents.Net.Events.Edition_Paris
         public override EiffelTestCaseCanceledData Data { get; init; }
         
         /// <inheritdoc/>
-        [Required]
         public override EiffelTestCaseCanceledMeta Meta { get; init; }
         
         /// <inheritdoc/>
-        [Required]
         public override EiffelTestCaseCanceledLinks Links { get; init; }
         public override IEiffelEvent FromJson(string json)
         {

@@ -29,11 +29,9 @@ namespace EiffelEvents.Net.Events.Edition_Paris
             EiffelTestExecutionRecipeCollectionCreatedLinks>
     {
         /// <inheritdoc/>
-        [Required]
         public override EiffelTestExecutionRecipeCollectionCreatedData Data { get; init; }
         
         /// <inheritdoc/>
-        [Required]
         public override EiffelTestExecutionRecipeCollectionCreatedMeta Meta { get; init; }
 
         /// <inheritdoc/>

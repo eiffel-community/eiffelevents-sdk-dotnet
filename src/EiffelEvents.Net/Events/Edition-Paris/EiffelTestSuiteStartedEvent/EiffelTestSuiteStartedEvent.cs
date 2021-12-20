@@ -33,11 +33,9 @@ namespace EiffelEvents.Net.Events.Edition_Paris
         EiffelEvent<EiffelTestSuiteStartedData, EiffelTestSuiteStartedMeta, EiffelTestSuiteStartedLinks>
     {
         /// <inheritdoc/>
-        [Required]
         public override EiffelTestSuiteStartedData Data { get; init; }
 
         /// <inheritdoc/>
-        [Required]
         public override EiffelTestSuiteStartedMeta Meta { get; init; }
 
         /// <inheritdoc/>

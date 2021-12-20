@@ -16,7 +16,14 @@ namespace EiffelEvents.Net.Events.Core.Links
 {
     public interface IEiffelSerializedLink
     {
+        /// <summary>
+        /// Link type
+        /// </summary>
         public string Type { get; init; }
+        
+        /// <summary>
+        /// UUID corresponding to the meta.id of the target event, on string format
+        /// </summary>
         public string Target { get; init; }
     }
 }

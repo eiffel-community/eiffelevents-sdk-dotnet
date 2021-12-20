@@ -29,15 +29,12 @@ namespace EiffelEvents.Net.Events.Edition_Paris
         : EiffelEvent<EiffelActivityFinishedData,EiffelActivityFinishedMeta,EiffelActivityFinishedLinks>
     {
         /// <inheritdoc/>
-        [Required]
         public override EiffelActivityFinishedData Data { get; init; }
 
         /// <inheritdoc/>
-        [Required]
         public override EiffelActivityFinishedMeta Meta { get; init; }
         
         /// <inheritdoc/>
-        [Required]
         public override EiffelActivityFinishedLinks Links { get; init; }
         
         public override IEiffelEvent FromJson(string json)

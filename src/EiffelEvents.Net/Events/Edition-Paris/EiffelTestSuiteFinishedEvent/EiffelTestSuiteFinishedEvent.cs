@@ -32,11 +32,9 @@ namespace EiffelEvents.Net.Events.Edition_Paris
         public override EiffelTestSuiteFinishedData Data { get; init; }
 
         /// <inheritdoc/>
-        [Required]
         public override EiffelTestSuiteFinishedMeta Meta { get; init; }
 
         /// <inheritdoc/>
-        [Required]
         public override EiffelTestSuiteFinishedLinks Links { get; init; }
 
         /// <inheritdoc/>

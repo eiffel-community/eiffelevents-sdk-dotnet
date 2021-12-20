@@ -28,15 +28,12 @@ namespace EiffelEvents.Net.Events.Edition_Paris
         EiffelEvent<EiffelArtifactPublishedData, EiffelArtifactPublishedMeta, EiffelArtifactPublishedLinks>
     {
         /// <inheritdoc/>
-        [Required]
         public override EiffelArtifactPublishedData Data { get; init; }
 
         /// <inheritdoc/>
-        [Required]
         public override EiffelArtifactPublishedMeta Meta { get; init; }
 
         /// <inheritdoc/>
-        [Required]
         public override EiffelArtifactPublishedLinks Links { get; init; }
 
         public override IEiffelEvent FromJson(string json)

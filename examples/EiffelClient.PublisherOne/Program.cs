@@ -14,8 +14,8 @@
 
 using System;
 using System.Linq;
-using EiffelEvents.Net.Events.Edition_Paris;
-using EiffelClient.PublisherOne.Models;
+using EiffelClient.PublisherOne.Models.Edition_Lyon;
+using EiffelEvents.Net.Events.Edition_Lyon;
 
 namespace EiffelClient.PublisherOne
 {
@@ -26,8 +26,8 @@ namespace EiffelClient.PublisherOne
             Console.WriteLine("Started !!");
 
             // Create a raw event
-            var eiffelEvent = TryClient.GetEvent<EiffelFlowContextDefinedEvent>();
-            var signedEvent = eiffelEvent?.Sign<EiffelFlowContextDefinedEvent>();
+            var eiffelEvent = TryClient.GetEvent<EiffelActivityTriggeredEvent>();
+            var signedEvent = eiffelEvent?.Sign<EiffelActivityTriggeredEvent>();
             /*for (int i = 0; i < 10000; i++)
            {*/
             var result = TryClient.Eiffelclient.Publish(signedEvent);
@@ -36,7 +36,7 @@ namespace EiffelClient.PublisherOne
                     ? $"Failed to publish!! - errors: {string.Join(", ", result.Errors.Select(x => x.Message))}"
                     : $"Event {signedEvent?.Meta.Type} published to RabbitMQ  !!");
 
-            if (!result.IsFailed) 
+            if (!result.IsFailed)
                 Console.WriteLine(signedEvent?.ToJson());
             //}
         }
