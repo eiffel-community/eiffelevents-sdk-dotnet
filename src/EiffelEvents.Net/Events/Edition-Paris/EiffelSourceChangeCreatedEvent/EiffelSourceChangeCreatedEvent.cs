@@ -33,8 +33,8 @@ namespace EiffelEvents.Net.Events.Edition_Paris
         public override EiffelSourceChangeCreatedData Data { get; init; }
         
         /// <inheritdoc/>
-        [Required]
         public override EiffelSourceChangeCreatedMeta Meta { get; init; }
+        
         /// <inheritdoc/>
         public override EiffelSourceChangeCreatedLinks Links { get; init; }
         

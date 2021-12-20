@@ -22,11 +22,9 @@ namespace EiffelEvents.Net.Events.Edition_Lyon
         : EiffelEvent<EiffelActivityTriggeredData, EiffelActivityTriggeredMeta, EiffelActivityTriggeredLinks>
     {
         /// <inheritdoc/>
-        [Required]
         public override EiffelActivityTriggeredData Data { get; init; }
 
         /// <inheritdoc/>
-        [Required]
         public override EiffelActivityTriggeredMeta Meta { get; init; }
 
         /// <inheritdoc/>

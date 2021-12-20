@@ -44,12 +44,14 @@ namespace EiffelEvents.Net.Events.Edition_Paris.Shared
         /// Data carried by this event
         /// </summary>
         [NestedObject]
+        [Required]
         public abstract TData Data { get; init; }
 
         /// <summary>
         /// Meta carried by this event
         /// </summary>
         [NestedObject]
+        [Required]
         public abstract TMeta Meta { get; init; }
 
         /// <summary>
@@ -57,6 +59,7 @@ namespace EiffelEvents.Net.Events.Edition_Paris.Shared
         /// </summary>
         [JsonIgnore]
         [NestedObject]
+        [Required]
         public abstract TLinks Links { get; init; }
 
         [JsonProperty("links")]

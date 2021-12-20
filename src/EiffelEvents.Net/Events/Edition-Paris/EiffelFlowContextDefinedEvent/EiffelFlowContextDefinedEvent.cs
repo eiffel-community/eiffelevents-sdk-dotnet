@@ -35,7 +35,6 @@ namespace EiffelEvents.Net.Events.Edition_Paris
         public override EiffelFlowContextDefinedData Data { get; init; }
 
         /// <inheritdoc/>
-        [Required]
         public override EiffelFlowContextDefinedMeta Meta { get; init; }
 
         /// <inheritdoc/>

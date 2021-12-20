@@ -34,11 +34,9 @@ namespace EiffelEvents.Net.Events.Edition_Paris
         public override EiffelTestCaseStartedData Data { get; init; }
 
         /// <inheritdoc/>
-        [Required]
         public override EiffelTestCaseStartedMeta Meta { get; init; }
 
         /// <inheritdoc/>
-        [Required]
         public override EiffelTestCaseStartedLinks Links { get; init; }
 
         /// <inheritdoc/>

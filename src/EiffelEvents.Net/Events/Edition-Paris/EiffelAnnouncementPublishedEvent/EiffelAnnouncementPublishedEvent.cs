@@ -29,11 +29,9 @@ namespace EiffelEvents.Net.Events.Edition_Paris
         EiffelEvent<EiffelAnnouncementPublishedData, EiffelAnnouncementPublishedMeta, EiffelAnnouncementPublishedLinks>
     {
         /// <inheritdoc/>
-        [Required]
         public override EiffelAnnouncementPublishedData Data { get; init; }
 
         /// <inheritdoc/>
-        [Required]
         public override EiffelAnnouncementPublishedMeta Meta { get; init; }
 
         /// <inheritdoc/>

@@ -28,11 +28,9 @@ namespace EiffelEvents.Net.Events.Edition_Paris
         EiffelEvent<EiffelIssueDefinedData, EiffelIssueDefinedMeta, EiffelIssueDefinedLinks>
     {
         /// <inheritdoc/>
-        [Required]
         public override EiffelIssueDefinedData Data { get; init; }
 
         /// <inheritdoc/>
-        [Required]
         public override EiffelIssueDefinedMeta Meta { get; init; }
 
         /// <inheritdoc/>
