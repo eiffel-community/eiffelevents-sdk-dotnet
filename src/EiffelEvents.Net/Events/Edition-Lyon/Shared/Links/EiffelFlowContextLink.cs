@@ -16,6 +16,7 @@ namespace EiffelEvents.Net.Events.Edition_Lyon.Shared.Links
 {
     public record EiffelFlowContextLink : EiffelLink
     {
+        /// <inheritdoc/>
         public override string Type => "FLOW_CONTEXT";
 
         public EiffelFlowContextLink()

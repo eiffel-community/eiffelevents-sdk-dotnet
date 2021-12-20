@@ -16,6 +16,7 @@ namespace EiffelEvents.Net.Events.Edition_Lyon.Shared.Links
 {
     public record EiffelCauseLink : EiffelLink
     {
+        /// <inheritdoc/>
         public override string Type => "CAUSE";
 
         public EiffelCauseLink()

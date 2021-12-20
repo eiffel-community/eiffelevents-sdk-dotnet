@@ -18,8 +18,15 @@ namespace EiffelEvents.Net.Events.Edition_Lyon.Shared.Links
 {
     public record EiffelSerializedLink : IEiffelSerializedLink
     {
+        /// <summary>
+        /// Optionally the id of the domain where the target event was published (i.e. its meta.source.domainId member).
+        /// The absence of a domain id means that the target event was sent in, or can at least be retrieved from,
+        /// the same domain as the current event.
+        /// </summary>
         public string DomainId { get; init; }
+        /// <inheritdoc/>
         public string Type { get; init; }
+        /// <inheritdoc/>
         public string Target { get; init; }
     }
 }

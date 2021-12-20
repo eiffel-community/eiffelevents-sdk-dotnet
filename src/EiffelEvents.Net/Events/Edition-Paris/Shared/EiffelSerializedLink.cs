@@ -18,7 +18,9 @@ namespace EiffelEvents.Net.Events.Edition_Paris.Shared
 {
     public record EiffelSerializedLink : IEiffelSerializedLink
     {
+        /// <inheritdoc/>
         public string Type { get; init; }
+        /// <inheritdoc/>
         public string Target { get; init; }
     }
 }
