@@ -28,12 +28,12 @@ EiffelEvents.Net SDK is a .NET implementation for Eiffel events and  Assisted pu
 
 EiffelEvents.Net SDK consists of two packages:
 
-1. **Eiffel.Net** for events' implementation.
-2. **Eiffel.RabbitMq.Client** for assisted publishing to RabbitMQ.
+1. **EiffelEvents.Net** for Eiffel's events' implementation.
+2. **EiffelEvents.RabbitMq.Client** for assisted publishing to RabbitMQ.
 
 which support the following features:
 
-- Implement Eiffel events vocabularies as described in [Eiffel-edition-paris](https://github.com/eiffel-community/eiffel/tree/edition-paris) 
+- Implement Eiffel events vocabularies as described in [Eiffel protocol](https://github.com/eiffel-community).
 - Validate events' schema regarding target event’s version.
 - Sign and verify events' signatures.
 - Serialization/deserialization of events.
