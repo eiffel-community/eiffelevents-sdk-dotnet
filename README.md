@@ -178,15 +178,21 @@ A unit tests reside under [tests/EiffelEvents.Net.Tests](tests/EiffelEvents.Net.
 
 Docs directory resides under repo root, structured as follows:
 
-**docfx_project:** The Docs generation code resides in this folder.
+**docfx_project:** The Docs generation code and configurations reside in this folder.
 
 **docfx_project/_site:** The generated Docs pages will be residing in this folder.
 
+[**docfx_project/articles**](docs/docfx_project/articles): For the SDK architecture and design specifications.
+
+[**image-src**](docs/image-src): For the source of SDK architecture and design specifications diagrams. 
+
 ## Tools to generate docs
 
-[DocFX](https://dotnet.github.io/docfx/index.html) documentation generation tool used for installation please check [Docfx Readme](docs/README.md) 
+[DocFX](https://dotnet.github.io/docfx/index.html) documentation generation tool used for installation please check [Docfx Helper](docs/DocFX-helper.md) 
 
 ## Generation Commands
+
+*Note: use these commands under the repo root directory.*
 
 - `make docfx`:  Reads source, generates and builds the HTML site.
 - `make docfx-serve`:   Publish the documentation (the generated HTML) in folder "_site" to localhost.
