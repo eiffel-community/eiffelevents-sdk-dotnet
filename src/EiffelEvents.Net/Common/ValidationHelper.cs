@@ -16,9 +16,9 @@ using System;
 using EiffelEvents.Net.Events.Core;
 using EiffelEvents.Net.Exceptions;
 
-namespace EiffelEvents.RabbitMq.Client.Common
+namespace EiffelEvents.Net.Common
 {
-    internal static class ValidationHelper
+    public static class ValidationHelper
     {
         /// <summary>
         /// Validate Event instance Version against event type version

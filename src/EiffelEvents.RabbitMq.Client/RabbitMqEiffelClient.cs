@@ -12,10 +12,10 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 
-using System;
 using EiffelEvents.Net.Events.Core;
 using System.Text;
 using EiffelEvents.Net.Clients;
+using EiffelEvents.Net.Common;
 using EiffelEvents.RabbitMq.Client.Common;
 using EiffelEvents.RabbitMq.Client.Exceptions;
 using FluentResults;
