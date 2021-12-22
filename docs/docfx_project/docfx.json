@@ -30,14 +30,14 @@
           "toc.yml",
           "*.md"
         ]
+      
         
       }
     ],
     "resource": [
       {
         "files": [
-          "images/**",
-          "articles/**.md"
+          "images/**"
         ]
       }
     ],
