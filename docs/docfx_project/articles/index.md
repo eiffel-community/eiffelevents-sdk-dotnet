@@ -22,7 +22,7 @@ EiffelEvents.Net SDK is a .NET implementation for Eiffel events and  Assisted pu
 
 > In Assisted Publishing, actors do not publish events directly to the [RabbitMQ Message Broker](https://eiffel-community.github.io/eiffel-sepia/rabbitmq-message-broker.html), but via an [Event Publishing](https://eiffel-community.github.io/eiffel-sepia/event-publishing.html) service.
 
-![](../images/high-level-design.png)
+![](../images/high-level-design.svg)
 
 ## Features
 
