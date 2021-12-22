@@ -14,7 +14,7 @@ EiffelEvents package has Eiffel events implementation, and their validation, mai
 
 For more details check the [Implement Events Checklist](implement-event.md)
 
-## Validation
+## 
 
 - Events validation is declarative by using attribute validation, hence the events are considered as a domain class, which is self-contained for their definition and validation.
 
@@ -42,7 +42,7 @@ public Result<T> Publish<T>(T eiffelEvent, bool validateBeforePublish = true)
 
 ## Exceptions
 
-  - For exceptional situations that could not be handled like `EiffelSecurityException` or Message Brocker exceptions, an exception hierarchy is developed to handle such exceptions and raise meaningful messages.
+  - For exceptional situations that could not be handled like `EiffelSecurityException` or Message Broker exceptions, an exception hierarchy is developed to handle such exceptions and raise meaningful messages.
 
    ```c#
 public abstract class EiffelException : Exception
