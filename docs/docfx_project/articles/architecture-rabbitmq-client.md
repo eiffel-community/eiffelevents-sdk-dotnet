@@ -1,4 +1,4 @@
-# SDK-RabbitMQ Communication Design
+# Architecture: RabbitMQ Communication Design
 
 ## Message Broker
 
@@ -165,6 +165,12 @@ where:
 
 - `subscriptionId`: is a subscription ID for a consumer it is returned by `Subscribe` method on the callback.
 
+## RabbitMqWrapper
+
+`RabbitMqWrapper` as its name implies, wraps and abstract all RabbitMQ client functionality to `RabbitMqEiffelClient`
+
+to ease further updates and maintainability.
+
 ## Exception
 
 Based on the exception hierarchy defined in the **EiffelEvents** package, the **EiffelEvents.RabbitMq.Client** package provides `RabbitMqException` that raised to handle and wrap RabbitMQ communication errors.
@@ -190,3 +196,5 @@ catch (Exception e)
     throw new RabbitMqException("An error occured while initializing RabbitMQ client", e);
 }
 ```
+
+## 
