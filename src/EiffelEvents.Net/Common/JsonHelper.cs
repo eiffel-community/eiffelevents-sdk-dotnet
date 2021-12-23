@@ -78,18 +78,19 @@ namespace EiffelEvents.Net.Common
         protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
         {
             var property = base.CreateProperty(member, memberSerialization);
-
+            bool customShouldSerialize;
+            
             //Ignore Empty collection in serialization/deserialization
             if (property.PropertyType?.GetInterface(nameof(ICollection)) != null)
             {
-                // Only Serialize Collections when they have values.
+                customShouldSerialize = member.GetCustomAttribute<ShouldSerializeAttribute>()?.Yes ?? false;
+                // Only Serialize Collections when they have values or marked as ShouldSerialize.
                 property.ShouldSerialize =
                     instance =>
                         property.UnderlyingName != null &&
-                        (instance?.GetType().GetProperty(property.UnderlyingName,
-                                BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)?
-                            .GetValue(instance) as ICollection)?
-                        .Count > 0;
+                        (customShouldSerialize ||
+                         (instance?.GetType().GetProperty(property.UnderlyingName,BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)?
+                             .GetValue(instance) as ICollection)?.Count > 0);
 
                 // CollectionValueProvider for ICollection types to be set by empty object when not provided in JSON.
                 property.ValueProvider = new CollectionValueProvider(property.ValueProvider, property.PropertyType);
