@@ -92,13 +92,17 @@ namespace EiffelEvents.RabbitMq.Client
                         var typeObj = (T)Activator.CreateInstance(typeof(T));
                         if (typeObj == null) return;
 
-                        var eiffelEvent = (T)typeObj.FromJson(content);
-                        ValidationHelper.ValidateEventVersion(eiffelEvent);
+                        var isValidJson = ValidationHelper.ValidateEventSchema<T>(content, out var errors);
+                        
+                        if (!isValidJson)
+                            throw new Exception($"Not valid json. Errors: {string.Join(", ", errors)}");
 
+                        var eiffelEvent = (T)typeObj.FromJson(content);
+                        //ValidationHelper.ValidateEventVersion(eiffelEvent);
                         callback(eiffelEvent, eventArgs.DeliveryTag);
                     }
                 );
-                
+
                 return subscriptionId;
             }
             catch (Exception e)
