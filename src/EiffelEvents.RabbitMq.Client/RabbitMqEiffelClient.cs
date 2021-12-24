@@ -56,12 +56,10 @@ namespace EiffelEvents.RabbitMq.Client
                         return validationResult.ToResult(eiffelEvent);
                 }
 
-
                 var json = eiffelEvent.ToJson();
                 var body = Encoding.UTF8.GetBytes(json);
                 var routingKey = _rabbitMqWrapper.GetRoutingKey(typeof(T).Name);
                 var sent = _rabbitMqWrapper.Publish(routingKey, body);
-
 
                 return sent
                     ? Result.Ok(eiffelEvent)
@@ -74,7 +72,8 @@ namespace EiffelEvents.RabbitMq.Client
         }
 
         /// <inheritdoc/>
-        public string Subscribe<T>(string serviceIdentifier, Action<T, ulong> callback) where T : IEiffelEvent, new()
+        public string Subscribe<T>(string serviceIdentifier, Action<Result<T>, ulong> callback)
+            where T : IEiffelEvent, new()
         {
             try
             {
@@ -92,14 +91,21 @@ namespace EiffelEvents.RabbitMq.Client
                         var typeObj = (T)Activator.CreateInstance(typeof(T));
                         if (typeObj == null) return;
 
-                        var isValidJson = ValidationHelper.ValidateEventSchema<T>(content, out var errors);
-                        
-                        if (!isValidJson)
-                            throw new Exception($"Not valid json. Errors: {string.Join(", ", errors)}");
+                        var validJsonResult = ValidationHelper.ValidateEventSchema<T>(content);
 
-                        var eiffelEvent = (T)typeObj.FromJson(content);
-                        //ValidationHelper.ValidateEventVersion(eiffelEvent);
-                        callback(eiffelEvent, eventArgs.DeliveryTag);
+                        if (validJsonResult.IsSuccess)
+                        {
+                            var eiffelEvent = (T)typeObj.FromJson(content);
+                            //ValidationHelper.ValidateEventVersion(eiffelEvent);
+                            callback(Result.Ok(eiffelEvent), eventArgs.DeliveryTag);
+                        }
+                        else
+                        {
+                            var validationErrors = string.Join(", ", validJsonResult.Errors);
+                            var failedResult =
+                                Result.Fail<T>($"Not valid json. Errors: {validationErrors}");
+                            callback(failedResult, eventArgs.DeliveryTag);
+                        }
                     }
                 );
 

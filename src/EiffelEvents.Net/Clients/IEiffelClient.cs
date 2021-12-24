@@ -44,10 +44,14 @@ namespace EiffelEvents.Net.Clients
         /// </summary>
         /// <typeparam name="T">Type of event to subscribe to</typeparam>
         /// <param name="serviceIdentifier">string identifier for each service to be included in queue name</param>
-        /// <param name="callback">Callback that will be invoked when new events are received where
-        /// T is events of the given type and ulong for deliveryTag</param>
+        /// <param name="callback">
+        /// Callback that will be invoked when new events are received where
+        /// Result of T is fluent result <see cref="Result{TValue}"/> of event of the given type
+        /// (IsSuccess: true means event received without errors)
+        /// and ulong for deliveryTag
+        /// </param>
         /// <returns>string for subscriptionId can later be used to UnSubscribe</returns>
-        string Subscribe<T>(string serviceIdentifier, Action<T, ulong> callback) where T : IEiffelEvent, new();
+        string Subscribe<T>(string serviceIdentifier, Action<Result<T>, ulong> callback) where T : IEiffelEvent, new();
 
         /// <summary>
         /// Acknowledge receiving the message(event), used for positive acknowledgements. 
