@@ -86,24 +86,32 @@ namespace EiffelEvents.RabbitMq.Client
                 _rabbitMqWrapper.CreateQueue(queueName, routingKey);
                 var subscriptionId = _rabbitMqWrapper.Consume(queueName, (_, eventArgs) =>
                     {
-                        var content = Encoding.UTF8.GetString(eventArgs.Body.Span);
-
-                        var typeObj = (T)Activator.CreateInstance(typeof(T));
-                        if (typeObj == null) return;
-
-                        var validJsonResult = ValidationHelper.ValidateEventSchema<T>(content);
-
-                        if (validJsonResult.IsSuccess)
+                        try
                         {
-                            var eiffelEvent = (T)typeObj.FromJson(content);
-                            //ValidationHelper.ValidateEventVersion(eiffelEvent);
-                            callback(Result.Ok(eiffelEvent), eventArgs.DeliveryTag);
+                            var content = Encoding.UTF8.GetString(eventArgs.Body.Span);
+
+                            var typeObj = (T)Activator.CreateInstance(typeof(T));
+                            if (typeObj == null) return;
+
+                            var validJsonResult = ValidationHelper.ValidateEventSchema<T>(content);
+
+                            if (validJsonResult.IsSuccess)
+                            {
+                                var eiffelEvent = (T)typeObj.FromJson(content);
+                                callback(Result.Ok(eiffelEvent), eventArgs.DeliveryTag);
+                            }
+                            else
+                            {
+                                var validationErrors = string.Join(", ", validJsonResult.Errors);
+                                var failedResult =
+                                    Result.Fail<T>($"Not valid json. Errors: {validationErrors}");
+                                callback(failedResult, eventArgs.DeliveryTag);
+                            }
                         }
-                        else
+                        catch (Exception e)
                         {
-                            var validationErrors = string.Join(", ", validJsonResult.Errors);
-                            var failedResult =
-                                Result.Fail<T>($"Not valid json. Errors: {validationErrors}");
+                            // is this the best way to handle exceptions inside a callback !!
+                            var failedResult = Result.Fail<T>(e.Message);
                             callback(failedResult, eventArgs.DeliveryTag);
                         }
                     }
