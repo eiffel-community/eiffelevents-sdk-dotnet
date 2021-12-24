@@ -630,6 +630,99 @@ namespace EiffelEvents.Net.Tests.TestData.Edition_Lyon
         }
 
         #endregion
+        
+        #region Valid Event empty Links (ICollection types)
+
+        /// <summary>
+        /// Get a valid instance of EiffelActivityTriggeredEvent with empty Links.
+        /// </summary>
+        /// <returns></returns>
+        public EiffelActivityTriggeredEvent GetEventWithEmptyLinks()
+        {
+             return new EiffelActivityTriggeredEvent()
+            {
+                Data = new()
+                {
+                    Name = "My activity",
+                    Categories = new() { "category 1", "category 2" },
+                    Triggers = new()
+                    {
+                        new()
+                        {
+                            Type = EiffelDataTriggerType.SOURCE_CHANGE,
+                            Description = "Description"
+                        }
+                    },
+                    ExecutionType = EiffelDataExecutionType.AUTOMATED,
+                    CustomData = new()
+                    {
+                        { "key1", "test" },
+                        { "key2", 1 }
+                    }
+                },
+                Meta = new()
+                {
+                    Id = "91d0c7da-8d90-4033-8685-a035853aeea1",
+                    Time = 1637001247776,
+                    Tags = new() { "activity_block" },
+                    Security = new()
+                    {
+                        AuthorIdentity = "Flower"
+                    }
+                },
+                Links = new()
+                
+            };
+        }
+
+        public string GetEventWithEmptyLinksSerialized()
+        {
+            var json = JObject.Parse(@"{
+                              'data': {
+                                        'name': 'My activity',
+                                        'categories': [
+                                        'category 1',
+                                        'category 2'
+                                            ],
+                                        'triggers': [
+                                        {
+                                            'type': 'SOURCE_CHANGE',
+                                            'description': 'Description'
+                                        }
+                                        ],
+                                        'executionType': 'AUTOMATED',
+                                         'customData': [
+                                            {
+                                                'key': 'key1',
+                                                'value': 'test'
+                                            },
+                                            {
+                                                'key': 'key2',
+                                                'value': 1
+                                            }
+                                            ]
+                                    },
+                                    'meta': {
+                                        'type': 'EiffelActivityTriggeredEvent',
+                                        'version': '4.1.0',
+                                        'tags': [
+                                        'activity_block'
+                                            ],
+                                        'source': {
+                                                    'serializer': 'pkg:nuget/EiffelEvents.Net@1.0.0.0'
+                                         },
+                                        'security': {
+                                            'authorIdentity': 'Flower'
+                                        },
+                                        'id': '91d0c7da-8d90-4033-8685-a035853aeea1',
+                                        'time': 1637001247776
+                                    },
+                                'links': [ ]
+                            }");
+            return json.ToString();
+        }
+
+        #endregion
 
         #region Not Valid Guids
 
