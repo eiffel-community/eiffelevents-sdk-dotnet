@@ -1,2 +1,11 @@
 - name: Introduction
-  href: intro.md
+  href: index.md
+- name: Architecture
+  href: architecture.md
+  items:
+  - name: Eiffel Events
+    href: architecture-eiffelevents.md
+  - name: RabbitMQ Communication Design
+    href: architecture-rabbitmq-client.md
+- name: Implement Event
+  href: implement-event.md
