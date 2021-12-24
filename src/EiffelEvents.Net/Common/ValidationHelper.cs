@@ -19,6 +19,7 @@ using System.Linq;
 using System.Reflection;
 using EiffelEvents.Net.Events.Core;
 using EiffelEvents.Net.Exceptions;
+using FluentResults;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Schema;
 
@@ -39,7 +40,7 @@ namespace EiffelEvents.Net.Common
                 throw new InvalidEiffelEventException(typeof(T).Name, eiffelEvent.GetVersion());
         }
 
-        public static bool ValidateEventSchema<T>(string eiffelEventJson, out List<string> errors)
+        public static Result ValidateEventSchema<T>(string eiffelEventJson)
             where T : IEiffelEvent
         {
             // load schema
@@ -54,11 +55,10 @@ namespace EiffelEvents.Net.Common
 
             // validate json
             var valid = json.IsValid(schema, out IList<ValidationError> validationErrors);
-            errors = valid
-                ? new List<string>()
-                : validationErrors.Select(x => $"{x.Message} - Path: {x.Path}").ToList();
 
-            return valid;
+            return valid
+                ? Result.Ok()
+                : Result.Fail(string.Join(',', validationErrors.Select(x => $"{x.Message} - Path: {x.Path}")));
         }
 
         private static string GetSchemaFromFileSystem(string edition, string eventName)
