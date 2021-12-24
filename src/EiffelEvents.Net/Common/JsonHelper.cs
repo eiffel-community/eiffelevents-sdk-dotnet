@@ -78,17 +78,17 @@ namespace EiffelEvents.Net.Common
         protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
         {
             var property = base.CreateProperty(member, memberSerialization);
-            bool customShouldSerialize;
+            bool eiffelShouldSerialize;
             
             //Ignore Empty collection in serialization/deserialization
             if (property.PropertyType?.GetInterface(nameof(ICollection)) != null)
             {
-                customShouldSerialize = member.GetCustomAttribute<ShouldSerializeAttribute>()?.Yes ?? false;
+                eiffelShouldSerialize = member.GetCustomAttribute<EiffelShouldSerializeAttribute>()?.Yes ?? false;
                 // Only Serialize Collections when they have values or marked as ShouldSerialize.
                 property.ShouldSerialize =
                     instance =>
                         property.UnderlyingName != null &&
-                        (customShouldSerialize ||
+                        (eiffelShouldSerialize ||
                          (instance?.GetType().GetProperty(property.UnderlyingName,BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)?
                              .GetValue(instance) as ICollection)?.Count > 0);
 
