@@ -16,17 +16,17 @@ using System;
 
 namespace EiffelEvents.Net.Common;
 /// <summary>
-/// Custom attribute used to mark property which should be serialized even if empty or null.
+/// Custom attribute used to mark collection property which should be serialized even if empty or null.
 /// </summary>
 [AttributeUsage(AttributeTargets.Property)]
-public class ShouldSerializeAttribute: Attribute
+public class EiffelShouldSerializeAttribute: Attribute
 {
     public bool Yes
     {
         get;
     }
 
-    public ShouldSerializeAttribute()
+    public EiffelShouldSerializeAttribute()
     {
         Yes = true;
     }
