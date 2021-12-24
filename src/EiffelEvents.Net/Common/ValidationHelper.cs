@@ -13,8 +13,14 @@
 //    limitations under the License.
 
 using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Reflection;
 using EiffelEvents.Net.Events.Core;
 using EiffelEvents.Net.Exceptions;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Schema;
 
 namespace EiffelEvents.Net.Common
 {
@@ -31,6 +37,42 @@ namespace EiffelEvents.Net.Common
             var typeObj = (T)Activator.CreateInstance(typeof(T));
             if (eiffelEvent.GetVersion() != typeObj?.GetVersion())
                 throw new InvalidEiffelEventException(typeof(T).Name, eiffelEvent.GetVersion());
+        }
+
+        public static bool ValidateEventSchema<T>(string eiffelEventJson, out List<string> errors)
+            where T : IEiffelEvent
+        {
+            // load schema
+            var eventName = typeof(T).Name;
+            var edition = typeof(T).Namespace?.Split('.').Last().Replace('_', '-');
+
+            var jsonSchema = GetSchemaFromFileSystem(edition, eventName);
+            var schema = JSchema.Parse(jsonSchema);
+
+            // parse json
+            var json = JToken.Parse(eiffelEventJson);
+
+            // validate json
+            var valid = json.IsValid(schema, out IList<ValidationError> validationErrors);
+            errors = valid
+                ? new List<string>()
+                : validationErrors.Select(x => $"{x.Message} - Path: {x.Path}").ToList();
+
+            return valid;
+        }
+
+        private static string GetSchemaFromFileSystem(string edition, string eventName)
+        {
+            var currentAssemblyPath =
+                Path.GetDirectoryName(Assembly.GetAssembly(typeof(ValidationHelper))!.Location);
+
+            var path = Path.Combine(currentAssemblyPath!, "Schemas", edition, eventName);
+            var schemaFiles = Directory.GetFiles(path, "*.json");
+
+            if (schemaFiles.Length == 0)
+                throw new Exception($"Event json schema is not found for {eventName}, {edition}");
+
+            return File.ReadAllText(schemaFiles[0]);
         }
     }
 }
