@@ -38,19 +38,10 @@ namespace EiffelClient.SubscriberOne
             using IHost host = CreateHostBuilder(args).Build();
             _client = new RabbitMqEiffelClient(_rabbitMqConfig);
 
-
             Console.WriteLine("Started ....");
 
             // Subscribe to events
-            try
-            {
-                _subscriptionId = _client.Subscribe<EiffelActivityTriggeredEvent>(_queueIdentifier, GeneralHandleEvent);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
+            _subscriptionId = _client.Subscribe<EiffelActivityTriggeredEvent>(_queueIdentifier, GeneralHandleEvent);
 
             Console.WriteLine($"Subscription done to event {nameof(EiffelActivityTriggeredEvent)} !");
 
@@ -84,6 +75,8 @@ namespace EiffelClient.SubscriberOne
             else
             {
                 Console.WriteLine($"Error occured: {string.Join(',', eiffelEventResult.Errors)}");
+                _client.Reject(deliveryTag, false);
+                Console.WriteLine($"========= Reject Done for Delivery Tag : {deliveryTag} ===========");
             }
         }
 
