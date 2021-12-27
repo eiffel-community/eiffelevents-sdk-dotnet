@@ -15,7 +15,7 @@
 using EiffelEvents.Net.Events.Core;
 using System.Text;
 using EiffelEvents.Net.Clients;
-using EiffelEvents.Net.Common;
+using EiffelEvents.Net.Validation;
 using EiffelEvents.RabbitMq.Client.Common;
 using EiffelEvents.RabbitMq.Client.Exceptions;
 using FluentResults;
