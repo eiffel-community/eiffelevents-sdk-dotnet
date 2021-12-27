@@ -128,20 +128,29 @@ var subscriptionId = eiffelClient.Subscribe<EiffelActivityTriggeredEvent>(Handle
 ##### **Handle receiving an event** 
 
 ```c#
-static void HandleEventReceived(EiffelActivityTriggeredEvent eiffelEvent, ulong deliveryTag)
+static void HandleEventReceived(Result<EiffelActivityTriggeredEvent> eiffelEventResult, ulong deliveryTag)
 {
     Console.WriteLine("========= Callback called ========= ");
     Console.WriteLine($"Event Received {typeof(T).Name} \nDelivery Tag : {deliveryTag} \n========");
-   
-    // verify event signature
-    var verified = eiffelEvent.VerifySignature();
-    Console.WriteLine($" ======== Event signature verified: {verified} ==============");
-    
-    // do some proccessing...
-    
-	// Acknowledge receiving an event
-    eiffelClient.Ack(deliveryTag);
-    Console.WriteLine($"========= Ack Done for Delivery Tag : {deliveryTag} ===========");
+    if (eiffelEventResult.IsSuccess)
+    {
+        var eiffelEvent = eiffelEventResult.Value;
+        var verified = eiffelEvent.VerifySignature();
+        Console.WriteLine($" ======== Event signature verified: {verified} ==============");
+        Console.WriteLine(eiffelEvent.ToJson());
+
+        Console.WriteLine("========= Processing Done ===========");    
+        // valid json messages must be acknowledged to be able to consume new messages
+        _client.Ack(deliveryTag);
+        Console.WriteLine($"========= Ack Done for Delivery Tag : {deliveryTag} ===========");
+    }
+    else
+    {
+        Console.WriteLine($"Error occured: {string.Join(',', eiffelEventResult.Errors)}");
+        // not valid json messages must be rejected to be able to consume new messages
+        _client.Reject(deliveryTag, false);
+        Console.WriteLine($"========= Reject Done for Delivery Tag : {deliveryTag} ===========");
+    }
 }
 ```
 
