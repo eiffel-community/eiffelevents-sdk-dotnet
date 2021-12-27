@@ -23,7 +23,7 @@ using FluentResults;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Schema;
 
-namespace EiffelEvents.Net.Common
+namespace EiffelEvents.Net.Validation
 {
     public static class ValidationHelper
     {
@@ -67,10 +67,12 @@ namespace EiffelEvents.Net.Common
                 Path.GetDirectoryName(Assembly.GetAssembly(typeof(ValidationHelper))!.Location);
 
             var path = Path.Combine(currentAssemblyPath!, "Schemas", edition, eventName);
-            var schemaFiles = Directory.GetFiles(path, "*.json");
+            if (!Directory.Exists(path))
+                throw new SchemaNotFoundException($"Event json schema is not found for {eventName}, {edition}");
 
+            var schemaFiles = Directory.GetFiles(path, "*.json");
             if (schemaFiles.Length == 0)
-                throw new Exception($"Event json schema is not found for {eventName}, {edition}");
+                throw new SchemaNotFoundException($"Event json schema is not found for {eventName}, {edition}");
 
             return File.ReadAllText(schemaFiles[0]);
         }
