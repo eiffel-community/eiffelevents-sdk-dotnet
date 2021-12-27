@@ -910,5 +910,136 @@ namespace EiffelEvents.Net.Tests.TestData.Edition_Lyon
         }
 
         #endregion
+        
+        #region Json Schema
+
+        public string GetValidJsonEvent()
+        {
+            var json = JObject.Parse(@"{
+                              'data': {
+                                        'name': 'My activity',
+                                        'categories': [
+                                        'category 1',
+                                        'category 2'
+                                            ],
+                                        'triggers': [
+                                        {
+                                            'type': 'SOURCE_CHANGE',
+                                            'description': 'Description'
+                                        }
+                                        ],
+                                        'executionType': 'AUTOMATED',
+                                         'customData': [
+                                            {
+                                                'key': 'key1',
+                                                'value': 'test'
+                                            },
+                                            {
+                                                'key': 'key2',
+                                                'value': 1
+                                            }
+                                            ]
+                                    },
+                                    'meta': {
+                                        'type': 'EiffelActivityTriggeredEvent',
+                                        'version': '4.1.0',
+                                        'tags': [
+                                        'activity_block'
+                                            ],
+                                        'source': {
+                                                    'serializer': 'pkg:nuget/EiffelEvents.Net@1.0.0.0'
+                                         },
+                                        'security': {
+                                            'authorIdentity': 'Flower'
+                                        },
+                                        'id': '91d0c7da-8d90-4033-8685-a035853aeea1',
+                                        'time': 1637001247776
+                                    },
+                                'links': [
+                                {
+                                    'type': 'CAUSE',
+                                    'target': '91d0c7da-8d90-4033-8685-a035853aeea2'
+                                },
+                                {
+                                    'type': 'CAUSE',
+                                    'target': '91d0c7da-8d90-4033-8685-a035853aeea3'
+                                },
+                                {
+                                    'type': 'CONTEXT',
+                                    'target': '82f11609-bd5b-4c82-a5f2-c2a9d982cdbd'
+                                },
+                                {
+                                    'type': 'FLOW_CONTEXT',
+                                    'target': 'cf056717-201b-43f6-9f2c-839b33b71baf'
+                            }
+                            ]
+                            }");
+            return json.ToString();
+        }
+        
+        public string GetInvalidJsonEvent()
+        {
+            var json = JObject.Parse(@"{
+                              'data': {
+                                        'name': 'My activity',
+                                        'categories': [
+                                        'category 1',
+                                        'category 2'
+                                            ],
+                                        'triggers': [
+                                        {
+                                            'type': 'SOURCE_CHANGE',
+                                            'description': 'Description'
+                                        }
+                                        ],
+                                        'executionType': 'AUTOMATED',
+                                         'customData': [
+                                            {
+                                                'key': 'key1',
+                                                'value': 'test'
+                                            },
+                                            {
+                                                'key': 'key2',
+                                                'value': 1
+                                            }
+                                            ]
+                                    },
+                                    'meta': {
+                                        'type': 'EiffelActivityTriggeredEvent',
+                                        'version': '4.1.0',
+                                        'tags': [
+                                        'activity_block'
+                                            ],
+                                        'source': {
+                                                    'serializer': 'pkg:nuget/EiffelEvents.Net@1.0.0.0'
+                                         },
+                                        'security': {
+                                            'authorIdentity': 'Flower'
+                                        },
+                                        'id': '91d0c7da-8d90-4033-8685-a035853aeea1'
+                                    },
+                                'links': [
+                                {
+                                    'type': 'CAUSE',
+                                    'target': '91d0c7da-8d90-4033-8685-a035853aeea2'
+                                },
+                                {
+                                    'type': 'CAUSE',
+                                    'target': '91d0c7da-8d90-4033-8685-a035853aeea3'
+                                },
+                                {
+                                    'type': 'CONTEXT',
+                                    'target': '82f11609-bd5b-4c82-a5f2-c2a9d982cdbd'
+                                },
+                                {
+                                    'type': 'FLOW_CONTEXT',
+                                    'target': 'cf056717-201b-43f6-9f2c-839b33b71baf'
+                            }
+                            ]
+                            }");
+            return json.ToString();
+        }
+
+        #endregion
     }
 }
