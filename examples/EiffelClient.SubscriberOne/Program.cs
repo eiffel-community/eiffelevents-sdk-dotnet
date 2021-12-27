@@ -30,7 +30,7 @@ namespace EiffelClient.SubscriberOne
         private static IEiffelClient _client;
         private static RabbitMqConfig _rabbitMqConfig;
         private static string _subscriptionId = string.Empty;
-        private static string _queueIdentifier= "autor";
+        private static string _queueIdentifier = "autor";
 
         public static void Main(string[] args)
         {
@@ -41,8 +41,8 @@ namespace EiffelClient.SubscriberOne
             Console.WriteLine("Started ....");
 
             // Subscribe to events
-            _subscriptionId = _client.Subscribe<EiffelActivityTriggeredEvent>(_queueIdentifier, GeneralHandleEvent);
-            Console.WriteLine($"Subscription done to event {nameof(EiffelActivityTriggeredEvent)} !");
+            _subscriptionId = _client.Subscribe<EiffelActivityCanceledEvent>(_queueIdentifier, GeneralHandleEvent);
+            Console.WriteLine($"Subscription done to event {nameof(EiffelActivityCanceledEvent)} !");
 
             while (true)
             {
