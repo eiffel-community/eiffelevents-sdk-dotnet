@@ -27,13 +27,13 @@ namespace EiffelEvents.Net.Events.Edition_Paris
         EiffelEvent<EiffelTestCaseFinishedData, EiffelTestCaseFinishedMeta, EiffelTestCaseFinishedLinks>
     {
         /// <inheritdoc/>
-        public override EiffelTestCaseFinishedData Data { get; init; }
+        public override EiffelTestCaseFinishedData Data { get; init; } = new();
 
         /// <inheritdoc/>
-        public override EiffelTestCaseFinishedMeta Meta { get; init; }
+        public override EiffelTestCaseFinishedMeta Meta { get; init; } = new();
 
         /// <inheritdoc/>
-        public override EiffelTestCaseFinishedLinks Links { get; init; }
+        public override EiffelTestCaseFinishedLinks Links { get; init; } = new();
 
         /// <inheritdoc/>
         public override IEiffelEvent FromJson(string json)

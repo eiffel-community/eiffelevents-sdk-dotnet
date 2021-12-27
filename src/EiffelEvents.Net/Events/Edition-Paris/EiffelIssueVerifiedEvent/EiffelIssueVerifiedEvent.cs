@@ -32,10 +32,10 @@ namespace EiffelEvents.Net.Events.Edition_Paris
         public override EiffelIssueVerifiedData Data { get; init; } = new();
 
         /// <inheritdoc/>
-        public override EiffelIssueVerifiedMeta Meta { get; init; }
+        public override EiffelIssueVerifiedMeta Meta { get; init; } = new();
 
         /// <inheritdoc/>
-        public override EiffelIssueVerifiedLinks Links { get; init; }
+        public override EiffelIssueVerifiedLinks Links { get; init; } = new();
 
         /// <inheritdoc/>
         public override IEiffelEvent FromJson(string json)

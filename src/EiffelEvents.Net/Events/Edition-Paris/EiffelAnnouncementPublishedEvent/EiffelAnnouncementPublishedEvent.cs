@@ -29,13 +29,13 @@ namespace EiffelEvents.Net.Events.Edition_Paris
         EiffelEvent<EiffelAnnouncementPublishedData, EiffelAnnouncementPublishedMeta, EiffelAnnouncementPublishedLinks>
     {
         /// <inheritdoc/>
-        public override EiffelAnnouncementPublishedData Data { get; init; }
+        public override EiffelAnnouncementPublishedData Data { get; init; } = new();
 
         /// <inheritdoc/>
-        public override EiffelAnnouncementPublishedMeta Meta { get; init; }
+        public override EiffelAnnouncementPublishedMeta Meta { get; init; } = new();
 
         /// <inheritdoc/>
-        public override EiffelAnnouncementPublishedLinks Links { get; init; }
+        public override EiffelAnnouncementPublishedLinks Links { get; init; } = new();
 
         /// <inheritdoc/>
         public override IEiffelEvent FromJson(string json)
