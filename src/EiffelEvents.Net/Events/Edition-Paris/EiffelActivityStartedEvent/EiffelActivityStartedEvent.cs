@@ -31,13 +31,13 @@ namespace EiffelEvents.Net.Events.Edition_Paris
         #region Props
 
         /// <inheritdoc/>
-        public override EiffelActivityStartedData Data { get; init; }
+        public override EiffelActivityStartedData Data { get; init; } = new();
         
         /// <inheritdoc/>
-        public override EiffelActivityStartedMeta Meta { get; init; }
+        public override EiffelActivityStartedMeta Meta { get; init; } = new();
 
         /// <inheritdoc/>
-        public override EiffelActivityStartedLinks Links { get; init; }
+        public override EiffelActivityStartedLinks Links { get; init; } = new();
         #endregion
 
         public override IEiffelEvent FromJson(string json)

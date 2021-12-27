@@ -32,13 +32,13 @@ namespace EiffelEvents.Net.Events.Edition_Paris
             EiffelConfidenceLevelModifiedLinks>
     {
         /// <inheritdoc/>
-        public override EiffelConfidenceLevelModifiedData Data { get; init; }
+        public override EiffelConfidenceLevelModifiedData Data { get; init; } = new();
 
         /// <inheritdoc/>
-        public override EiffelConfidenceLevelModifiedMeta Meta { get; init; }
+        public override EiffelConfidenceLevelModifiedMeta Meta { get; init; } = new();
 
         /// <inheritdoc/>
-        public override EiffelConfidenceLevelModifiedLinks Links { get; init; }
+        public override EiffelConfidenceLevelModifiedLinks Links { get; init; } = new();
 
         /// <inheritdoc/>
         public override IEiffelEvent FromJson(string json)

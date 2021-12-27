@@ -28,13 +28,13 @@ namespace EiffelEvents.Net.Events.Edition_Paris
         EiffelEvent<EiffelIssueDefinedData, EiffelIssueDefinedMeta, EiffelIssueDefinedLinks>
     {
         /// <inheritdoc/>
-        public override EiffelIssueDefinedData Data { get; init; }
+        public override EiffelIssueDefinedData Data { get; init; } = new();
 
         /// <inheritdoc/>
-        public override EiffelIssueDefinedMeta Meta { get; init; }
+        public override EiffelIssueDefinedMeta Meta { get; init; } = new();
 
         /// <inheritdoc/>
-        public override EiffelIssueDefinedLinks Links { get; init; }
+        public override EiffelIssueDefinedLinks Links { get; init; } = new();
 
         /// <inheritdoc/>
         public override IEiffelEvent FromJson(string json)

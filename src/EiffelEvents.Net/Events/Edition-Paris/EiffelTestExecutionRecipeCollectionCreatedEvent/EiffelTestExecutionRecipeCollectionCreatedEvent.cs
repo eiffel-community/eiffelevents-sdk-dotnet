@@ -29,13 +29,13 @@ namespace EiffelEvents.Net.Events.Edition_Paris
             EiffelTestExecutionRecipeCollectionCreatedLinks>
     {
         /// <inheritdoc/>
-        public override EiffelTestExecutionRecipeCollectionCreatedData Data { get; init; }
+        public override EiffelTestExecutionRecipeCollectionCreatedData Data { get; init; } = new();
         
         /// <inheritdoc/>
-        public override EiffelTestExecutionRecipeCollectionCreatedMeta Meta { get; init; }
+        public override EiffelTestExecutionRecipeCollectionCreatedMeta Meta { get; init; } = new();
 
         /// <inheritdoc/>
-        public override EiffelTestExecutionRecipeCollectionCreatedLinks Links { get; init; }
+        public override EiffelTestExecutionRecipeCollectionCreatedLinks Links { get; init; } = new();
 
         /// <inheritdoc/>
         public override IEiffelEvent FromJson(string json)

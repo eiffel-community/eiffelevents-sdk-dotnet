@@ -29,13 +29,13 @@ namespace EiffelEvents.Net.Events.Edition_Paris
         EiffelEvent<EiffelSourceChangeSubmittedData, EiffelSourceChangeSubmittedMeta, EiffelSourceChangeSubmittedLinks>
     {
         /// <inheritdoc/>
-        public override EiffelSourceChangeSubmittedData Data { get; init; }
+        public override EiffelSourceChangeSubmittedData Data { get; init; } = new();
 
         /// <inheritdoc/>
-        public override EiffelSourceChangeSubmittedMeta Meta { get; init; }
+        public override EiffelSourceChangeSubmittedMeta Meta { get; init; } = new();
 
         /// <inheritdoc/>
-        public override EiffelSourceChangeSubmittedLinks Links { get; init; }
+        public override EiffelSourceChangeSubmittedLinks Links { get; init; } = new();
 
         /// <inheritdoc/>
         public override IEiffelEvent FromJson(string json)
