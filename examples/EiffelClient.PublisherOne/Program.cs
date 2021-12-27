@@ -14,8 +14,8 @@
 
 using System;
 using System.Linq;
-using EiffelClient.PublisherOne.Models.Edition_Lyon;
-using EiffelEvents.Net.Events.Edition_Lyon;
+using EiffelClient.PublisherOne.Models.Edition_Paris;
+using EiffelEvents.Net.Events.Edition_Paris;
 
 namespace EiffelClient.PublisherOne
 {

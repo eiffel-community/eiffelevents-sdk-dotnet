@@ -71,6 +71,8 @@ namespace EiffelClient.SubscriberTwo
             else
             {
                 Console.WriteLine($"Error occured: {string.Join(',', eiffelEventResult.Errors)}");
+                _client.Reject(deliveryTag, false);
+                Console.WriteLine($"========= Reject Done for Delivery Tag : {deliveryTag} ===========");
             }
         }
 
