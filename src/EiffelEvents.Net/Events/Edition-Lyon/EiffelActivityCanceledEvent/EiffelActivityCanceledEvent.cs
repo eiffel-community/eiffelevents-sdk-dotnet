@@ -12,35 +12,36 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 
-using System.ComponentModel.DataAnnotations;
+
 using EiffelEvents.Net.Events.Core;
 using EiffelEvents.Net.Events.Edition_Lyon.Shared;
 
 namespace EiffelEvents.Net.Events.Edition_Lyon
 {
     /// <summary>
-    /// Announces that an activity has been triggered.
-    /// <a href="https://github.com/eiffel-community/eiffel/blob/edition-lyon/eiffel-vocabulary/EiffelActivityTriggeredEvent.md">
-    /// EiffelActivityTriggeredEvent
+    /// The EiffelActivityCanceledEvent signals that a previously triggered activity execution
+    /// has been canceled before it has started
+    /// <a href="https://github.com/eiffel-community/eiffel/blob/edition-lyon/eiffel-vocabulary/EiffelActivityCanceledEvent.md">
+    /// EiffelActivityCanceledEvent
     /// </a>
     /// for details.
     /// </summary>
-    public record EiffelActivityTriggeredEvent
-        : EiffelEvent<EiffelActivityTriggeredData, EiffelActivityTriggeredMeta, EiffelActivityTriggeredLinks>
+    public record EiffelActivityCanceledEvent
+        : EiffelEvent<EiffelActivityCanceledData, EiffelActivityCanceledMeta, EiffelActivityCanceledLinks>
     {
         /// <inheritdoc/>
-        public override EiffelActivityTriggeredData Data { get; init; }
+        public override EiffelActivityCanceledData Data { get; init; } = new();
 
         /// <inheritdoc/>
-        public override EiffelActivityTriggeredMeta Meta { get; init; }
+        public override EiffelActivityCanceledMeta Meta { get; init; } = new();
 
         /// <inheritdoc/>
-        public override EiffelActivityTriggeredLinks Links { get; init; }
+        public override EiffelActivityCanceledLinks Links { get; init; } = new();
 
         /// <inheritdoc/>
         public override IEiffelEvent FromJson(string json)
         {
-            return Deserialize<EiffelActivityTriggeredEvent>(json);
+            return Deserialize<EiffelActivityCanceledEvent>(json);
         }
     }
 }
