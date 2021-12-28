@@ -48,7 +48,7 @@ namespace EiffelEvents.Net.Tests.Events.Edition_Paris
         public void Validate_MissingRequired_Failed()
         {
             //Arrange
-            var flowContextDefinedEvent = new EiffelFlowContextDefinedEvent();
+            var flowContextDefinedEvent = _eventFixture.GetMissedRequiredEvent();
 
             //Act
             var result = flowContextDefinedEvent.Validate();

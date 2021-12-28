@@ -508,6 +508,71 @@ namespace EiffelEvents.Net.Tests.TestData.Edition_Paris
         }
 
         #endregion
+        
+        #region Valid Event empty Links (ICollection types)
+
+        /// <summary>
+        /// Get a valid instance of EiffelActivityTriggeredEvent with empty Links.
+        /// </summary>
+        /// <returns></returns>
+        public EiffelActivityTriggeredEvent GetEventWithEmptyLinks()
+        {
+            return new EiffelActivityTriggeredEvent()
+            {
+                Data = new()
+                {
+                    Name = "My activity",
+                    Categories = new() { "category 1", "category 2" },
+                    Triggers = new(),
+                    ExecutionType = EiffelDataExecutionType.AUTOMATED,
+                    CustomData = new()
+                },
+                Meta = new()
+                {
+                    Id = "91d0c7da-8d90-4033-8685-a035853aeea1",
+                    Time = 1637001247776,
+                    Tags = new() { "activity_block" },
+                    Security = new()
+                    {
+                        AuthorIdentity = "Flower"
+                    }
+                },
+                Links = new()
+            };
+        }
+
+        public string GetEventWithEmptyLinksSerialized()
+        {
+            var json = JObject.Parse(@"{
+                              'data': {
+                                        'name': 'My activity',
+                                        'categories': [
+                                        'category 1',
+                                        'category 2'
+                                            ],
+                                        'executionType': 'AUTOMATED'
+                                    },
+                                    'meta': {
+                                        'type': 'EiffelActivityTriggeredEvent',
+                                        'version': '4.0.0',
+                                        'tags': [
+                                        'activity_block'
+                                            ],
+                                        'source': {
+                                                    'serializer': 'pkg:nuget/EiffelEvents.Net@1.0.0.0'
+                                         },
+                                        'security': {
+                                            'authorIdentity': 'Flower'
+                                        },
+                                        'id': '91d0c7da-8d90-4033-8685-a035853aeea1',
+                                        'time': 1637001247776
+                                    },
+                                'links': [ ]
+                            }");
+            return json.ToString();
+        }
+
+        #endregion
 
         #region Not Valid Guids
 

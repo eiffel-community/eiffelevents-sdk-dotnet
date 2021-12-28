@@ -1,6 +1,6 @@
 # Implement Events Checklist
 
-This checklist to follow when implementing events. 
+This checklist is to follow when implementing events. 
 
 1. 
    Create directory for event under `Events/<edition namespace directory>`, for instance **Events / Edition-Paris / EiffelActivityTriggeredEvent**.
@@ -14,8 +14,22 @@ public record EiffelActivityTriggeredEvent
 ```
 
 3. Each Data, Links, and Meta properties has its own class, such as `<EventName>Data`, `<EventName>Links`, and `<EventName>Meta` respectively, e.g `EiffelActivityTriggeredData`, as long as the event itself.
+4. Initialize Data, Meta, and Links properties with `new()`. Although, they are required by the protocol schemas for all events, sometimes are not applicable to some events that have no Data or Links required such as `EiffelArtifactReusedEvent` that has no required Data (internal properties) required,  `EiffelActivityTriggeredEvent,` and `EiffelAnnouncementPublishedEvent` that has no required Links  (internal properties).
 
-4. The event should implement `FromJson` method to pass its type to `Deserialize` method in the `EiffelEvent` class.
+*Hence, as a developer experience and a standard implementation, we chose to initialize them, as they are objects and their internal properties have their attribute validation checks as specified by the Eiffel protocol. Also to avoid enforcing users to initialize unneeded objects, as the SDK is a kind of protocol abstraction. Finally, as a maintainability perspective, to eliminate bugs born by missing some validation for future updates or the Eiffel protocol stepping, in case if it selectively initializes the property that may be not applicable for Required validation.*
+
+```c#
+/// <inheritdoc/>
+public override EiffelActivityTriggeredData Data { get; init; } = new();
+   
+/// <inheritdoc/>
+public override EiffelActivityTriggeredMeta Meta { get; init; } = new();
+   
+/// <inheritdoc/>
+public override EiffelActivityTriggeredLinks Links { get; init; } = new();
+```
+
+5.  The event should implement `FromJson` method to pass its type to `Deserialize` method in the `EiffelEvent` class.
 
 
 ```c#
@@ -29,10 +43,6 @@ public override IEiffelEvent FromJson(string json)
 
 
 ```c#
- [Required]
- public override EiffelActivityTriggeredData Data { get; init; }
-
- //or
  [Required(AllowEmptyStrings = false)]
  public string Name { get; init; }
 ```

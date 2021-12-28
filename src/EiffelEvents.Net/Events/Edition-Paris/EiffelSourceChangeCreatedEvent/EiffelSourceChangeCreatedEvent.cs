@@ -30,13 +30,13 @@ namespace EiffelEvents.Net.Events.Edition_Paris
         EiffelEvent<EiffelSourceChangeCreatedData, EiffelSourceChangeCreatedMeta, EiffelSourceChangeCreatedLinks>
     {
         /// <inheritdoc/>
-        public override EiffelSourceChangeCreatedData Data { get; init; }
+        public override EiffelSourceChangeCreatedData Data { get; init; } = new();
         
         /// <inheritdoc/>
-        public override EiffelSourceChangeCreatedMeta Meta { get; init; }
+        public override EiffelSourceChangeCreatedMeta Meta { get; init; } = new();
         
         /// <inheritdoc/>
-        public override EiffelSourceChangeCreatedLinks Links { get; init; }
+        public override EiffelSourceChangeCreatedLinks Links { get; init; } = new();
         
         /// <inheritdoc/>
         public override IEiffelEvent FromJson(string json)

@@ -22,13 +22,13 @@ namespace EiffelEvents.Net.Events.Edition_Lyon
         : EiffelEvent<EiffelActivityTriggeredData, EiffelActivityTriggeredMeta, EiffelActivityTriggeredLinks>
     {
         /// <inheritdoc/>
-        public override EiffelActivityTriggeredData Data { get; init; }
+        public override EiffelActivityTriggeredData Data { get; init; } = new();
 
         /// <inheritdoc/>
-        public override EiffelActivityTriggeredMeta Meta { get; init; }
+        public override EiffelActivityTriggeredMeta Meta { get; init; } = new();
 
         /// <inheritdoc/>
-        public override EiffelActivityTriggeredLinks Links { get; init; }
+        public override EiffelActivityTriggeredLinks Links { get; init; } = new();
 
         /// <inheritdoc/>
         public override IEiffelEvent FromJson(string json)

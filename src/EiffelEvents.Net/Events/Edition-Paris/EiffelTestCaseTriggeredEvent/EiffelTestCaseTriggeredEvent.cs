@@ -30,13 +30,13 @@ namespace EiffelEvents.Net.Events.Edition_Paris
         EiffelEvent<EiffelTestCaseTriggeredData, EiffelTestCaseTriggeredMeta, EiffelTestCaseTriggeredLinks>
     {
         /// <inheritdoc/>
-        public override EiffelTestCaseTriggeredData Data { get; init; }
+        public override EiffelTestCaseTriggeredData Data { get; init; } = new();
 
         /// <inheritdoc/>
-        public override EiffelTestCaseTriggeredMeta Meta { get; init; }
+        public override EiffelTestCaseTriggeredMeta Meta { get; init; } = new();
 
         /// <inheritdoc/>
-        public override EiffelTestCaseTriggeredLinks Links { get; init; }
+        public override EiffelTestCaseTriggeredLinks Links { get; init; } = new();
 
         /// <inheritdoc/>
         public override IEiffelEvent FromJson(string json)

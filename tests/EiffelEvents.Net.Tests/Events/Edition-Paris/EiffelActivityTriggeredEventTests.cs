@@ -237,5 +237,19 @@ namespace EiffelEvents.Net.Tests.Events.Edition_Paris
             //Assert
             actualSerializedEvent.Should().BeEquivalentTo(expected);
         }
+        
+        [Fact]
+        public void ToJson_Serialize_Empty_Links_Success()
+        {
+            //Arrange
+            var activityTriggeredEvent = _eventFixture.GetEventWithEmptyLinks();
+            var expected = _eventFixture.GetEventWithEmptyLinksSerialized();
+
+            //Act
+            var actualSerializedEvent = activityTriggeredEvent.ToJson();
+
+            //Assert
+            actualSerializedEvent.Should().BeEquivalentTo(expected);
+        }
     }
 }
