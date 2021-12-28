@@ -68,11 +68,11 @@ namespace EiffelEvents.Net.Validation
 
             var path = Path.Combine(currentAssemblyPath!, "Schemas", edition, eventName);
             if (!Directory.Exists(path))
-                throw new SchemaNotFoundException($"Event json schema is not found for {eventName}, {edition}");
+                throw new SchemaNotFoundException(eventName, edition);
 
             var schemaFiles = Directory.GetFiles(path, "*.json");
             if (schemaFiles.Length == 0)
-                throw new SchemaNotFoundException($"Event json schema is not found for {eventName}, {edition}");
+                throw new SchemaNotFoundException(eventName, edition);
 
             return File.ReadAllText(schemaFiles[0]);
         }
