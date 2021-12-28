@@ -46,9 +46,11 @@ namespace EiffelEvents.Net.Clients
         /// <param name="serviceIdentifier">string identifier for each service to be included in queue name</param>
         /// <param name="callback">
         /// Callback that will be invoked when new events are received where
-        /// Result of T is fluent result <see cref="Result{TValue}"/> of event of the given type
-        /// (IsSuccess: true means event received without errors)
-        /// and ulong for deliveryTag
+        /// <see cref="Result{TValue}"/> is Fluent result object of subscribed event. "IsSuccess" flag will be "true"
+        /// if the received JSON was a valid event according to the respective schema and the event object can be found
+        /// in "Value" property. "IsSuccess" flag will be "false" if the received JSON wasn't valid according to the
+        /// respective schema and the validation errors can be found using `Errors` property.
+        /// And, ulong for deliveryTag.
         /// </param>
         /// <returns>string for subscriptionId can later be used to UnSubscribe</returns>
         string Subscribe<T>(string serviceIdentifier, Action<Result<T>, ulong> callback) where T : IEiffelEvent, new();
