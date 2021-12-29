@@ -14,6 +14,9 @@
 
 namespace EiffelEvents.Net.Events.Edition_Lyon.Shared.Links
 {
+    /// <summary>
+    /// Identifies the activity or test suite of which this event constitutes a part.
+    /// </summary>
     public record EiffelContextLink : EiffelLink
     {
         /// <inheritdoc/>
