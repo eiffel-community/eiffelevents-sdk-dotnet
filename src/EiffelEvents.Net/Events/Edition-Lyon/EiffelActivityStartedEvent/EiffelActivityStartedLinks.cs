@@ -12,7 +12,11 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using EiffelEvents.Net.Events.Edition_Lyon.Shared;
+using EiffelEvents.Net.Events.Edition_Lyon.Shared.Links;
+using EiffelEvents.Net.Validation;
 using Newtonsoft.Json;
 
 namespace EiffelEvents.Net.Events.Edition_Lyon
@@ -20,6 +24,20 @@ namespace EiffelEvents.Net.Events.Edition_Lyon
     [JsonArray]
     public record EiffelActivityStartedLinks : EiffelSharedLinks
     {
+        /// <summary>
+        /// Declares the activity execution that was canceled.
+        /// In other words, <see cref="EiffelActivityTriggeredEvent"/> acts as a handle for the activity execution.
+        /// This differs from <see cref="EiffelContextLink"/>.
+        /// </summary>
+        [Required]
+        [NestedObject]
+        public EiffelActivityExecutionLink ActivityExecution { get; init; }
         
+        /// <summary>
+        /// Identifies the latest previous execution of the activity.
+        /// </summary>
+        [NestedObject]
+        public EiffelPreviousActivityExecutionLink PreviousActivityExecution { get; init; }
+
     }
 }
