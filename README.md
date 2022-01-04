@@ -1,3 +1,5 @@
+<img src="images/logo.png" width="350" />
+
 # EiffelEvents .NET SDK #
 
 **EiffelEvents .NET SDK** is a .NET implementation for Eiffel events and  Assisted publishing service, which acts as an intermediate between the event author (publisher) and the Message Broker (RabbitMQ for instance).
