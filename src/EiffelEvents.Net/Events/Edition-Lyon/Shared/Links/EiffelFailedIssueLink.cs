@@ -22,10 +22,13 @@ namespace EiffelEvents.Net.Events.Edition_Lyon.Shared.Links
         /// <inheritdoc/>
         public override string Type => "FAILED_ISSUE";
 
+        /// <inheritdoc cref="EiffelFailedIssueLink"/>
         public EiffelFailedIssueLink()
         {
         }
 
+        /// <inheritdoc cref="EiffelFailedIssueLink"/>
+        /// <inheritdoc cref="EiffelLink(string, string)"/>
         public EiffelFailedIssueLink(string target, string domainId = "") : base(target, domainId)
         {
         }

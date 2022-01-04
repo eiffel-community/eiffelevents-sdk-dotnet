@@ -21,11 +21,14 @@ namespace EiffelEvents.Net.Events.Edition_Lyon.Shared.Links
     {
         /// <inheritdoc/>
         public override string Type => "ELEMENT";
-
+        
+        /// <inheritdoc cref="EiffelElementLink"/>
         public EiffelElementLink()
         {
         }
 
+        /// <inheritdoc cref="EiffelElementLink"/>
+        /// <inheritdoc cref="EiffelLink(string, string)"/>
         public EiffelElementLink(string target, string domainId = "") : base(target, domainId)
         {
         }

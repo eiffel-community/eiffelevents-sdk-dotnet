@@ -24,10 +24,13 @@ namespace EiffelEvents.Net.Events.Edition_Lyon.Shared.Links
         /// <inheritdoc/>
         public override string Type => "CAUSE";
 
+        /// <inheritdoc cref="EiffelCauseLink"/>
         public EiffelCauseLink()
         {
         }
 
+        /// <inheritdoc cref="EiffelCauseLink"/>
+        /// <inheritdoc cref="EiffelLink(string, string)"/>
         public EiffelCauseLink(string target, string domainId = "") : base(target, domainId)
         {
         }

@@ -25,10 +25,13 @@ namespace EiffelEvents.Net.Events.Edition_Lyon.Shared.Links
         /// <inheritdoc/>
         public override string Type => "SUB_CONFIDENCE_LEVEL";
 
+        /// <inheritdoc cref="EiffelSubConfidenceLevelLink"/>
         public EiffelSubConfidenceLevelLink()
         {
         }
 
+        /// <inheritdoc cref="EiffelSubConfidenceLevelLink"/>
+        /// <inheritdoc cref="EiffelLink(string, string)"/>
         public EiffelSubConfidenceLevelLink(string target, string domainId = "") : base(target, domainId)
         {
         }

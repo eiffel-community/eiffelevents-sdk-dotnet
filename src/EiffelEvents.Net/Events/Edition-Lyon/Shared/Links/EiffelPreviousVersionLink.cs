@@ -22,10 +22,13 @@ namespace EiffelEvents.Net.Events.Edition_Lyon.Shared.Links
         /// <inheritdoc/>
         public override string Type => "PREVIOUS_VERSION";
 
+        /// <inheritdoc cref="EiffelPreviousVersionLink"/>
         public EiffelPreviousVersionLink()
         {
         }
 
+        /// <inheritdoc cref="EiffelPreviousVersionLink"/>
+        /// <inheritdoc cref="EiffelLink(string, string)"/>
         public EiffelPreviousVersionLink(string target, string domainId = "") : base(target, domainId)
         {
         }

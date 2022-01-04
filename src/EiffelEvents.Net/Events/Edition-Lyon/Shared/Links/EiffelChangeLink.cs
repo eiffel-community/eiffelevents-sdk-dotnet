@@ -22,10 +22,13 @@ namespace EiffelEvents.Net.Events.Edition_Lyon.Shared.Links
         /// <inheritdoc/>
         public override string Type => "CHANGE";
 
+        /// <inheritdoc cref="EiffelChangeLink"/>
         public EiffelChangeLink()
         {
         }
 
+        /// <inheritdoc cref="EiffelChangeLink"/>
+        /// <inheritdoc cref="EiffelLink(string, string)"/>
         public EiffelChangeLink(string target, string domainId = "") : base(target, domainId)
         {
         }

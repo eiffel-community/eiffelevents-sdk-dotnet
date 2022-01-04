@@ -24,10 +24,13 @@ namespace EiffelEvents.Net.Events.Edition_Lyon.Shared.Links
         /// <inheritdoc/>
         public override string Type => "TEST_CASE_EXECUTION";
 
+        /// <inheritdoc cref="EiffelTestCaseExecutionLink"/>
         public EiffelTestCaseExecutionLink()
         {
         }
 
+        /// <inheritdoc cref="EiffelTestCaseExecutionLink"/>
+        /// <inheritdoc cref="EiffelLink(string, string)"/>
         public EiffelTestCaseExecutionLink(string target, string domainId = "") : base(target, domainId)
         {
         }

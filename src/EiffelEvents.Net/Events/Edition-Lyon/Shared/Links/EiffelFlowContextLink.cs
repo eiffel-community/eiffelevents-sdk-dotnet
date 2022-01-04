@@ -23,10 +23,13 @@ namespace EiffelEvents.Net.Events.Edition_Lyon.Shared.Links
         /// <inheritdoc/>
         public override string Type => "FLOW_CONTEXT";
 
+        /// <inheritdoc cref="EiffelFlowContextLink"/>
         public EiffelFlowContextLink()
         {
         }
 
+        /// <inheritdoc cref="EiffelFlowContextLink"/>
+        /// <inheritdoc cref="EiffelLink(string, string)"/>
         public EiffelFlowContextLink(string target, string domainId = "") : base(target, domainId)
         {
         }

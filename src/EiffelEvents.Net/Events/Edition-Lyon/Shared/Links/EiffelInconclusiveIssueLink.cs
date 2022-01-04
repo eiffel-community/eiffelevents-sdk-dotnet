@@ -22,10 +22,13 @@ namespace EiffelEvents.Net.Events.Edition_Lyon.Shared.Links
         /// <inheritdoc/>
         public override string Type => "INCONCLUSIVE_ISSUE";
 
+        /// <inheritdoc cref="EiffelInconclusiveIssueLink"/>
         public EiffelInconclusiveIssueLink()
         {
         }
 
+        /// <inheritdoc cref="EiffelInconclusiveIssueLink"/>
+        /// <inheritdoc cref="EiffelLink(string, string)"/>
         public EiffelInconclusiveIssueLink(string target, string domainId = "") : base(target, domainId)
         {
         }

@@ -24,10 +24,13 @@ namespace EiffelEvents.Net.Events.Edition_Lyon.Shared.Links
         /// <inheritdoc/>
         public override string Type => "PARTIALLY_RESOLVED_ISSUE";
 
+        /// <inheritdoc cref="EiffelPartiallyResolvedIssueLink"/>
         public EiffelPartiallyResolvedIssueLink()
         {
         }
 
+        /// <inheritdoc cref="EiffelPartiallyResolvedIssueLink"/>
+        /// <inheritdoc cref="EiffelLink(string, string)"/>
         public EiffelPartiallyResolvedIssueLink(string target, string domainId = "") : base(target, domainId)
         {
         }

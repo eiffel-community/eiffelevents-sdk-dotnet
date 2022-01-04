@@ -23,10 +23,13 @@ namespace EiffelEvents.Net.Events.Edition_Lyon.Shared.Links
         /// <inheritdoc/>
         public override string Type => "PREVIOUS_ACTIVITY_EXECUTION";
 
+        /// <inheritdoc cref="EiffelPreviousActivityExecutionLink"/>
         public EiffelPreviousActivityExecutionLink()
         {
         }
 
+        /// <inheritdoc cref="EiffelPreviousActivityExecutionLink"/>
+        /// <inheritdoc cref="EiffelLink(string, string)"/>
         public EiffelPreviousActivityExecutionLink(string target, string domainId = "") : base(target, domainId)
         {
         }

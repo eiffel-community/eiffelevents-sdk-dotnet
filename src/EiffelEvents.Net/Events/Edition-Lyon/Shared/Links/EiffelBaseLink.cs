@@ -22,10 +22,13 @@ namespace EiffelEvents.Net.Events.Edition_Lyon.Shared.Links
         /// <inheritdoc/>
         public override string Type => "BASE";
 
+        /// <inheritdoc cref="EiffelBaseLink"/>
         public EiffelBaseLink()
         {
         }
 
+        /// <inheritdoc cref="EiffelBaseLink"/>
+        /// <inheritdoc cref="EiffelLink(string, string)"/>
         public EiffelBaseLink(string target, string domainId = "") : base(target, domainId)
         {
         }

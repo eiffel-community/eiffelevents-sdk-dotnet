@@ -23,10 +23,13 @@ namespace EiffelEvents.Net.Events.Edition_Lyon.Shared.Links
         /// <inheritdoc/>
         public override string Type => "DERESOLVED_ISSUE";
 
+        /// <inheritdoc cref="EiffelDeresolvedIssueLink"/>
         public EiffelDeresolvedIssueLink()
         {
         }
-
+        
+        /// <inheritdoc cref="EiffelDeresolvedIssueLink"/>
+        /// <inheritdoc cref="EiffelLink(string, string)"/>
         public EiffelDeresolvedIssueLink(string target, string domainId = "") : base(target, domainId)
         {
         }

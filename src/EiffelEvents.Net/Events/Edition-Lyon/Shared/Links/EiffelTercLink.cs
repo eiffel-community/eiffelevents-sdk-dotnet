@@ -23,10 +23,13 @@ namespace EiffelEvents.Net.Events.Edition_Lyon.Shared.Links
         /// <inheritdoc/>
         public override string Type => "TERC";
 
+        /// <inheritdoc cref="EiffelTercLink"/>
         public EiffelTercLink()
         {
         }
 
+        /// <inheritdoc cref="EiffelTercLink"/>
+        /// <inheritdoc cref="EiffelLink(string, string)"/>
         public EiffelTercLink(string target, string domainId = "") : base(target, domainId)
         {
         }
