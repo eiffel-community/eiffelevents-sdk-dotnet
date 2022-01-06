@@ -15,23 +15,23 @@
 namespace EiffelEvents.Net.Events.Edition_Lyon.Shared.Links
 {
     /// <summary>
-    /// Identifies the activity or test suite of which this event constitutes a part.
+    /// Identifies an issue for which this verification was inconclusive.
     /// </summary>
-    public record EiffelContextLink : EiffelLink
+    public record EiffelInconclusiveIssueLink : EiffelLink
     {
         /// <inheritdoc/>
-        public override string Type => "CONTEXT";
+        public override string Type => "INCONCLUSIVE_ISSUE";
 
-        /// <inheritdoc cref="EiffelContextLink"/>
-        public EiffelContextLink()
+        /// <inheritdoc cref="EiffelInconclusiveIssueLink"/>
+        public EiffelInconclusiveIssueLink()
         {
         }
 
-        /// <inheritdoc cref="EiffelContextLink"/>
+        /// <inheritdoc cref="EiffelInconclusiveIssueLink"/>
         /// <inheritdoc cref="EiffelLink(string, string)"/>
-        public EiffelContextLink(string target, string domainId = "") : base(target, domainId)
+        public EiffelInconclusiveIssueLink(string target, string domainId = "") : base(target, domainId)
         {
-            
         }
+
     }
 }

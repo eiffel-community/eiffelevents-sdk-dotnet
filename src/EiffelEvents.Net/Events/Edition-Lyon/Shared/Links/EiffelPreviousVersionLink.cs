@@ -15,23 +15,23 @@
 namespace EiffelEvents.Net.Events.Edition_Lyon.Shared.Links
 {
     /// <summary>
-    /// Identifies the activity or test suite of which this event constitutes a part.
+    /// Identifies a latest previous version (there may be more than one in case of merges) of the artifact the event represents.
     /// </summary>
-    public record EiffelContextLink : EiffelLink
+    public record EiffelPreviousVersionLink : EiffelLink
     {
         /// <inheritdoc/>
-        public override string Type => "CONTEXT";
+        public override string Type => "PREVIOUS_VERSION";
 
-        /// <inheritdoc cref="EiffelContextLink"/>
-        public EiffelContextLink()
+        /// <inheritdoc cref="EiffelPreviousVersionLink"/>
+        public EiffelPreviousVersionLink()
         {
         }
 
-        /// <inheritdoc cref="EiffelContextLink"/>
+        /// <inheritdoc cref="EiffelPreviousVersionLink"/>
         /// <inheritdoc cref="EiffelLink(string, string)"/>
-        public EiffelContextLink(string target, string domainId = "") : base(target, domainId)
+        public EiffelPreviousVersionLink(string target, string domainId = "") : base(target, domainId)
         {
-            
         }
+
     }
 }

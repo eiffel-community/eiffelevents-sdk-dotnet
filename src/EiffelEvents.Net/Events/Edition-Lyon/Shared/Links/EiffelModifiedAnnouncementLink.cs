@@ -14,24 +14,26 @@
 
 namespace EiffelEvents.Net.Events.Edition_Lyon.Shared.Links
 {
+
     /// <summary>
-    /// Identifies the activity or test suite of which this event constitutes a part.
+    /// Identifies an announcement of which this event represents an update or modification, if any.
+    /// Example usage is to declare the end to a previously announced situation.
     /// </summary>
-    public record EiffelContextLink : EiffelLink
+    public record EiffelModifiedAnnouncementLink: EiffelLink
     {
         /// <inheritdoc/>
-        public override string Type => "CONTEXT";
+        public override string Type => "MODIFIED_ANNOUNCEMENT";
 
-        /// <inheritdoc cref="EiffelContextLink"/>
-        public EiffelContextLink()
+        /// <inheritdoc cref="EiffelModifiedAnnouncementLink"/>
+        public EiffelModifiedAnnouncementLink()
         {
         }
 
-        /// <inheritdoc cref="EiffelContextLink"/>
+        /// <inheritdoc cref="EiffelModifiedAnnouncementLink"/>
         /// <inheritdoc cref="EiffelLink(string, string)"/>
-        public EiffelContextLink(string target, string domainId = "") : base(target, domainId)
+        public EiffelModifiedAnnouncementLink(string target, string domainId = "") : base(target, domainId)
         {
-            
         }
+
     }
 }

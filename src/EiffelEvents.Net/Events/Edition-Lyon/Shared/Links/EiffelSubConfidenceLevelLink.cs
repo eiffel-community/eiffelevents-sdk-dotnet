@@ -15,23 +15,26 @@
 namespace EiffelEvents.Net.Events.Edition_Lyon.Shared.Links
 {
     /// <summary>
-    /// Identifies the activity or test suite of which this event constitutes a part.
+    /// Used in events summarizing multiple confidence levels.
+    /// Example use case: the confidence level "allTestsOk" summarizes the confidence levels "unitTestsOk, "scenarioTestsOk"
+    /// and "deploymentTestsOk", and consequently links to them via EiffelSubConfidenceLevelLink.
+    /// This is intended for purely descriptive, rather than prescriptive, use.
     /// </summary>
-    public record EiffelContextLink : EiffelLink
+    public record EiffelSubConfidenceLevelLink : EiffelLink
     {
         /// <inheritdoc/>
-        public override string Type => "CONTEXT";
+        public override string Type => "SUB_CONFIDENCE_LEVEL";
 
-        /// <inheritdoc cref="EiffelContextLink"/>
-        public EiffelContextLink()
+        /// <inheritdoc cref="EiffelSubConfidenceLevelLink"/>
+        public EiffelSubConfidenceLevelLink()
         {
         }
 
-        /// <inheritdoc cref="EiffelContextLink"/>
+        /// <inheritdoc cref="EiffelSubConfidenceLevelLink"/>
         /// <inheritdoc cref="EiffelLink(string, string)"/>
-        public EiffelContextLink(string target, string domainId = "") : base(target, domainId)
+        public EiffelSubConfidenceLevelLink(string target, string domainId = "") : base(target, domainId)
         {
-            
         }
+
     }
 }

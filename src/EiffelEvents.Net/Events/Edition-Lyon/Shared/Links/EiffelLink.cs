@@ -42,6 +42,9 @@ namespace EiffelEvents.Net.Events.Edition_Lyon.Shared.Links
         {
         }
 
+        
+        /// <param name="target">A UUID corresponding to the meta.id of the target event, on string format</param>
+        /// <param name="domainId">Optionally the id of the domain where the target event was published (i.e. its meta.source.domainId member). The absence of a domain id means that the target event was sent in, or can at least be retrieved from, the same domain as the current event.</param>
         protected EiffelLink(string target, string domainId = "")
         {
             Target = target;

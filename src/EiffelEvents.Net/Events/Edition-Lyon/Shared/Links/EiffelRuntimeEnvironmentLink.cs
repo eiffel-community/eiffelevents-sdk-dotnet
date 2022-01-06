@@ -15,23 +15,25 @@
 namespace EiffelEvents.Net.Events.Edition_Lyon.Shared.Links
 {
     /// <summary>
-    /// Identifies the activity or test suite of which this event constitutes a part.
+    /// Identifies a description of a runtime environment within which an activity has taken place. The target event could
+    /// e.g. identify a Docker image, a JVM distribution archive, or a composition of operating system packages that were installed on the host system.
+    /// This link type has the same purpose as the `data.image` member but allows richer and less ambiguous descriptions.
     /// </summary>
-    public record EiffelContextLink : EiffelLink
+    public record EiffelRuntimeEnvironmentLink : EiffelLink
     {
         /// <inheritdoc/>
-        public override string Type => "CONTEXT";
+        public override string Type => "RUNTIME_ENVIRONMENT";
 
-        /// <inheritdoc cref="EiffelContextLink"/>
-        public EiffelContextLink()
+        /// <inheritdoc cref="EiffelRuntimeEnvironmentLink"/>
+        public EiffelRuntimeEnvironmentLink()
         {
         }
 
-        /// <inheritdoc cref="EiffelContextLink"/>
+        /// <inheritdoc cref="EiffelRuntimeEnvironmentLink"/>
         /// <inheritdoc cref="EiffelLink(string, string)"/>
-        public EiffelContextLink(string target, string domainId = "") : base(target, domainId)
+        public EiffelRuntimeEnvironmentLink(string target, string domainId = "") : base(target, domainId)
         {
-            
         }
+
     }
 }

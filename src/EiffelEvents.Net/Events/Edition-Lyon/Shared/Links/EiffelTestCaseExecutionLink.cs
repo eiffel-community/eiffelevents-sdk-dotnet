@@ -15,23 +15,25 @@
 namespace EiffelEvents.Net.Events.Edition_Lyon.Shared.Links
 {
     /// <summary>
-    /// Identifies the activity or test suite of which this event constitutes a part.
+    /// Identifies the relevant test case execution. In other words, <see cref="EiffelTestCaseTriggeredEvent"> acts as a handle for
+    /// a particular test case execution.  This differs from <see cref="EiffelContextLink"/>.
+    /// In EiffelTestCaseExecutionLink the source carries information pertaining to the target (i.e. the test case execution started, finished or was canceled).
     /// </summary>
-    public record EiffelContextLink : EiffelLink
+    public record EiffelTestCaseExecutionLink : EiffelLink
     {
         /// <inheritdoc/>
-        public override string Type => "CONTEXT";
+        public override string Type => "TEST_CASE_EXECUTION";
 
-        /// <inheritdoc cref="EiffelContextLink"/>
-        public EiffelContextLink()
+        /// <inheritdoc cref="EiffelTestCaseExecutionLink"/>
+        public EiffelTestCaseExecutionLink()
         {
         }
 
-        /// <inheritdoc cref="EiffelContextLink"/>
+        /// <inheritdoc cref="EiffelTestCaseExecutionLink"/>
         /// <inheritdoc cref="EiffelLink(string, string)"/>
-        public EiffelContextLink(string target, string domainId = "") : base(target, domainId)
+        public EiffelTestCaseExecutionLink(string target, string domainId = "") : base(target, domainId)
         {
-            
         }
+
     }
 }
