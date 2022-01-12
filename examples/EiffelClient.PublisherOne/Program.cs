@@ -28,7 +28,8 @@ namespace EiffelClient.PublisherOne
             // Create a raw event
             var eiffelEvent = TryClient.GetEvent<EiffelArtifactPublishedEvent>();
             var signedEvent = eiffelEvent?.Sign<EiffelArtifactPublishedEvent>();
-            /*for (int i = 0; i < 10000; i++)
+
+          /*for (int i = 0; i < 10000; i++)
            {*/
             var result = TryClient.Eiffelclient.Publish(signedEvent);
             Console.WriteLine(
