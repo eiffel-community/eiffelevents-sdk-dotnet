@@ -49,7 +49,9 @@ namespace EiffelEvents.Net.Tests.TestData.Edition_Paris
                 Links = new ()
                 {
                     Context = "82f11609-bd5b-4c82-a5f2-c2a9d982cdbd",
-                    FlowContext = new (){ "cf056717-201b-43f6-9f2c-839b33b71baf" }
+                    FlowContext = new (){ "cf056717-201b-43f6-9f2c-839b33b71baf" },
+                    
+                    
                 }
             };
         }

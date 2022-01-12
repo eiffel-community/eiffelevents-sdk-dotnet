@@ -38,8 +38,8 @@ namespace EiffelClient.SubscriberTwo
             Console.WriteLine("Started ....");
 
             // Subscribe to events
-            _subscriptionId = _client.Subscribe<EiffelActivityStartedEvent>(_queueIdentifier, GeneralHandleEvent);
-            Console.WriteLine($"Subscription done to event {nameof(EiffelActivityStartedEvent)} !");
+            _subscriptionId = _client.Subscribe<EiffelArtifactCreatedEvent>(_queueIdentifier, GeneralHandleEvent);
+            Console.WriteLine($"Subscription done to event {nameof(EiffelArtifactCreatedEvent)} !");
 
             while (true)
             {
