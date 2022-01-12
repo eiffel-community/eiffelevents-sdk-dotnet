@@ -13,6 +13,7 @@
 //    limitations under the License.
 
 using System;
+using EiffelEvents.Net.Clients.Validation;
 using EiffelEvents.Net.Events.Core;
 using FluentResults;
 
@@ -21,7 +22,7 @@ namespace EiffelEvents.Net.Clients
     /// <summary>
     /// Provides publishing and subscription of Eiffel events.
     /// </summary>
-    public interface IEiffelClient
+    public interface IEiffelClient 
     {
         /// <summary>
         /// Publish an event to the Eiffel event bus represented by this client.
@@ -29,7 +30,8 @@ namespace EiffelEvents.Net.Clients
         /// <typeparam name="T">The type of event to send</typeparam>
         /// <param name="eiffelEvent">Event to send</param>
         /// <param name="validateBeforePublish">
-        /// boolean to indicate that if the event will be validated before publish or not
+        /// boolean to indicate that if the event will be validated before publish or not.
+        /// This parameter will override any configured value.
         /// </param>
         /// <returns>
         /// Result object that indicates if the event published successfully (Result.IsSuccess).
@@ -37,10 +39,23 @@ namespace EiffelEvents.Net.Clients
         /// If publish succeed, result object will hold event sent on the bus,
         /// which may be different from the input event (e.g. signed).
         /// </returns>
-        Result<T> Publish<T>(T eiffelEvent, bool validateBeforePublish = true) where T : IEiffelEvent;
+        Result<T> Publish<T>(T eiffelEvent,  bool validateBeforePublish) where T : IEiffelEvent;
 
         /// <summary>
-        /// Subscribes to events of the given type on the given topic
+        /// Publish an event to the Eiffel event bus represented by this client.
+        /// </summary>
+        /// <typeparam name="T">The type of event to send</typeparam>
+        /// <param name="eiffelEvent">Event to send</param>
+        /// <returns>
+        /// Result object that indicates if the event published successfully (Result.IsSuccess).
+        /// It may hold validation errors in case of failed event validation (Result.IsFailed).
+        /// If publish succeed, result object will hold event sent on the bus,
+        /// which may be different from the input event (e.g. signed).
+        /// </returns>
+        Result<T> Publish<T>(T eiffelEvent) where T : IEiffelEvent;
+
+        /// <summary>
+        /// Subscribes to events of the given Eiffel type
         /// </summary>
         /// <typeparam name="T">Type of event to subscribe to</typeparam>
         /// <param name="serviceIdentifier">string identifier for each service to be included in queue name</param>
@@ -55,6 +70,25 @@ namespace EiffelEvents.Net.Clients
         /// <returns>string for subscriptionId can later be used to UnSubscribe</returns>
         string Subscribe<T>(string serviceIdentifier, Action<Result<T>, ulong> callback) where T : IEiffelEvent, new();
 
+        /// <summary>
+        /// Subscribes to events of the given Eiffel type
+        /// </summary>
+        /// <param name="serviceIdentifier">string identifier for each service to be included in queue name</param>
+        /// <param name="callback">
+        /// Callback that will be invoked when new events are received where
+        /// <see cref="Result{TValue}"/> is Fluent result object of subscribed event. "IsSuccess" flag will be "true"
+        /// if the received JSON was a valid event according to the respective schema and the event object can be found
+        /// in "Value" property. "IsSuccess" flag will be "false" if the received JSON wasn't valid according to the
+        /// respective schema and the validation errors can be found using `Errors` property.
+        /// And, ulong for deliveryTag.
+        /// </param>
+        /// <param name="validateOnSubscribe">States when to validate the received JSON event</param>
+        /// <typeparam name="T">Type of event to subscribe to</typeparam>
+        /// <returns>string for subscriptionId can later be used to UnSubscribe</returns>
+        string Subscribe<T>(string serviceIdentifier, Action<Result<T>, ulong> callback, ValidateOnSubscribe validateOnSubscribe) 
+            where T : IEiffelEvent, new();
+
+        
         /// <summary>
         /// Acknowledge receiving the message(event), used for positive acknowledgements. 
         /// </summary>

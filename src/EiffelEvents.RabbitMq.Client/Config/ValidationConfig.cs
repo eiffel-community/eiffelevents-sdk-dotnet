@@ -12,20 +12,15 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 
-using System.ComponentModel.DataAnnotations;
-using EiffelEvents.Net.Events.Core.Links;
-using EiffelEvents.Net.Validation;
+using EiffelEvents.Net.Clients.Validation;
 
-namespace EiffelEvents.Net.Events.Edition_Paris.Shared
+namespace EiffelEvents.RabbitMq.Client.Config
 {
-    public record EiffelSerializedLink : IEiffelSerializedLink
+    public class ValidationConfig
     {
-        /// <inheritdoc/>
-        [Required(AllowEmptyStrings = false)]
-        public string Type { get; init; }
-        /// <inheritdoc/>
-        [Required(AllowEmptyStrings = false)]
-        [ValidGuid]
-        public string Target { get; init; }
+        public bool ValidateOnPublish { get; init; } = true;
+        public ValidateOnSubscribe ValidateOnSubscribe { get; init; } = ValidateOnSubscribe.NONE;
     }
+
+    
 }

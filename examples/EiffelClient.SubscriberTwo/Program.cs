@@ -18,6 +18,7 @@ using EiffelEvents.Net.Clients;
 using EiffelEvents.Net.Events.Core;
 using EiffelEvents.Net.Events.Edition_Lyon;
 using EiffelEvents.RabbitMq.Client;
+using EiffelEvents.RabbitMq.Client.Config;
 using FluentResults;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -35,7 +36,7 @@ namespace EiffelClient.SubscriberTwo
         public static void Main(string[] args)
         {
             using IHost host = CreateHostBuilder(args).Build();
-            _client = new RabbitMqEiffelClient(_rabbitMqConfig);
+            _client = new RabbitMqEiffelClient(new() { RabbitMqConfig = _rabbitMqConfig });
             Console.WriteLine("Started ....");
 
             // Subscribe to events

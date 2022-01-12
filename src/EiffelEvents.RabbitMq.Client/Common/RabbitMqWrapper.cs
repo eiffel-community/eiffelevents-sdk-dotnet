@@ -14,6 +14,7 @@
 
 using System;
 using System.Threading;
+using EiffelEvents.RabbitMq.Client.Config;
 using EiffelEvents.RabbitMq.Client.Exceptions;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;

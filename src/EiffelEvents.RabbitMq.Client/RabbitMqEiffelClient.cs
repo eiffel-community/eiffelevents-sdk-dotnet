@@ -15,10 +15,13 @@
 using EiffelEvents.Net.Events.Core;
 using System.Text;
 using EiffelEvents.Net.Clients;
+using EiffelEvents.Net.Clients.Validation;
 using EiffelEvents.Net.Validation;
 using EiffelEvents.RabbitMq.Client.Common;
+using EiffelEvents.RabbitMq.Client.Config;
 using EiffelEvents.RabbitMq.Client.Exceptions;
 using FluentResults;
+using Newtonsoft.Json;
 
 namespace EiffelEvents.RabbitMq.Client
 {
@@ -28,6 +31,7 @@ namespace EiffelEvents.RabbitMq.Client
     public class RabbitMqEiffelClient : IEiffelClient, IDisposable
     {
         private readonly IRabbitMqWrapper _rabbitMqWrapper;
+        private readonly ValidationConfig _validationConfig;
 
         private RabbitMqEiffelClient()
         {
@@ -37,26 +41,39 @@ namespace EiffelEvents.RabbitMq.Client
         /// <summary>
         /// Construct a new object from RabbitMqEiffelClient
         /// </summary>
-        /// <param name="config">RabbitMQ instance connection configurations</param>
+        /// <param name="config">
+        /// Client configurations used to connect to RabbitMq instance and while validating events
+        /// </param>
         /// <param name="connectionRetries">Number od retries used to establish RabbitMQ connection</param>
-        public RabbitMqEiffelClient(RabbitMqConfig config, int connectionRetries = 10)
+        public RabbitMqEiffelClient(ClientConfig config, int connectionRetries = 10)
         {
-            _rabbitMqWrapper = new RabbitMqWrapper(config, connectionRetries);
+            _rabbitMqWrapper = new RabbitMqWrapper(config.RabbitMqConfig, connectionRetries);
+            _validationConfig = config.ValidationConfig;
         }
 
         /// <inheritdoc/>
-        public Result<T> Publish<T>(T eiffelEvent, bool validateBeforePublish = true) where T : IEiffelEvent
+        public Result<T> Publish<T>(T eiffelEvent, bool validateBeforePublish) where T : IEiffelEvent
         {
             try
             {
+                var json = string.Empty;
                 if (validateBeforePublish)
                 {
-                    var validationResult = eiffelEvent.Validate();
-                    if (validationResult.IsFailed)
-                        return validationResult.ToResult(eiffelEvent);
+                    // validate against c# schema 
+                    var attributeValidationResult = eiffelEvent.Validate();
+                    if (attributeValidationResult.IsFailed)
+                        return attributeValidationResult.ToResult(eiffelEvent);
+                    
+                    // validate against protocol json schema
+                    json = eiffelEvent.ToJson();
+                    var schemaValidationResult = ValidationHelper.ValidateEventSchema<T>(json);
+                    if (schemaValidationResult.IsFailed)
+                        return schemaValidationResult.ToResult(eiffelEvent);
                 }
 
-                var json = eiffelEvent.ToJson();
+                if (string.IsNullOrWhiteSpace(json))
+                    json = eiffelEvent.ToJson();
+
                 var body = Encoding.UTF8.GetBytes(json);
                 var routingKey = _rabbitMqWrapper.GetRoutingKey(typeof(T).Name);
                 var sent = _rabbitMqWrapper.Publish(routingKey, body);
@@ -72,8 +89,21 @@ namespace EiffelEvents.RabbitMq.Client
         }
 
         /// <inheritdoc/>
+        public Result<T> Publish<T>(T eiffelEvent) where T : IEiffelEvent
+        {
+            return Publish(eiffelEvent, _validationConfig.ValidateOnPublish);
+        }
+
+        /// <inheritdoc/>
         public string Subscribe<T>(string serviceIdentifier, Action<Result<T>, ulong> callback)
             where T : IEiffelEvent, new()
+        {
+            return Subscribe(serviceIdentifier, callback, _validationConfig.ValidateOnSubscribe);
+        }
+
+        /// <inheritdoc/>
+        public string Subscribe<T>(string serviceIdentifier, Action<Result<T>, ulong> callback,
+            ValidateOnSubscribe validateOnSubscribe) where T : IEiffelEvent, new()
         {
             try
             {
@@ -93,35 +123,64 @@ namespace EiffelEvents.RabbitMq.Client
                             var typeObj = (T)Activator.CreateInstance(typeof(T));
                             if (typeObj == null) return;
 
-                            var validJsonResult = ValidationHelper.ValidateEventSchema<T>(content);
-
-                            if (validJsonResult.IsSuccess)
-                            {
-                                var eiffelEvent = (T)typeObj.FromJson(content);
-                                callback(Result.Ok(eiffelEvent), eventArgs.DeliveryTag);
-                            }
-                            else
-                            {
-                                var validationErrors = string.Join(", ", validJsonResult.Errors);
-                                var failedResult =
-                                    Result.Fail<T>($"Not valid json. Errors: {validationErrors}");
-                                callback(failedResult, eventArgs.DeliveryTag);
-                            }
+                            var result = ValidateEvent(validateOnSubscribe, typeObj, content);
+                            callback(result, eventArgs.DeliveryTag);
                         }
                         catch (Exception e)
                         {
-                            // is this the best way to handle exceptions inside a callback !!
                             var failedResult = Result.Fail<T>(e.Message);
                             callback(failedResult, eventArgs.DeliveryTag);
                         }
                     }
                 );
-
                 return subscriptionId;
             }
             catch (Exception e)
             {
                 throw new RabbitMqException($"Error occurred while subscribing to {typeof(T).Name}", e);
+            }
+        }
+
+        private Result<T> ValidateEvent<T>(ValidateOnSubscribe validateOnSubscribe, T typeObj, string content)
+            where T : IEiffelEvent, new()
+        {
+            T eiffelEvent;
+            Result validJsonResult;
+            switch (validateOnSubscribe)
+            {
+                case ValidateOnSubscribe.ON_DESERIALIZATION_FAIL:
+                    try
+                    {
+                        eiffelEvent = (T)typeObj.FromJson(content);
+                        return Result.Ok(eiffelEvent);
+                    }
+                    catch (JsonSerializationException)
+                    {
+                        validJsonResult = ValidationHelper.ValidateEventSchema<T>(content);
+                        var validationErrors = string.Join(", ", validJsonResult.Errors);
+                        var failedResult =
+                            Result.Fail<T>($"Not valid json. Errors: {validationErrors}");
+                        return failedResult;
+                    }
+                case ValidateOnSubscribe.ALWAYS:
+                    validJsonResult = ValidationHelper.ValidateEventSchema<T>(content);
+
+                    if (validJsonResult.IsSuccess)
+                    {
+                        eiffelEvent = (T)typeObj.FromJson(content);
+                        return Result.Ok(eiffelEvent);
+                    }
+                    else
+                    {
+                        var validationErrors = string.Join(", ", validJsonResult.Errors);
+                        var failedResult =
+                            Result.Fail<T>($"Not valid json. Errors: {validationErrors}");
+                        return failedResult;
+                    }
+                case ValidateOnSubscribe.NONE:
+                default:
+                    eiffelEvent = (T)typeObj.FromJson(content);
+                    return Result.Ok(eiffelEvent);
             }
         }
 
