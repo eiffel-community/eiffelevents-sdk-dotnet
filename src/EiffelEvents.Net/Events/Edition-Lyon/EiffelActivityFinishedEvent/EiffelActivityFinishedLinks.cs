@@ -12,21 +12,21 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 
-using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using EiffelEvents.Net.Events.Edition_Lyon.Shared;
+using EiffelEvents.Net.Events.Edition_Lyon.Shared.Links;
+using EiffelEvents.Net.Validation;
 
-namespace EiffelEvents.Net.Events.Edition_Lyon.Shared.Data
+namespace EiffelEvents.Net.Events.Edition_Lyon
 {
-    public record EiffelLiveLog : Edition_Paris.Shared.Data.EiffelLiveLog
+    public record EiffelActivityFinishedLinks : EiffelSharedLinks
     {
         /// <summary>
-        /// The <a href="https://en.wikipedia.org/wiki/Media_type">media type</a> of the URI's payload.
-        /// Can be used to differentiate between various representations of the same log, e.g. text/html for human consumption and text/plain or application/json for the machine-readable form.
+        /// Declares the activity execution that was finished. 
+        /// Legal targets: EiffelActivityTriggeredEvent
         /// </summary>
-        public string MediaType { get; init; }
-
-        /// <summary>
-        /// Arbitrary tags and keywords that describe this log.
-        /// </summary>
-        public List<string> Tags { get; init; }
+        [Required]
+        [NestedObject]
+        public EiffelActivityExecutionLink ActivityExecution { get; init; }
     }
 }

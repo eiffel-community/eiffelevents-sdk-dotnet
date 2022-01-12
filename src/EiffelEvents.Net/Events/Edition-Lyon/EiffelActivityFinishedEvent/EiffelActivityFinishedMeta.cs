@@ -12,22 +12,13 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 
-using System.ComponentModel.DataAnnotations;
+using EiffelEvents.Net.Events.Edition_Lyon.Shared;
 
-namespace EiffelEvents.Net.Events.Edition_Paris.Shared.Data
+namespace EiffelEvents.Net.Events.Edition_Lyon
 {
-    public record EiffelLiveLog
+    public record EiffelActivityFinishedMeta : EiffelSharedMeta
     {
-        /// <summary>
-        /// The name of the log file
-        /// </summary>
-        [Required(AllowEmptyStrings = false)]
-        public string Name { get; init; }
-        
-        /// <summary>
-        /// The URI at which the log can be retrieved
-        /// </summary>
-        [Required(AllowEmptyStrings = false)]
-        public string Uri { get; init; }
+        public override string Type { get; init; }
+        public override string Version { get; init; } = "3.2.0";
     }
 }
