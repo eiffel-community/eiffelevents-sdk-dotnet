@@ -14,5 +14,5 @@
 
 namespace EiffelEvents.Net.Events.Edition_Lyon
 {
-    public record EiffelArtifactReusedData : Edition_Paris.EiffelArtifactCreatedData;
+    public record EiffelArtifactReusedData : Edition_Paris.EiffelArtifactReusedData;
 }
