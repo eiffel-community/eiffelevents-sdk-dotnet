@@ -17,6 +17,13 @@ using EiffelEvents.Net.Events.Edition_Lyon.Shared;
 
 namespace EiffelEvents.Net.Events.Edition_Lyon
 {
+    /// <summary>
+    /// The EiffelActivityFinishedEvent declares that a previously started activity has finished.
+    /// <a href="https://github.com/eiffel-community/eiffel/blob/edition-lyon/eiffel-vocabulary/EiffelActivityFinishedEvent.md">
+    /// EiffelActivityFinishedEvent
+    /// </a>
+    /// for details.
+    /// </summary>
     public record EiffelActivityFinishedEvent :
         EiffelEvent<EiffelActivityFinishedData, EiffelActivityFinishedMeta, EiffelActivityFinishedLinks>
     {
