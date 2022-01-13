@@ -12,22 +12,26 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 
-using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
+using EiffelEvents.Net.Events.Core.Data;
+using EiffelEvents.Net.Events.Edition_Paris.Shared.Data;
+using EiffelEvents.Net.Validation;
+using EiffelPersistentLog = EiffelEvents.Net.Events.Edition_Lyon.Shared.Data.EiffelPersistentLog;
 
-namespace EiffelEvents.Net.Events.Edition_Paris.Shared.Data
+namespace EiffelEvents.Net.Events.Edition_Lyon
 {
-    public record EiffelLiveLog
+    public record EiffelActivityFinishedData : EiffelData
     {
         /// <summary>
-        /// The name of the log file
+        /// The outcome of the activity
         /// </summary>
-        [Required(AllowEmptyStrings = false)]
-        public string Name { get; init; }
-        
+        [NestedObject]
+        public EiffelOutcome Outcome { get; init; }
+
         /// <summary>
-        /// The URI at which the log can be retrieved
+        /// An array of persistent log files generated during execution
         /// </summary>
-        [Required(AllowEmptyStrings = false)]
-        public string Uri { get; init; }
+        [NestedList]
+        public List<EiffelPersistentLog> PersistentLogs { get; init; }
     }
 }

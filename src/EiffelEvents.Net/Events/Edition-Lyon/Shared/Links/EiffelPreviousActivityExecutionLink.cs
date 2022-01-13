@@ -14,24 +14,26 @@
 
 namespace EiffelEvents.Net.Events.Edition_Lyon.Shared.Links
 {
+
     /// <summary>
-    /// Identifies the activity or test suite of which this event constitutes a part.
+    /// Identifies the latest previous execution of the activity.
     /// </summary>
-    public record EiffelContextLink : EiffelLink
+    public record EiffelPreviousActivityExecutionLink: EiffelLink
     {
         /// <inheritdoc/>
-        public override string Type => "CONTEXT";
+        public override string Type => "PREVIOUS_ACTIVITY_EXECUTION";
 
-        /// <inheritdoc cref="EiffelContextLink"/>
-        public EiffelContextLink()
+        /// <inheritdoc cref="EiffelPreviousActivityExecutionLink"/>
+        public EiffelPreviousActivityExecutionLink()
         {
         }
 
-        /// <inheritdoc cref="EiffelContextLink"/>
+        /// <inheritdoc cref="EiffelPreviousActivityExecutionLink"/>
         /// <inheritdoc cref="EiffelLink(string, string)"/>
-        public EiffelContextLink(string target, string domainId = "") : base(target, domainId)
+        public EiffelPreviousActivityExecutionLink(string target, string domainId = "") : base(target, domainId)
         {
-            
         }
+
+
     }
 }

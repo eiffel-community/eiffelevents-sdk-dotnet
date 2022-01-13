@@ -14,8 +14,8 @@
 
 using System;
 using System.Linq;
-using EiffelClient.PublisherOne.Models.Edition_Lyon;
-using EiffelEvents.Net.Events.Edition_Lyon;
+using EiffelClient.PublisherOne.Models.Edition_Paris;
+using EiffelEvents.Net.Events.Edition_Paris;
 
 namespace EiffelClient.PublisherOne
 {
@@ -26,9 +26,10 @@ namespace EiffelClient.PublisherOne
             Console.WriteLine("Started !!");
 
             // Create a raw event
-            var eiffelEvent = TryClient.GetEvent<EiffelActivityTriggeredEvent>();
-            var signedEvent = eiffelEvent?.Sign<EiffelActivityTriggeredEvent>();
-            /*for (int i = 0; i < 10000; i++)
+            var eiffelEvent = TryClient.GetEvent<EiffelActivityFinishedEvent>();
+            var signedEvent = eiffelEvent?.Sign<EiffelActivityFinishedEvent>();
+
+          /*for (int i = 0; i < 10000; i++)
            {*/
             var result = TryClient.Eiffelclient.Publish(signedEvent);
             Console.WriteLine(

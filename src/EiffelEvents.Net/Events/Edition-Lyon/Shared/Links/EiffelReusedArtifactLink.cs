@@ -15,23 +15,24 @@
 namespace EiffelEvents.Net.Events.Edition_Lyon.Shared.Links
 {
     /// <summary>
-    /// Identifies the activity or test suite of which this event constitutes a part.
+    /// This link identifies the <see cref="EiffelArtifactCreatedEvent"> that is reused for the composition identified
+    /// by <see cref="EiffelCompositionLink"/> in other words, the artifact that is not rebuilt for a that composition.
     /// </summary>
-    public record EiffelContextLink : EiffelLink
+    public record EiffelReusedArtifactLink : EiffelLink
     {
         /// <inheritdoc/>
-        public override string Type => "CONTEXT";
+        public override string Type => "REUSED_ARTIFACT";
 
-        /// <inheritdoc cref="EiffelContextLink"/>
-        public EiffelContextLink()
+        /// <inheritdoc cref="EiffelReusedArtifactLink"/>
+        public EiffelReusedArtifactLink()
         {
         }
 
-        /// <inheritdoc cref="EiffelContextLink"/>
+        /// <inheritdoc cref="EiffelReusedArtifactLink"/>
         /// <inheritdoc cref="EiffelLink(string, string)"/>
-        public EiffelContextLink(string target, string domainId = "") : base(target, domainId)
+        public EiffelReusedArtifactLink(string target, string domainId = "") : base(target, domainId)
         {
-            
         }
+
     }
 }

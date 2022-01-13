@@ -15,23 +15,23 @@
 namespace EiffelEvents.Net.Events.Edition_Lyon.Shared.Links
 {
     /// <summary>
-    /// Identifies the activity or test suite of which this event constitutes a part.
+    /// Identifies the artifact that was published.
     /// </summary>
-    public record EiffelContextLink : EiffelLink
+    public record EiffelArtifactLink : EiffelLink
     {
         /// <inheritdoc/>
-        public override string Type => "CONTEXT";
+        public override string Type => "ARTIFACT";
 
-        /// <inheritdoc cref="EiffelContextLink"/>
-        public EiffelContextLink()
+        /// <inheritdoc cref="EiffelArtifactLink"/>
+        public EiffelArtifactLink()
         {
         }
 
-        /// <inheritdoc cref="EiffelContextLink"/>
+        /// <inheritdoc cref="EiffelArtifactLink"/>
         /// <inheritdoc cref="EiffelLink(string, string)"/>
-        public EiffelContextLink(string target, string domainId = "") : base(target, domainId)
+        public EiffelArtifactLink(string target, string domainId = "") : base(target, domainId)
         {
-            
         }
+
     }
 }

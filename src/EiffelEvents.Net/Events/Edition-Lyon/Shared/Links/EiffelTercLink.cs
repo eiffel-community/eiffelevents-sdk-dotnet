@@ -15,23 +15,24 @@
 namespace EiffelEvents.Net.Events.Edition_Lyon.Shared.Links
 {
     /// <summary>
-    /// Identifies the activity or test suite of which this event constitutes a part.
+    /// This link signifies that the test suite represented by this event groups all test case executions resulting from
+    /// the <see cref="EiffelTestExecutionRecipeCollectionCreatedEvent"/>
     /// </summary>
-    public record EiffelContextLink : EiffelLink
+    public record EiffelTercLink : EiffelLink
     {
         /// <inheritdoc/>
-        public override string Type => "CONTEXT";
+        public override string Type => "TERC";
 
-        /// <inheritdoc cref="EiffelContextLink"/>
-        public EiffelContextLink()
+        /// <inheritdoc cref="EiffelTercLink"/>
+        public EiffelTercLink()
         {
         }
 
-        /// <inheritdoc cref="EiffelContextLink"/>
+        /// <inheritdoc cref="EiffelTercLink"/>
         /// <inheritdoc cref="EiffelLink(string, string)"/>
-        public EiffelContextLink(string target, string domainId = "") : base(target, domainId)
+        public EiffelTercLink(string target, string domainId = "") : base(target, domainId)
         {
-            
         }
+
     }
 }

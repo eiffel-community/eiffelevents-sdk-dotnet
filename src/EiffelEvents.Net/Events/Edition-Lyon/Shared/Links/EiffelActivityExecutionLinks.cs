@@ -14,15 +14,24 @@
 
 namespace EiffelEvents.Net.Events.Edition_Lyon.Shared.Links
 {
+    /// <summary>
+    /// Declares the activity execution that was canceled.
+    /// In other words,EiffelActivityTriggeredEvent acts as a handle for the activity execution.
+    /// This differs from EiffelContextLink.
+    /// </summary>
     public record EiffelActivityExecutionLink : EiffelLink
     {
         /// <inheritdoc/>
         public override string Type => "ACTIVITY_EXECUTION";
-
+        
+      
+        /// <inheritdoc cref="EiffelActivityExecutionLink"/>
         public EiffelActivityExecutionLink()
         {
         }
 
+        /// <inheritdoc cref="EiffelActivityExecutionLink"/>
+        /// <inheritdoc cref="EiffelLink(string, string)"/>
         public EiffelActivityExecutionLink(string target, string domainId = "") : base(target, domainId)
         {
         }

@@ -12,22 +12,25 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 
-using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
+using EiffelEvents.Net.Events.Core.Data;
+using EiffelEvents.Net.Events.Edition_Lyon.Shared.Data;
+using EiffelEvents.Net.Validation;
 
-namespace EiffelEvents.Net.Events.Edition_Paris.Shared.Data
+namespace EiffelEvents.Net.Events.Edition_Lyon
 {
-    public record EiffelLiveLog
+    public record EiffelActivityStartedData : EiffelData
     {
         /// <summary>
-        /// The name of the log file
+        /// Any URI at which further information about the execution may be found;
+        /// a typical use case is to link a CI server job execution page.
         /// </summary>
-        [Required(AllowEmptyStrings = false)]
-        public string Name { get; init; }
-        
+        public string ExecutionUri { get; init; }
+
         /// <summary>
-        /// The URI at which the log can be retrieved
+        /// An array of live log files available during execution
         /// </summary>
-        [Required(AllowEmptyStrings = false)]
-        public string Uri { get; init; }
+        [NestedList]
+        public List<EiffelLiveLog> LiveLogs { get; init; }
     }
 }

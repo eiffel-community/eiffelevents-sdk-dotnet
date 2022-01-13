@@ -15,23 +15,23 @@
 namespace EiffelEvents.Net.Events.Edition_Lyon.Shared.Links
 {
     /// <summary>
-    /// Identifies the activity or test suite of which this event constitutes a part.
+    /// Identifies the change that was submitted.
     /// </summary>
-    public record EiffelContextLink : EiffelLink
+    public record EiffelChangeLink : EiffelLink
     {
         /// <inheritdoc/>
-        public override string Type => "CONTEXT";
+        public override string Type => "CHANGE";
 
-        /// <inheritdoc cref="EiffelContextLink"/>
-        public EiffelContextLink()
+        /// <inheritdoc cref="EiffelChangeLink"/>
+        public EiffelChangeLink()
         {
         }
 
-        /// <inheritdoc cref="EiffelContextLink"/>
+        /// <inheritdoc cref="EiffelChangeLink"/>
         /// <inheritdoc cref="EiffelLink(string, string)"/>
-        public EiffelContextLink(string target, string domainId = "") : base(target, domainId)
+        public EiffelChangeLink(string target, string domainId = "") : base(target, domainId)
         {
-            
         }
+
     }
 }

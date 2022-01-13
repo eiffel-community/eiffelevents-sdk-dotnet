@@ -14,15 +14,23 @@
 
 namespace EiffelEvents.Net.Events.Edition_Lyon.Shared.Links
 {
+    /// <summary>
+    /// Identifies a cause of the event occurring. SHOULD not be used in conjunction with <see cref="EiffelContextLink"/>:
+    /// individual events providing EiffelCauseLink within a larger context gives rise to ambiguity.
+    /// It is instead recommended to let the root event of the context declare  <see cref="EiffelContextLink"/>.  
+    /// </summary>
     public record EiffelCauseLink : EiffelLink
     {
         /// <inheritdoc/>
         public override string Type => "CAUSE";
 
+        /// <inheritdoc cref="EiffelCauseLink"/>
         public EiffelCauseLink()
         {
         }
 
+        /// <inheritdoc cref="EiffelCauseLink"/>
+        /// <inheritdoc cref="EiffelLink(string, string)"/>
         public EiffelCauseLink(string target, string domainId = "") : base(target, domainId)
         {
         }

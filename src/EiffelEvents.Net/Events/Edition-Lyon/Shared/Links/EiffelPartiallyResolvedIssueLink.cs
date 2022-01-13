@@ -15,23 +15,25 @@
 namespace EiffelEvents.Net.Events.Edition_Lyon.Shared.Links
 {
     /// <summary>
-    /// Identifies the activity or test suite of which this event constitutes a part.
+    /// Identifies an issue that this event partially resolves.
+    /// That is, this SCC introduces some change that has advanced an issue towards a resolved state,
+    /// but not completely resolved.
     /// </summary>
-    public record EiffelContextLink : EiffelLink
+    public record EiffelPartiallyResolvedIssueLink : EiffelLink
     {
         /// <inheritdoc/>
-        public override string Type => "CONTEXT";
+        public override string Type => "PARTIALLY_RESOLVED_ISSUE";
 
-        /// <inheritdoc cref="EiffelContextLink"/>
-        public EiffelContextLink()
+        /// <inheritdoc cref="EiffelPartiallyResolvedIssueLink"/>
+        public EiffelPartiallyResolvedIssueLink()
         {
         }
 
-        /// <inheritdoc cref="EiffelContextLink"/>
+        /// <inheritdoc cref="EiffelPartiallyResolvedIssueLink"/>
         /// <inheritdoc cref="EiffelLink(string, string)"/>
-        public EiffelContextLink(string target, string domainId = "") : base(target, domainId)
+        public EiffelPartiallyResolvedIssueLink(string target, string domainId = "") : base(target, domainId)
         {
-            
         }
+
     }
 }

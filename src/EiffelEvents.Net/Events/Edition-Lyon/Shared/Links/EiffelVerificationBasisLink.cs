@@ -15,23 +15,23 @@
 namespace EiffelEvents.Net.Events.Edition_Lyon.Shared.Links
 {
     /// <summary>
-    /// Identifies the activity or test suite of which this event constitutes a part.
+    /// Used to declare the basis on which the verification statement(s) of this event have been issued.
     /// </summary>
-    public record EiffelContextLink : EiffelLink
+    public record EiffelVerificationBasisLink : EiffelLink
     {
         /// <inheritdoc/>
-        public override string Type => "CONTEXT";
+        public override string Type => "VERIFICATION_BASIS";
 
-        /// <inheritdoc cref="EiffelContextLink"/>
-        public EiffelContextLink()
+        /// <inheritdoc cref="EiffelVerificationBasisLink"/>
+        public EiffelVerificationBasisLink()
         {
         }
 
-        /// <inheritdoc cref="EiffelContextLink"/>
+        /// <inheritdoc cref="EiffelVerificationBasisLink"/>
         /// <inheritdoc cref="EiffelLink(string, string)"/>
-        public EiffelContextLink(string target, string domainId = "") : base(target, domainId)
+        public EiffelVerificationBasisLink(string target, string domainId = "") : base(target, domainId)
         {
-            
         }
+
     }
 }

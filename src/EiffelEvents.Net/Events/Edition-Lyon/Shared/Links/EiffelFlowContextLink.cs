@@ -14,15 +14,22 @@
 
 namespace EiffelEvents.Net.Events.Edition_Lyon.Shared.Links
 {
+    /// <summary>
+    /// Identifies the flow context of the event: which is the continuous integration and delivery flow in which
+    /// this occurred e.g. which product, project, track or version this is applicable to.
+    /// </summary>
     public record EiffelFlowContextLink : EiffelLink
     {
         /// <inheritdoc/>
         public override string Type => "FLOW_CONTEXT";
 
+        /// <inheritdoc cref="EiffelFlowContextLink"/>
         public EiffelFlowContextLink()
         {
         }
 
+        /// <inheritdoc cref="EiffelFlowContextLink"/>
+        /// <inheritdoc cref="EiffelLink(string, string)"/>
         public EiffelFlowContextLink(string target, string domainId = "") : base(target, domainId)
         {
         }

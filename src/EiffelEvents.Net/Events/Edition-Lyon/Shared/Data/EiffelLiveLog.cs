@@ -12,22 +12,21 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 
-using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
-namespace EiffelEvents.Net.Events.Edition_Paris.Shared.Data
+namespace EiffelEvents.Net.Events.Edition_Lyon.Shared.Data
 {
-    public record EiffelLiveLog
+    public record EiffelLiveLog : Edition_Paris.Shared.Data.EiffelLiveLog
     {
         /// <summary>
-        /// The name of the log file
+        /// The <a href="https://en.wikipedia.org/wiki/Media_type">media type</a> of the URI's payload.
+        /// Can be used to differentiate between various representations of the same log, e.g. text/html for human consumption and text/plain or application/json for the machine-readable form.
         /// </summary>
-        [Required(AllowEmptyStrings = false)]
-        public string Name { get; init; }
-        
+        public string MediaType { get; init; }
+
         /// <summary>
-        /// The URI at which the log can be retrieved
+        /// Arbitrary tags and keywords that describe this log.
         /// </summary>
-        [Required(AllowEmptyStrings = false)]
-        public string Uri { get; init; }
+        public List<string> Tags { get; init; }
     }
 }

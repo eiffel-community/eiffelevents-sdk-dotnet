@@ -15,23 +15,24 @@
 namespace EiffelEvents.Net.Events.Edition_Lyon.Shared.Links
 {
     /// <summary>
-    /// Identifies the activity or test suite of which this event constitutes a part.
+    /// Identifies an issue which was previously resolved, but that this SCC claims it has made changes to warrant removing the resolved status.
+    /// For example, if an issue "Feature X" was resolved, but this SCC removed the implementation that led to "Feature X" being resolved, that issue should no longer be considered resolved.
     /// </summary>
-    public record EiffelContextLink : EiffelLink
+    public record EiffelDeresolvedIssueLink : EiffelLink
     {
         /// <inheritdoc/>
-        public override string Type => "CONTEXT";
+        public override string Type => "DERESOLVED_ISSUE";
 
-        /// <inheritdoc cref="EiffelContextLink"/>
-        public EiffelContextLink()
+        /// <inheritdoc cref="EiffelDeresolvedIssueLink"/>
+        public EiffelDeresolvedIssueLink()
         {
         }
-
-        /// <inheritdoc cref="EiffelContextLink"/>
+        
+        /// <inheritdoc cref="EiffelDeresolvedIssueLink"/>
         /// <inheritdoc cref="EiffelLink(string, string)"/>
-        public EiffelContextLink(string target, string domainId = "") : base(target, domainId)
+        public EiffelDeresolvedIssueLink(string target, string domainId = "") : base(target, domainId)
         {
-            
         }
+
     }
 }

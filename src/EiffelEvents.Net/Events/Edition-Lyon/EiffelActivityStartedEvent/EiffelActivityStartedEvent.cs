@@ -12,26 +12,27 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 
-namespace EiffelEvents.Net.Events.Edition_Lyon.Shared.Links
+using EiffelEvents.Net.Events.Core;
+using EiffelEvents.Net.Events.Edition_Lyon.Shared;
+
+namespace EiffelEvents.Net.Events.Edition_Lyon
 {
-    /// <summary>
-    /// Identifies the activity or test suite of which this event constitutes a part.
-    /// </summary>
-    public record EiffelContextLink : EiffelLink
+    public record EiffelActivityStartedEvent
+        : EiffelEvent<EiffelActivityStartedData, EiffelActivityStartedMeta, EiffelActivityStartedLinks>
     {
         /// <inheritdoc/>
-        public override string Type => "CONTEXT";
+        public override EiffelActivityStartedData Data { get; init; } = new();
 
-        /// <inheritdoc cref="EiffelContextLink"/>
-        public EiffelContextLink()
-        {
-        }
+        /// <inheritdoc/>
+        public override EiffelActivityStartedMeta Meta { get; init; } = new();
 
-        /// <inheritdoc cref="EiffelContextLink"/>
-        /// <inheritdoc cref="EiffelLink(string, string)"/>
-        public EiffelContextLink(string target, string domainId = "") : base(target, domainId)
+        /// <inheritdoc/>
+        public override EiffelActivityStartedLinks Links { get; init; } = new();
+
+        /// <inheritdoc/>
+        public override IEiffelEvent FromJson(string json)
         {
-            
+            return Deserialize<EiffelActivityStartedEvent>(json);
         }
     }
 }

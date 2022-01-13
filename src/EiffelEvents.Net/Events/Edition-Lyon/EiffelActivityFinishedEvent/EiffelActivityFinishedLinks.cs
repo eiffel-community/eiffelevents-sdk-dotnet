@@ -12,26 +12,21 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 
-namespace EiffelEvents.Net.Events.Edition_Lyon.Shared.Links
+using System.ComponentModel.DataAnnotations;
+using EiffelEvents.Net.Events.Edition_Lyon.Shared;
+using EiffelEvents.Net.Events.Edition_Lyon.Shared.Links;
+using EiffelEvents.Net.Validation;
+
+namespace EiffelEvents.Net.Events.Edition_Lyon
 {
-    /// <summary>
-    /// Identifies the activity or test suite of which this event constitutes a part.
-    /// </summary>
-    public record EiffelContextLink : EiffelLink
+    public record EiffelActivityFinishedLinks : EiffelSharedLinks
     {
-        /// <inheritdoc/>
-        public override string Type => "CONTEXT";
-
-        /// <inheritdoc cref="EiffelContextLink"/>
-        public EiffelContextLink()
-        {
-        }
-
-        /// <inheritdoc cref="EiffelContextLink"/>
-        /// <inheritdoc cref="EiffelLink(string, string)"/>
-        public EiffelContextLink(string target, string domainId = "") : base(target, domainId)
-        {
-            
-        }
+        /// <summary>
+        /// Declares the activity execution that was finished. 
+        /// Legal targets: EiffelActivityTriggeredEvent
+        /// </summary>
+        [Required]
+        [NestedObject]
+        public EiffelActivityExecutionLink ActivityExecution { get; init; }
     }
 }

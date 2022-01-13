@@ -15,23 +15,23 @@
 namespace EiffelEvents.Net.Events.Edition_Lyon.Shared.Links
 {
     /// <summary>
-    /// Identifies the activity or test suite of which this event constitutes a part.
+    /// Identifies an issue that has been successfully verified.
     /// </summary>
-    public record EiffelContextLink : EiffelLink
+    public record EiffelSuccessfulIssueLink : EiffelLink
     {
         /// <inheritdoc/>
-        public override string Type => "CONTEXT";
+        public override string Type => "SUCCESSFUL_ISSUE";
 
-        /// <inheritdoc cref="EiffelContextLink"/>
-        public EiffelContextLink()
+        /// <inheritdoc cref="EiffelSuccessfulIssueLink"/>
+        public EiffelSuccessfulIssueLink()
         {
         }
 
-        /// <inheritdoc cref="EiffelContextLink"/>
+        /// <inheritdoc cref="EiffelSuccessfulIssueLink"/>
         /// <inheritdoc cref="EiffelLink(string, string)"/>
-        public EiffelContextLink(string target, string domainId = "") : base(target, domainId)
+        public EiffelSuccessfulIssueLink(string target, string domainId = "") : base(target, domainId)
         {
-            
         }
+
     }
 }

@@ -12,26 +12,23 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 
-namespace EiffelEvents.Net.Events.Edition_Lyon.Shared.Links
+using System.ComponentModel.DataAnnotations;
+using EiffelEvents.Net.Events.Edition_Lyon.Shared;
+using EiffelEvents.Net.Events.Edition_Lyon.Shared.Links;
+using EiffelEvents.Net.Validation;
+using Newtonsoft.Json;
+
+namespace EiffelEvents.Net.Events.Edition_Lyon
 {
-    /// <summary>
-    /// Identifies the activity or test suite of which this event constitutes a part.
-    /// </summary>
-    public record EiffelContextLink : EiffelLink
+    [JsonArray]
+    public record EiffelArtifactPublishedLinks : EiffelSharedLinks
     {
-        /// <inheritdoc/>
-        public override string Type => "CONTEXT";
-
-        /// <inheritdoc cref="EiffelContextLink"/>
-        public EiffelContextLink()
-        {
-        }
-
-        /// <inheritdoc cref="EiffelContextLink"/>
-        /// <inheritdoc cref="EiffelLink(string, string)"/>
-        public EiffelContextLink(string target, string domainId = "") : base(target, domainId)
-        {
-            
-        }
+        /// <summary>
+        /// Identifies the artifact that was published.
+        /// Legal targets: EiffelArtifactCreatedEvent
+        /// </summary>
+        [Required]
+        [NestedObject]
+        public EiffelArtifactLink Artifact { get; init; }
     }
 }

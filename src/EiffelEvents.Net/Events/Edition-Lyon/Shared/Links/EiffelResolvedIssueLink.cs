@@ -15,23 +15,25 @@
 namespace EiffelEvents.Net.Events.Edition_Lyon.Shared.Links
 {
     /// <summary>
-    /// Identifies the activity or test suite of which this event constitutes a part.
+    /// Identifies an issue that this SCC is claiming it has done enough to resolve. This is not an authoritative resolution only a claim.
+    /// The issue may or may not change status as a consequence this, e.g. through a successful verification <seealso cref="EiffelIssueVirifiedEvent"/>
+    /// or a manual update on the issue tracker.
     /// </summary>
-    public record EiffelContextLink : EiffelLink
+    public record EiffelResolvedIssueLink : EiffelLink
     {
         /// <inheritdoc/>
-        public override string Type => "CONTEXT";
+        public override string Type => "RESOLVED_ISSUE";
 
-        /// <inheritdoc cref="EiffelContextLink"/>
-        public EiffelContextLink()
+        /// <inheritdoc cref="EiffelResolvedIssueLink"/>
+        public EiffelResolvedIssueLink()
         {
         }
 
-        /// <inheritdoc cref="EiffelContextLink"/>
+        /// <inheritdoc cref="EiffelResolvedIssueLink"/>
         /// <inheritdoc cref="EiffelLink(string, string)"/>
-        public EiffelContextLink(string target, string domainId = "") : base(target, domainId)
+        public EiffelResolvedIssueLink(string target, string domainId = "") : base(target, domainId)
         {
-            
         }
+
     }
 }
