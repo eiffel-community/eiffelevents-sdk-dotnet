@@ -26,7 +26,7 @@ namespace EiffelEvents.Net.Tests.TestData.Edition_Lyon
         /// <returns></returns>
         public EiffelActivityFinishedEvent GetValidCompleteEvent()
         {
-            return new EiffelActivityFinishedEvent()
+             return new EiffelActivityFinishedEvent()
             {
                 Data = new()
                 {
@@ -35,12 +35,22 @@ namespace EiffelEvents.Net.Tests.TestData.Edition_Lyon
                         Conclusion = EiffelDataOutcomeConclusion.SUCCESSFUL,
                         Description = "blah blah blah"
                     },
-                    PersistentLog = new()
+                    PersistentLogs = new()
                     {
-                        Name = "test",
-                        Uri = "test-uri",
-                        MediaType = "type 1"
+                        new()
+                        {
+                            Name = "test",
+                            Uri = "test-uri",
+                            MediaType = "type 1"
+                        },
+                        new()
+                        {
+                            Name = "test2",
+                            Uri = "test2-uri",
+                            Tags = new(){"error log"}
+                        }
                     },
+
                     CustomData = new()
                     {
                         { "key1", "test" },

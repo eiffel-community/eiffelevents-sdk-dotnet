@@ -31,12 +31,22 @@ namespace EiffelClient.PublisherOne.Models.Edition_Lyon
                         Conclusion = EiffelDataOutcomeConclusion.SUCCESSFUL,
                         Description = "blah blah blah"
                     },
-                    PersistentLog = new()
+                    PersistentLogs = new()
                     {
-                        Name = "test",
-                        Uri = "test-uri",
-                        MediaType = "type 1"
+                        new()
+                        {
+                            Name = "test",
+                            Uri = "test-uri",
+                            MediaType = "type 1"
+                        },
+                        new()
+                        {
+                            Name = "test2",
+                            Uri = "test2-uri",
+                            Tags = new(){"error log"}
+                        }
                     },
+
                     CustomData = new()
                     {
                         { "key1", "test" },

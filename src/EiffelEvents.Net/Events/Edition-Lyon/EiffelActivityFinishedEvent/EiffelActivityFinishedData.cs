@@ -12,8 +12,10 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 
+using System.Collections.Generic;
 using EiffelEvents.Net.Events.Core.Data;
 using EiffelEvents.Net.Events.Edition_Paris.Shared.Data;
+using EiffelEvents.Net.Validation;
 using EiffelPersistentLog = EiffelEvents.Net.Events.Edition_Lyon.Shared.Data.EiffelPersistentLog;
 
 namespace EiffelEvents.Net.Events.Edition_Lyon
@@ -23,11 +25,13 @@ namespace EiffelEvents.Net.Events.Edition_Lyon
         /// <summary>
         /// The outcome of the activity
         /// </summary>
+        [NestedObject]
         public EiffelOutcome Outcome { get; init; }
 
         /// <summary>
         /// An array of persistent log files generated during execution
         /// </summary>
-        public EiffelPersistentLog PersistentLog { get; init; }
+        [NestedList]
+        public List<EiffelPersistentLog> PersistentLogs { get; init; }
     }
 }
