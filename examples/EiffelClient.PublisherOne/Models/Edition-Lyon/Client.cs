@@ -41,7 +41,7 @@ namespace EiffelClient.PublisherOne.Models.Edition_Lyon
                 nameof(EiffelArtifactCreatedEvent) => ArtifactCreated.GetEvent() as T,
                 // nameof(EiffelArtifactReusedEvent) => ArtifactReused.GetEvent() as T,
                 nameof(EiffelArtifactPublishedEvent) => ArtifactPublished.GetEvent() as T,
-                // nameof(EiffelConfidenceLevelModifiedEvent) => ConfidenceLevelModified.GetEvent() as T,
+                nameof(EiffelConfidenceLevelModifiedEvent) => ConfidenceLevelModified.GetEvent() as T,
                 // nameof(EiffelEnvironmentDefinedEvent) => EnvironmentDefined.GetEvent() as T,
                 // nameof(EiffelCompositionDefinedEvent) => CompositionDefined.GetEvent() as T,
                 // nameof(EiffelSourceChangeCreatedEvent) => SourceChangeCreated.GetEvent() as T,
