@@ -12,15 +12,12 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 
-using EiffelEvents.Net.Clients.Validation;
-
-namespace EiffelEvents.RabbitMq.Client.Config
+namespace EiffelEvents.Net.Clients.Validation
 {
-    public class ValidationConfig
+    public enum SchemaValidationOnSubscribe
     {
-        public SchemaValidationOnPublish SchemaValidationOnPublish { get; init; } = SchemaValidationOnPublish.ON;
-        public SchemaValidationOnSubscribe SchemaValidationOnSubscribe { get; init; } = SchemaValidationOnSubscribe.NONE;
+        NONE = 0,
+        ON_DESERIALIZATION_FAIL = 1,
+        ALWAYS = 2
     }
-
-    
 }

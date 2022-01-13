@@ -33,8 +33,8 @@ namespace EiffelClient.PublisherOne.Models.Edition_Lyon
             },
             ValidationConfig = new ()
             {
-                ValidateOnPublish = true,
-                ValidateOnSubscribe = ValidateOnSubscribe.ALWAYS
+                SchemaValidationOnPublish = SchemaValidationOnPublish.ON,
+                SchemaValidationOnSubscribe = SchemaValidationOnSubscribe.ALWAYS
             }
         }, 1);
 

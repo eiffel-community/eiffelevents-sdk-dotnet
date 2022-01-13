@@ -26,7 +26,7 @@ namespace EiffelClient.PublisherOne.Models.Edition_Lyon
             {
                 Data = new()
                 {
-                    //Name = "My activity",
+                    Name = "My activity",
                     Categories = new() { "category 1", "category 2" },
                     Triggers = new()
                     {
@@ -56,7 +56,7 @@ namespace EiffelClient.PublisherOne.Models.Edition_Lyon
                         new(Guid.NewGuid().ToString()),
                         new ()
                         {
-                            //Target = Guid.NewGuid().ToString(),
+                            Target = Guid.NewGuid().ToString(),
                             DomainId = "oiyturew"
                         }
                     },

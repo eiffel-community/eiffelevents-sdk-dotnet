@@ -43,8 +43,8 @@ namespace EiffelClient.SubscriberOne
                 RabbitMqConfig = _rabbitMqConfig,
                 ValidationConfig = new ()
                 {
-                    ValidateOnPublish = true,
-                    ValidateOnSubscribe = ValidateOnSubscribe.NONE
+                    SchemaValidationOnPublish = SchemaValidationOnPublish.ON,
+                    SchemaValidationOnSubscribe = SchemaValidationOnSubscribe.ALWAYS
                 }
             });
 

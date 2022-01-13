@@ -14,10 +14,9 @@
 
 namespace EiffelEvents.Net.Clients.Validation
 {
-    public enum ValidateOnSubscribe
+    public enum SchemaValidationOnPublish
     {
-        NONE = 0,
-        ON_DESERIALIZATION_FAIL = 1,
-        ALWAYS = 2
+        ON = 0,
+        OFF = 1
     }
 }

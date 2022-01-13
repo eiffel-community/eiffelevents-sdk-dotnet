@@ -52,19 +52,18 @@ namespace EiffelEvents.RabbitMq.Client
         }
 
         /// <inheritdoc/>
-        public Result<T> Publish<T>(T eiffelEvent, bool validateBeforePublish) where T : IEiffelEvent
+        public Result<T> Publish<T>(T eiffelEvent, SchemaValidationOnPublish validateOnPublish) where T : IEiffelEvent
         {
             try
             {
+                // validate against c# schema 
+                var attributeValidationResult = eiffelEvent.Validate();
+                if (attributeValidationResult.IsFailed)
+                    return attributeValidationResult.ToResult(eiffelEvent);
+                
                 var json = string.Empty;
-                if (validateBeforePublish)
+                if (validateOnPublish == SchemaValidationOnPublish.ON)
                 {
-                    // validate against c# schema 
-                    var attributeValidationResult = eiffelEvent.Validate();
-                    if (attributeValidationResult.IsFailed)
-                        return attributeValidationResult.ToResult(eiffelEvent);
-                    
-                    // validate against protocol json schema
                     json = eiffelEvent.ToJson();
                     var schemaValidationResult = ValidationHelper.ValidateEventSchema<T>(json);
                     if (schemaValidationResult.IsFailed)
@@ -91,19 +90,19 @@ namespace EiffelEvents.RabbitMq.Client
         /// <inheritdoc/>
         public Result<T> Publish<T>(T eiffelEvent) where T : IEiffelEvent
         {
-            return Publish(eiffelEvent, _validationConfig.ValidateOnPublish);
+            return Publish(eiffelEvent, _validationConfig.SchemaValidationOnPublish);
         }
 
         /// <inheritdoc/>
         public string Subscribe<T>(string serviceIdentifier, Action<Result<T>, ulong> callback)
             where T : IEiffelEvent, new()
         {
-            return Subscribe(serviceIdentifier, callback, _validationConfig.ValidateOnSubscribe);
+            return Subscribe(serviceIdentifier, callback, _validationConfig.SchemaValidationOnSubscribe);
         }
 
         /// <inheritdoc/>
         public string Subscribe<T>(string serviceIdentifier, Action<Result<T>, ulong> callback,
-            ValidateOnSubscribe validateOnSubscribe) where T : IEiffelEvent, new()
+            SchemaValidationOnSubscribe validateOnSubscribe) where T : IEiffelEvent, new()
         {
             try
             {
@@ -141,14 +140,14 @@ namespace EiffelEvents.RabbitMq.Client
             }
         }
 
-        private Result<T> ValidateEvent<T>(ValidateOnSubscribe validateOnSubscribe, T typeObj, string content)
+        private Result<T> ValidateEvent<T>(SchemaValidationOnSubscribe validateOnSubscribe, T typeObj, string content)
             where T : IEiffelEvent, new()
         {
             T eiffelEvent;
             Result validJsonResult;
             switch (validateOnSubscribe)
             {
-                case ValidateOnSubscribe.ON_DESERIALIZATION_FAIL:
+                case SchemaValidationOnSubscribe.ON_DESERIALIZATION_FAIL:
                     try
                     {
                         eiffelEvent = (T)typeObj.FromJson(content);
@@ -162,7 +161,7 @@ namespace EiffelEvents.RabbitMq.Client
                             Result.Fail<T>($"Not valid json. Errors: {validationErrors}");
                         return failedResult;
                     }
-                case ValidateOnSubscribe.ALWAYS:
+                case SchemaValidationOnSubscribe.ALWAYS:
                     validJsonResult = ValidationHelper.ValidateEventSchema<T>(content);
 
                     if (validJsonResult.IsSuccess)
@@ -177,7 +176,7 @@ namespace EiffelEvents.RabbitMq.Client
                             Result.Fail<T>($"Not valid json. Errors: {validationErrors}");
                         return failedResult;
                     }
-                case ValidateOnSubscribe.NONE:
+                case SchemaValidationOnSubscribe.NONE:
                 default:
                     eiffelEvent = (T)typeObj.FromJson(content);
                     return Result.Ok(eiffelEvent);

@@ -22,14 +22,14 @@ namespace EiffelEvents.Net.Clients
     /// <summary>
     /// Provides publishing and subscription of Eiffel events.
     /// </summary>
-    public interface IEiffelClient 
+    public interface IEiffelClient
     {
         /// <summary>
         /// Publish an event to the Eiffel event bus represented by this client.
         /// </summary>
         /// <typeparam name="T">The type of event to send</typeparam>
         /// <param name="eiffelEvent">Event to send</param>
-        /// <param name="validateBeforePublish">
+        /// <param name="validateOnPublish">
         /// boolean to indicate that if the event will be validated before publish or not.
         /// This parameter will override any configured value.
         /// </param>
@@ -39,7 +39,7 @@ namespace EiffelEvents.Net.Clients
         /// If publish succeed, result object will hold event sent on the bus,
         /// which may be different from the input event (e.g. signed).
         /// </returns>
-        Result<T> Publish<T>(T eiffelEvent,  bool validateBeforePublish) where T : IEiffelEvent;
+        Result<T> Publish<T>(T eiffelEvent, SchemaValidationOnPublish validateOnPublish) where T : IEiffelEvent;
 
         /// <summary>
         /// Publish an event to the Eiffel event bus represented by this client.
@@ -85,10 +85,9 @@ namespace EiffelEvents.Net.Clients
         /// <param name="validateOnSubscribe">States when to validate the received JSON event</param>
         /// <typeparam name="T">Type of event to subscribe to</typeparam>
         /// <returns>string for subscriptionId can later be used to UnSubscribe</returns>
-        string Subscribe<T>(string serviceIdentifier, Action<Result<T>, ulong> callback, ValidateOnSubscribe validateOnSubscribe) 
-            where T : IEiffelEvent, new();
+        string Subscribe<T>(string serviceIdentifier, Action<Result<T>, ulong> callback,
+            SchemaValidationOnSubscribe validateOnSubscribe) where T : IEiffelEvent, new();
 
-        
         /// <summary>
         /// Acknowledge receiving the message(event), used for positive acknowledgements. 
         /// </summary>
