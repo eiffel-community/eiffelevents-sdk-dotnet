@@ -1,4 +1,4 @@
-﻿//    Copyright (c) 2021 ICT Cube, doWhile, and Eiffel Community collaborators.
+//    Copyright (c) 2021 ICT Cube, doWhile, and Eiffel Community collaborators.
 // 
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -16,7 +16,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using EiffelEvents.Net.Events.Core;
 using EiffelEvents.Net.Exceptions;
 using FluentResults;
@@ -63,14 +62,11 @@ namespace EiffelEvents.Net.Validation
 
         private static string GetSchemaFromFileSystem(string edition, string eventName)
         {
-            var currentAssemblyPath =
-                Path.GetDirectoryName(Assembly.GetAssembly(typeof(ValidationHelper))!.Location);
-
-            var path = Path.Combine(currentAssemblyPath!, "Schemas", edition, eventName);
+            var path = Path.Join("Schemas", edition, eventName);
             if (!Directory.Exists(path))
                 throw new SchemaNotFoundException(eventName, edition);
-
-            var schemaFiles = Directory.GetFiles(path, "*.json");
+           
+            var schemaFiles = Directory.GetFiles(path);
             if (schemaFiles.Length == 0)
                 throw new SchemaNotFoundException(eventName, edition);
 
