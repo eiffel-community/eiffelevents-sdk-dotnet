@@ -16,11 +16,12 @@ using System.Collections.Generic;
 
 namespace EiffelEvents.Net.Events.Edition_Lyon.Shared.Data
 {
-    public record EiffelLiveLog : Edition_Paris.Shared.Data.EiffelLiveLog
+    public record EiffelPersistentLog : Edition_Paris.Shared.Data.EiffelPersistentLog
     {
         /// <summary>
         /// The <a href="https://en.wikipedia.org/wiki/Media_type">media type</a> of the URI's payload.
-        /// Can be used to differentiate between various representations of the same log, e.g. text/html for human consumption and text/plain or application/json for the machine-readable form.
+        /// Can be used to differentiate between various representations of the same log, e.g. text/html for human
+        /// consumption and text/plain or application/json for the machine-readable form.
         /// </summary>
         public string MediaType { get; init; }
 
