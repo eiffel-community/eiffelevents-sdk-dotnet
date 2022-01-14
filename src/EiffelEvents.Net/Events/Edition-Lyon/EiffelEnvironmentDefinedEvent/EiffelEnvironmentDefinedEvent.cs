@@ -17,18 +17,18 @@ using EiffelEvents.Net.Events.Edition_Lyon.Shared;
 
 namespace EiffelEvents.Net.Events.Edition_Lyon
 {
-    public record EiffelEnvironmentDefinedEvent:
-        EiffelEvent<EiffelEnvironmentDefinedData,EiffelEnvironmentDefinedMeta,EiffelEnvironmentDefinedLinks>
+    public record EiffelEnvironmentDefinedEvent :
+        EiffelEvent<EiffelEnvironmentDefinedData, EiffelEnvironmentDefinedMeta, EiffelEnvironmentDefinedLinks>
     {
         /// <inheritdoc/>
-        public override EiffelEnvironmentDefinedData Data { get; init; }
-        
+        public override EiffelEnvironmentDefinedData Data { get; init; } = new();
+
         /// <inheritdoc/>
-        public override EiffelEnvironmentDefinedMeta Meta { get; init; }
-        
+        public override EiffelEnvironmentDefinedMeta Meta { get; init; } = new();
+
         /// <inheritdoc/>
-        public override EiffelEnvironmentDefinedLinks Links { get; init; }
-        
+        public override EiffelEnvironmentDefinedLinks Links { get; init; } = new();
+
         /// <inheritdoc/>
         public override IEiffelEvent FromJson(string json)
         {
