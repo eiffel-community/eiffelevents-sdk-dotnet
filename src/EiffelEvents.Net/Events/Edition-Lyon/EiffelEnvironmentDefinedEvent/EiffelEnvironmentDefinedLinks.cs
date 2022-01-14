@@ -15,6 +15,7 @@
 using System.Collections.Generic;
 using EiffelEvents.Net.Events.Edition_Lyon.Shared;
 using EiffelEvents.Net.Events.Edition_Lyon.Shared.Links;
+using EiffelEvents.Net.Validation;
 
 namespace EiffelEvents.Net.Events.Edition_Lyon
 {
@@ -24,6 +25,7 @@ namespace EiffelEvents.Net.Events.Edition_Lyon
         /// Identifies a latest previous version (there may be more than one in case of merges) of the environment.
         /// Legal targets: EiffelEnvironmentDefinedEvent
         /// </summary>
-        public List<EiffelPreviousVersionLink> PreviousVersion { get; set; }
+        [NestedList]
+        public List<EiffelPreviousVersionLink> PreviousVersion { get; init; }
     }
 }
