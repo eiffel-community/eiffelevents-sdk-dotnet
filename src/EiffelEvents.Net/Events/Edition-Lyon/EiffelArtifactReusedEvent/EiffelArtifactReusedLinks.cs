@@ -12,8 +12,10 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 
+using System.ComponentModel.DataAnnotations;
 using EiffelEvents.Net.Events.Edition_Lyon.Shared;
 using EiffelEvents.Net.Events.Edition_Lyon.Shared.Links;
+using EiffelEvents.Net.Validation;
 
 namespace EiffelEvents.Net.Events.Edition_Lyon
 {
@@ -24,6 +26,8 @@ namespace EiffelEvents.Net.Events.Edition_Lyon
         /// is declared reused.
         /// Legal targets: EiffelCompositionDefinedEvent
         /// </summary>
+        [Required]
+        [NestedObject]
         public EiffelCompositionLink Composition { get; init; }
         
         /// <summary>
@@ -31,6 +35,8 @@ namespace EiffelEvents.Net.Events.Edition_Lyon
         /// COMPOSITION; in other words, the artifact that is not rebuilt for a that composition.
         /// Legal targets: EiffelArtifactCreatedEvent
         /// </summary>
+        [Required]
+        [NestedObject]
         public EiffelReusedArtifactLink ReusedArtifact { get; init; }
     }
 }
