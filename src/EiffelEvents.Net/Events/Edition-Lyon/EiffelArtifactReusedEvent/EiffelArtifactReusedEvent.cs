@@ -18,28 +18,27 @@ using EiffelEvents.Net.Events.Edition_Lyon.Shared;
 namespace EiffelEvents.Net.Events.Edition_Lyon
 {
     /// <summary>
-    /// The EiffelActivityFinishedEvent declares that a previously started activity has finished.
-    /// <a href="https://github.com/eiffel-community/eiffel/blob/edition-lyon/eiffel-vocabulary/EiffelActivityFinishedEvent.md">
-    /// EiffelActivityFinishedEvent
-    /// </a>
-    /// for details.
+    /// The <a href="https://github.com/eiffel-community/eiffel/blob/edition-lyon/eiffel-vocabulary/EiffelArtifactReusedEvent.md">
+    /// EiffelArtifactReusedEvent
+    /// </a> declares that an identified EiffelArtifactCreatedEvent has been reused for
+    /// an identified EiffelCompositionDefinedEvent. 
     /// </summary>
-    public record EiffelActivityFinishedEvent :
-        EiffelEvent<EiffelActivityFinishedData, EiffelActivityFinishedMeta, EiffelActivityFinishedLinks>
+    public record EiffelArtifactReusedEvent :
+        EiffelEvent<EiffelArtifactReusedData, EiffelArtifactReusedMeta, EiffelArtifactReusedLinks>
     {
         /// <inheritdoc/>
-        public override EiffelActivityFinishedData Data { get; init; } = new();
+        public override EiffelArtifactReusedData Data { get; init; } = new();
 
         /// <inheritdoc/>
-        public override EiffelActivityFinishedMeta Meta { get; init; } = new();
+        public override EiffelArtifactReusedMeta Meta { get; init; } = new();
 
         /// <inheritdoc/>
-        public override EiffelActivityFinishedLinks Links { get; init; } = new();
+        public override EiffelArtifactReusedLinks Links { get; init; } = new();
 
         /// <inheritdoc/>
         public override IEiffelEvent FromJson(string json)
         {
-            return Deserialize<EiffelActivityFinishedEvent>(json);
+            return Deserialize<EiffelArtifactReusedEvent>(json);
         }
     }
 }
