@@ -27,14 +27,14 @@ namespace EiffelEvents.Net.Events.Edition_Lyon
         EiffelEvent<EiffelArtifactReusedData, EiffelArtifactReusedMeta, EiffelArtifactReusedLinks>
     {
         /// <inheritdoc/>
-        public override EiffelArtifactReusedData Data { get; init; }
-        
+        public override EiffelArtifactReusedData Data { get; init; } = new();
+
         /// <inheritdoc/>
-        public override EiffelArtifactReusedMeta Meta { get; init; }
-        
+        public override EiffelArtifactReusedMeta Meta { get; init; } = new();
+
         /// <inheritdoc/>
-        public override EiffelArtifactReusedLinks Links { get; init; }
-        
+        public override EiffelArtifactReusedLinks Links { get; init; } = new();
+
         /// <inheritdoc/>
         public override IEiffelEvent FromJson(string json)
         {

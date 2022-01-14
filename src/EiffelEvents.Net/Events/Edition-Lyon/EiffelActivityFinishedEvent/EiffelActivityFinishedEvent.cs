@@ -28,14 +28,14 @@ namespace EiffelEvents.Net.Events.Edition_Lyon
         EiffelEvent<EiffelActivityFinishedData, EiffelActivityFinishedMeta, EiffelActivityFinishedLinks>
     {
         /// <inheritdoc/>
-        public override EiffelActivityFinishedData Data { get; init; }
-        
+        public override EiffelActivityFinishedData Data { get; init; } = new();
+
         /// <inheritdoc/>
-        public override EiffelActivityFinishedMeta Meta { get; init; }
-        
+        public override EiffelActivityFinishedMeta Meta { get; init; } = new();
+
         /// <inheritdoc/>
-        public override EiffelActivityFinishedLinks Links { get; init; }
-        
+        public override EiffelActivityFinishedLinks Links { get; init; } = new();
+
         /// <inheritdoc/>
         public override IEiffelEvent FromJson(string json)
         {
