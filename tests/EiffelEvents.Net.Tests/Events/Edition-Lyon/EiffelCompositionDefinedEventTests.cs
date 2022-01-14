@@ -21,11 +21,11 @@ using Xunit;
 
 namespace EiffelEvents.Net.Tests.Events.Edition_Lyon
 {
-    public class EiffelConfidenceLevelModifiedEventTests : IClassFixture<EiffelConfidenceLevelModifiedEventFixture>
+    public class EiffelCompositionDefinedEventTests : IClassFixture<EiffelCompositionDefinedEventFixture>
     {
-        private readonly EiffelConfidenceLevelModifiedEventFixture _eventFixture;
+        private readonly EiffelCompositionDefinedEventFixture _eventFixture;
 
-        public EiffelConfidenceLevelModifiedEventTests(EiffelConfidenceLevelModifiedEventFixture eventFixture)
+        public EiffelCompositionDefinedEventTests(EiffelCompositionDefinedEventFixture eventFixture)
         {
             _eventFixture = eventFixture;
         }
@@ -34,10 +34,10 @@ namespace EiffelEvents.Net.Tests.Events.Edition_Lyon
         public void Validate_CompleteAttributes_Success()
         {
             //Arrange
-            var confidenceLevelModifiedEvent = _eventFixture.GetValidCompleteEvent();
+            var compositionDefinedEvent = _eventFixture.GetValidCompleteEvent();
 
             //Act
-            Result result = confidenceLevelModifiedEvent.Validate();
+            Result result = compositionDefinedEvent.Validate();
 
             //Assert
             result.IsSuccess.Should().BeTrue();
@@ -47,10 +47,10 @@ namespace EiffelEvents.Net.Tests.Events.Edition_Lyon
         public void Validate_MissingRequired_Failed()
         {
             //Arrange
-            var confidenceLevelModifiedEvent = new EiffelConfidenceLevelModifiedEvent();
+            var compositionDefinedEvent = new EiffelCompositionDefinedEvent();
 
             //Act
-            var result = confidenceLevelModifiedEvent.Validate();
+            var result = compositionDefinedEvent.Validate();
 
             //Assert
             result.IsSuccess.Should().BeFalse();
@@ -60,33 +60,33 @@ namespace EiffelEvents.Net.Tests.Events.Edition_Lyon
         public void VerifySignature_ValidSignature_Success()
         {
             //Arrange
-            var confidenceLevelModifiedEvent = _eventFixture.GetValidCompleteEvent();
+            var compositionDefinedEvent = _eventFixture.GetValidCompleteEvent();
 
             //Act
-            var confidenceLevelModifiedEventSigned = confidenceLevelModifiedEvent.Sign<EiffelConfidenceLevelModifiedEvent>();
+            var compositionDefinedEventSigned = compositionDefinedEvent.Sign<EiffelCompositionDefinedEvent>();
 
             //Assert
-            confidenceLevelModifiedEventSigned.VerifySignature().Should().BeTrue();
+            compositionDefinedEventSigned.VerifySignature().Should().BeTrue();
         }
 
         [Fact]
         public void VerifySignature_CorruptedObject_Failed()
         {
             //Arrange
-            var confidenceLevelModifiedEvent = _eventFixture.GetValidCompleteEvent();
+            var compositionDefinedEvent = _eventFixture.GetValidCompleteEvent();
 
             //Act
-            var confidenceLevelModifiedEventSigned = confidenceLevelModifiedEvent.Sign<EiffelConfidenceLevelModifiedEvent>();
-            confidenceLevelModifiedEventSigned = confidenceLevelModifiedEventSigned with
+            var compositionDefinedEventSigned = compositionDefinedEvent.Sign<EiffelCompositionDefinedEvent>();
+            compositionDefinedEventSigned = compositionDefinedEventSigned with
             {
-                Meta = confidenceLevelModifiedEventSigned.Meta with
+                Meta = compositionDefinedEventSigned.Meta with
                 {
                     Id = Guid.NewGuid().ToString()
                 }
             };
 
             //Assert
-            confidenceLevelModifiedEventSigned.VerifySignature().Should().BeFalse();
+            compositionDefinedEventSigned.VerifySignature().Should().BeFalse();
         }
     }
 }
