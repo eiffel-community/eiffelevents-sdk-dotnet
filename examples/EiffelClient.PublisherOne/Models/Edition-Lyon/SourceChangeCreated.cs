@@ -17,15 +17,11 @@ using System.Collections.Generic;
 using EiffelEvents.Net.Events.Edition_Lyon;
 using EiffelEvents.Net.Events.Edition_Paris.Shared.Security;
 
-namespace EiffelEvents.Net.Tests.TestData.Edition_Lyon
+namespace EiffelClient.PublisherOne.Models.Edition_Lyon
 {
-    public class EiffelSourceChangeCreatedEventFixture
+    public class SourceChangeCreated
     {
-        /// <summary>
-        /// Get a complete valid instance of EiffelSourceChangeCreatedEvent.
-        /// </summary>
-        /// <returns></returns>
-        public EiffelSourceChangeCreatedEvent GetValidCompleteEvent()
+        public static EiffelSourceChangeCreatedEvent GetEvent()
         {
             return new EiffelSourceChangeCreatedEvent
             {
@@ -70,26 +66,12 @@ namespace EiffelEvents.Net.Tests.TestData.Edition_Lyon
                 Meta = new()
                 {
                     Id = Guid.NewGuid().ToString(),
-                    Tags = new () { "docker env" },
+                    Tags = new (){ "docker env" },
                     Security = new ()
                     {
                         AuthorIdentity = "Flower"
                     }
                 }
-            };
-        }
-
-        /// <summary>
-        /// Get a invalid instance of EiffelSourceChangeCreatedEvent.
-        /// </summary>
-        /// <returns></returns>
-        public EiffelSourceChangeCreatedEvent GetMissedRequiredEvent()
-        {
-            return new EiffelSourceChangeCreatedEvent
-            {
-                Data = null,
-                Meta = null,
-                Links = null
             };
         }
     }
