@@ -17,6 +17,15 @@ using EiffelEvents.Net.Events.Edition_Lyon.Shared;
 
 namespace EiffelEvents.Net.Events.Edition_Lyon
 {
+    /// <summary>
+    /// The <a href="https://github.com/eiffel-community/eiffel/blob/edition-lyon/eiffel-vocabulary/EiffelEnvironmentDefinedEvent.md">
+    /// EiffelEnvironmentDefinedEvent
+    /// </a> declares an environment which may be referenced from other events in order to secure traceability to
+    /// the conditions under which an artifact was created or a test was executed. Depending on the technology domain,
+    /// the nature of an environment varies greatly however: it may be a virtual image, a complete mechatronic system
+    /// of millions of independent parts, or anything in between.
+    /// Consequently, a concise yet complete and generic syntax for describing any environment is futile.
+    /// </summary>
     public record EiffelEnvironmentDefinedEvent :
         EiffelEvent<EiffelEnvironmentDefinedData, EiffelEnvironmentDefinedMeta, EiffelEnvironmentDefinedLinks>
     {
