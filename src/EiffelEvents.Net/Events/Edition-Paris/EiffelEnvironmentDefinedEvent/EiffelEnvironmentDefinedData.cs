@@ -39,7 +39,6 @@ namespace EiffelEvents.Net.Events.Edition_Paris
         /// <summary>
         /// An object identifying a host.
         /// </summary>
-        [Required]
         [NestedObject]
         public EiffelEnvironmentHost Host { get; init; }
 
