@@ -17,6 +17,14 @@ using EiffelEvents.Net.Events.Edition_Lyon.Shared;
 
 namespace EiffelEvents.Net.Events.Edition_Lyon
 {
+    /// <summary>
+    /// The EiffelSourceChangeCreatedEvent declares that a change to sources has been made, but not yet submitted.
+    /// This can be used to represent a change done on a private branch, undergoing review or made in a forked repository.
+    /// <a href="https://github.com/eiffel-community/eiffel/blob/edition-lyon/eiffel-vocabulary/EiffelSourceChangeCreatedEvent.md">
+    /// EiffelSourceChangeCreatedEvent
+    /// </a>
+    /// for details.
+    /// </summary>
     public record EiffelSourceChangeCreatedEvent :
         EiffelEvent<EiffelSourceChangeCreatedData, EiffelSourceChangeCreatedMeta, EiffelSourceChangeCreatedLinks>
     {
