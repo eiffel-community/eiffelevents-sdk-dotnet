@@ -47,7 +47,7 @@ namespace EiffelClient.PublisherOne.Models.Edition_Lyon
                 nameof(EiffelCompositionDefinedEvent) => CompositionDefined.GetEvent() as T,
                 nameof(EiffelFlowContextDefinedEvent) => FlowContextDefined.GetEvent() as T,
                 nameof(EiffelSourceChangeSubmittedEvent) => SourceChangeSubmitted.GetEvent() as T,
-                // nameof(EiffelTestCaseTriggeredEvent) => TestCaseTriggered.GetEvent() as T,
+                nameof(EiffelTestCaseTriggeredEvent) => TestCaseTriggered.GetEvent() as T,
                 // nameof(EiffelTestSuiteStartedEvent) => TestSuiteStarted.GetEvent() as T,
                 // nameof(EiffelTestSuiteFinishedEvent) => TestSuiteFinished.GetEvent() as T,
                 // nameof(EiffelTestCaseCanceledEvent) => TestCaseCanceled.GetEvent() as T,
