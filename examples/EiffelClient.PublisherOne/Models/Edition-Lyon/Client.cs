@@ -50,7 +50,7 @@ namespace EiffelClient.PublisherOne.Models.Edition_Lyon
                 // nameof(EiffelTestCaseTriggeredEvent) => TestCaseTriggered.GetEvent() as T,
                 // nameof(EiffelTestSuiteStartedEvent) => TestSuiteStarted.GetEvent() as T,
                 // nameof(EiffelTestSuiteFinishedEvent) => TestSuiteFinished.GetEvent() as T,
-                // nameof(EiffelTestCaseCanceledEvent) => TestCaseCanceled.GetEvent() as T,
+                nameof(EiffelTestCaseCanceledEvent) => TestCaseCanceled.GetEvent() as T,
                 // nameof(EiffelTestCaseFinishedEvent) => TestCaseFinished.GetEvent() as T,
                 // nameof(EiffelIssueVerifiedEvent) => IssueVerified.GetEvent() as T,
                 // nameof(EiffelTestCaseStartedEvent) => TestCaseStarted.GetEvent() as T,
