@@ -26,8 +26,8 @@ namespace EiffelClient.PublisherOne
             Console.WriteLine("Started !!");
 
             // Create a raw event
-            var eiffelEvent = TryClient.GetEvent<EiffelEnvironmentDefinedEvent>();
-            var signedEvent = eiffelEvent?.Sign<EiffelEnvironmentDefinedEvent>();
+            var eiffelEvent = TryClient.GetEvent<EiffelFlowContextDefinedEvent>();
+            var signedEvent = eiffelEvent?.Sign<EiffelFlowContextDefinedEvent>();
 
 
           /*for (int i = 0; i < 10000; i++)
