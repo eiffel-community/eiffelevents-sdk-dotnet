@@ -60,12 +60,12 @@ namespace EiffelEvents.RabbitMq.Client
                 var attributeValidationResult = eiffelEvent.Validate();
                 if (attributeValidationResult.IsFailed)
                     return attributeValidationResult.ToResult(eiffelEvent);
-                
+
                 var json = string.Empty;
                 if (validateOnPublish == SchemaValidationOnPublish.ON)
                 {
                     json = eiffelEvent.ToJson();
-                    var schemaValidationResult = ValidationHelper.ValidateEventSchema<T>(json);
+                    var schemaValidationResult = SchemaValidationHelper.ValidateEvent<T>(json);
                     if (schemaValidationResult.IsFailed)
                         return schemaValidationResult.ToResult(eiffelEvent);
                 }
@@ -145,6 +145,7 @@ namespace EiffelEvents.RabbitMq.Client
         {
             T eiffelEvent;
             Result validJsonResult;
+            var errorMessage = "JSON validation against corresponding JSON schema was failed. ";
             switch (validateOnSubscribe)
             {
                 case SchemaValidationOnSubscribe.ON_DESERIALIZATION_FAIL:
@@ -155,15 +156,14 @@ namespace EiffelEvents.RabbitMq.Client
                     }
                     catch (JsonSerializationException)
                     {
-                        validJsonResult = ValidationHelper.ValidateEventSchema<T>(content);
-                        var validationErrors = string.Join(", ", validJsonResult.Errors);
-                        var failedResult =
-                            Result.Fail<T>($"Not valid json. Errors: {validationErrors}");
+                        validJsonResult = SchemaValidationHelper.ValidateEvent<T>(content);
+                        var validationErrors = string.Join(", ", validJsonResult.Errors.Select(x => x.Message));
+                        errorMessage += $"Errors: {validationErrors}";
+                        var failedResult = Result.Fail<T>(errorMessage);
                         return failedResult;
                     }
                 case SchemaValidationOnSubscribe.ALWAYS:
-                    validJsonResult = ValidationHelper.ValidateEventSchema<T>(content);
-
+                    validJsonResult = SchemaValidationHelper.ValidateEvent<T>(content);
                     if (validJsonResult.IsSuccess)
                     {
                         eiffelEvent = (T)typeObj.FromJson(content);
@@ -171,9 +171,9 @@ namespace EiffelEvents.RabbitMq.Client
                     }
                     else
                     {
-                        var validationErrors = string.Join(", ", validJsonResult.Errors);
-                        var failedResult =
-                            Result.Fail<T>($"Not valid json. Errors: {validationErrors}");
+                        var validationErrors = string.Join(", ", validJsonResult.Errors.Select(x => x.Message));
+                        errorMessage += $"Errors: {validationErrors}";
+                        var failedResult = Result.Fail<T>(errorMessage);
                         return failedResult;
                     }
                 case SchemaValidationOnSubscribe.NONE:

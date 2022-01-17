@@ -258,7 +258,7 @@ namespace EiffelEvents.Net.Tests.Events.Edition_Lyon
             var activityTriggeredJson = _eventFixture.GetValidJsonEvent();
 
             // Act
-            var result = ValidationHelper.ValidateEventSchema<EiffelActivityTriggeredEvent>(activityTriggeredJson);
+            var result = SchemaValidationHelper.ValidateEvent<EiffelActivityTriggeredEvent>(activityTriggeredJson);
 
             // Assert
             result.IsSuccess.Should().BeTrue();
@@ -271,7 +271,7 @@ namespace EiffelEvents.Net.Tests.Events.Edition_Lyon
             var activityTriggeredJson = _eventFixture.GetInvalidJsonEvent();
 
             // Act
-            var result = ValidationHelper.ValidateEventSchema<EiffelActivityTriggeredEvent>(activityTriggeredJson);
+            var result = SchemaValidationHelper.ValidateEvent<EiffelActivityTriggeredEvent>(activityTriggeredJson);
 
             // Assert
             result.IsSuccess.Should().BeFalse();

@@ -24,22 +24,17 @@ using Newtonsoft.Json.Schema;
 
 namespace EiffelEvents.Net.Validation
 {
-    public static class ValidationHelper
+    public static class SchemaValidationHelper
     {
         /// <summary>
-        /// Validate Event instance Version against event type version
+        /// Validate json string of Eiffel event with the corresponding protocol Event json schema
         /// </summary>
-        /// <param name="eiffelEvent">Instance to be checked</param>
-        /// <typeparam name="T">Type to check against</typeparam>
-        /// <exception cref="InvalidEiffelEventException">Thrown if the versions are not equal</exception>
-        public static void ValidateEventVersion<T>(T eiffelEvent) where T : IEiffelEvent
-        {
-            var typeObj = (T)Activator.CreateInstance(typeof(T));
-            if (eiffelEvent.GetVersion() != typeObj?.GetVersion())
-                throw new InvalidEiffelEventException(typeof(T).Name, eiffelEvent.GetVersion());
-        }
-
-        public static Result ValidateEventSchema<T>(string eiffelEventJson)
+        /// <param name="eiffelEventJson">JSON to be validated</param>
+        /// <typeparam name="T">Event type to be validated</typeparam>
+        /// <returns>
+        /// <see cref="Result"/> object that holds the validation results with errors array in case of not valid JSON.
+        /// </returns>
+        public static Result ValidateEvent<T>(string eiffelEventJson)
             where T : IEiffelEvent
         {
             // load schema
@@ -57,7 +52,7 @@ namespace EiffelEvents.Net.Validation
 
             return valid
                 ? Result.Ok()
-                : Result.Fail(string.Join(',', validationErrors.Select(x => $"{x.Message} - Path: {x.Path}")));
+                : Result.Fail(string.Join(", ", validationErrors.Select(x => $"{x.Message} - Path: {x.Path}")));
         }
 
         private static string GetSchemaFromFileSystem(string edition, string eventName)
@@ -65,7 +60,7 @@ namespace EiffelEvents.Net.Validation
             var path = Path.Join("Schemas", edition, eventName);
             if (!Directory.Exists(path))
                 throw new SchemaNotFoundException(eventName, edition);
-           
+
             var schemaFiles = Directory.GetFiles(path);
             if (schemaFiles.Length == 0)
                 throw new SchemaNotFoundException(eventName, edition);
