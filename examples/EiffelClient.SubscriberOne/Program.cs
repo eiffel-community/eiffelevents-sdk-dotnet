@@ -52,7 +52,6 @@ namespace EiffelClient.SubscriberOne
 
             // Subscribe to events
             _subscriptionId = _client.Subscribe<EiffelActivityTriggeredEvent>(_queueIdentifier, GeneralHandleEvent);
-
             Console.WriteLine($"Subscription done to event {nameof(EiffelActivityTriggeredEvent)} !");
 
             while (true)
