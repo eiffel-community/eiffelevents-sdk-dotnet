@@ -21,23 +21,23 @@ using Xunit;
 
 namespace EiffelEvents.Net.Tests.Events.Edition_Lyon
 {
-    public class EiffelActivityCanceledEventTests : IClassFixture<EiffelActivityCanceledEventFixture>
+    public class EiffelTestCaseStartedEventTests : IClassFixture<EiffelTestCaseStartedEventFixture>
     {
-        private readonly EiffelActivityCanceledEventFixture _eventFixture;
+        private readonly EiffelTestCaseStartedEventFixture _eventFixture;
 
-        public EiffelActivityCanceledEventTests(EiffelActivityCanceledEventFixture eventFixture)
+        public EiffelTestCaseStartedEventTests(EiffelTestCaseStartedEventFixture fixture)
         {
-            _eventFixture = eventFixture;
+            _eventFixture = fixture;
         }
 
         [Fact]
         public void Validate_CompleteAttributes_Success()
         {
             //Arrange
-            var activityCanceledEvent = _eventFixture.GetValidCompleteEvent();
+            var testCaseStartedEvent = _eventFixture.GetValidCompleteEvent();
 
             //Act
-            Result result = activityCanceledEvent.Validate();
+            Result result = testCaseStartedEvent.Validate();
 
             //Assert
             result.IsSuccess.Should().BeTrue();
@@ -47,10 +47,10 @@ namespace EiffelEvents.Net.Tests.Events.Edition_Lyon
         public void Validate_MissingRequired_Failed()
         {
             //Arrange
-            var activityCanceledEvent = new EiffelActivityCanceledEvent();
+            var testCaseStartedEvent = new EiffelTestCaseStartedEvent();
 
             //Act
-            var result = activityCanceledEvent.Validate();
+            var result = testCaseStartedEvent.Validate();
 
             //Assert
             result.IsSuccess.Should().BeFalse();
@@ -60,33 +60,33 @@ namespace EiffelEvents.Net.Tests.Events.Edition_Lyon
         public void VerifySignature_ValidSignature_Success()
         {
             //Arrange
-            var activityCanceledEvent = _eventFixture.GetValidCompleteEvent();
+            var testCaseStartedEvent = _eventFixture.GetValidCompleteEvent();
 
             //Act
-            var activityCanceledEventSigned = activityCanceledEvent.Sign<EiffelActivityCanceledEvent>();
+            var testCaseStartedEventSigned = testCaseStartedEvent.Sign<EiffelTestCaseStartedEvent>();
 
             //Assert
-            activityCanceledEventSigned.VerifySignature().Should().BeTrue();
+            testCaseStartedEventSigned.VerifySignature().Should().BeTrue();
         }
 
         [Fact]
         public void VerifySignature_CorruptedObject_Failed()
         {
             //Arrange
-            var activityCanceledEvent = _eventFixture.GetValidCompleteEvent();
+            var testCaseStartedEvent = _eventFixture.GetValidCompleteEvent();
 
             //Act
-            var activityCanceledEventSigned = activityCanceledEvent.Sign<EiffelActivityCanceledEvent>();
-            activityCanceledEventSigned = activityCanceledEventSigned with
+            var testCaseStartedEventSigned = testCaseStartedEvent.Sign<EiffelTestCaseStartedEvent>();
+            testCaseStartedEventSigned = testCaseStartedEventSigned with
             {
-                Meta = activityCanceledEventSigned.Meta with
+                Meta = testCaseStartedEventSigned.Meta with
                 {
                     Id = Guid.NewGuid().ToString()
                 }
             };
 
             //Assert
-            activityCanceledEventSigned.VerifySignature().Should().BeFalse();
+            testCaseStartedEventSigned.VerifySignature().Should().BeFalse();
         }
     }
 }
