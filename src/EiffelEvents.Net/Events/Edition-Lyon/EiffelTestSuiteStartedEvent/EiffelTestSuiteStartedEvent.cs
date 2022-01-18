@@ -18,7 +18,7 @@ using EiffelEvents.Net.Events.Edition_Lyon.Shared;
 namespace EiffelEvents.Net.Events.Edition_Lyon
 {
     /// <summary>
-    /// The <a href="https://github.com/eiffel-community/eiffel/blob/edition-lyon/eiffel-vocabulary/EiffelTestS`uiteStartedEvent.md">
+    /// The <a href="https://github.com/eiffel-community/eiffel/blob/edition-lyon/eiffel-vocabulary/EiffelTestSuiteStartedEvent.md">
     /// EiffelTestSuiteStartedEvent
     /// </a> declares that the execution of a test suite has started. This can either be
     /// declared stand-alone or as part of an activity or other test suite, using either a CAUSE or a CONTEXT link type,
