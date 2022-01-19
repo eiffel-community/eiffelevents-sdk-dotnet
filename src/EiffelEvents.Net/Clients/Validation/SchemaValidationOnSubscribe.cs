@@ -14,10 +14,22 @@
 
 namespace EiffelEvents.Net.Clients.Validation
 {
+    /// <summary>
+    /// Set whether to validate against JSON schema while subscribing to an event
+    /// </summary>
     public enum SchemaValidationOnSubscribe
     {
+        /// <summary>
+        /// Never validate upcoming event against JSON schema
+        /// </summary>
         NONE = 0,
+        /// <summary>
+        /// Validate upcoming event against JSON schema only if deserialization failed
+        /// </summary>
         ON_DESERIALIZATION_FAIL = 1,
+        /// <summary>
+        /// Always validate upcoming event against JSON schema
+        /// </summary>
         ALWAYS = 2
     }
 }

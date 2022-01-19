@@ -14,9 +14,18 @@
 
 namespace EiffelEvents.Net.Clients.Validation
 {
+    /// <summary>
+    /// Set whether to validate against JSON schema before publish or not
+    /// </summary>
     public enum SchemaValidationOnPublish
     {
+        /// <summary>
+        /// Validate before publish
+        /// </summary>
         ON = 0,
+        /// <summary>
+        /// Publish without validation
+        /// </summary>
         OFF = 1
     }
 }
