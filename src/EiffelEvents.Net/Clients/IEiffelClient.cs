@@ -42,7 +42,8 @@ namespace EiffelEvents.Net.Clients
         Result<T> Publish<T>(T eiffelEvent, SchemaValidationOnPublish validateOnPublish) where T : IEiffelEvent, new();
 
         /// <summary>
-        /// Publish an event to the Eiffel event bus represented by this client.
+        /// Publish an event to the Eiffel event bus represented by this client. SchemaValidationOnPublish will be ON
+        /// by default configurations.
         /// </summary>
         /// <typeparam name="T">The type of event to send</typeparam>
         /// <param name="eiffelEvent">Event to send</param>
@@ -55,7 +56,8 @@ namespace EiffelEvents.Net.Clients
         Result<T> Publish<T>(T eiffelEvent) where T : IEiffelEvent, new();
 
         /// <summary>
-        /// Subscribes to events of the given Eiffel type
+        /// Subscribes to events of the given Eiffel type. SchemaValidationOnSubscribe will be NONE by default
+        /// configurations.
         /// </summary>
         /// <typeparam name="T">Type of event to subscribe to</typeparam>
         /// <param name="serviceIdentifier">string identifier for each service to be included in queue name</param>
