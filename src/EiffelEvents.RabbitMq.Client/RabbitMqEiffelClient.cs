@@ -145,7 +145,6 @@ namespace EiffelEvents.RabbitMq.Client
         {
             T eiffelEvent;
             Result validJsonResult;
-            var errorMessage = "JSON validation against corresponding JSON schema was failed. ";
             switch (validateOnSubscribe)
             {
                 case SchemaValidationOnSubscribe.ON_DESERIALIZATION_FAIL:
@@ -157,10 +156,7 @@ namespace EiffelEvents.RabbitMq.Client
                     catch (JsonSerializationException)
                     {
                         validJsonResult = SchemaValidationHelper.ValidateEvent<T>(content);
-                        var validationErrors = string.Join(", ", validJsonResult.Errors.Select(x => x.Message));
-                        errorMessage += $"Errors: {validationErrors}";
-                        var failedResult = Result.Fail<T>(errorMessage);
-                        return failedResult;
+                        return GetResultFromValidationErrors<T>(validJsonResult);
                     }
                 case SchemaValidationOnSubscribe.ALWAYS:
                     validJsonResult = SchemaValidationHelper.ValidateEvent<T>(content);
@@ -171,16 +167,21 @@ namespace EiffelEvents.RabbitMq.Client
                     }
                     else
                     {
-                        var validationErrors = string.Join(", ", validJsonResult.Errors.Select(x => x.Message));
-                        errorMessage += $"Errors: {validationErrors}";
-                        var failedResult = Result.Fail<T>(errorMessage);
-                        return failedResult;
+                        return GetResultFromValidationErrors<T>(validJsonResult);
                     }
                 case SchemaValidationOnSubscribe.NONE:
                 default:
                     eiffelEvent = (T)typeObj.FromJson(content);
                     return Result.Ok(eiffelEvent);
             }
+        }
+
+        private Result<T> GetResultFromValidationErrors<T>(Result validJsonResult) where T : IEiffelEvent, new()
+        {
+            var errorMessage = "JSON validation against the corresponding JSON schema was failed. ";
+            var validationErrors = string.Join(", ", validJsonResult.Errors.Select(x => x.Message));
+            errorMessage += $"Errors: {validationErrors}";
+            return Result.Fail<T>(errorMessage);
         }
 
         /// <inheritdoc/>

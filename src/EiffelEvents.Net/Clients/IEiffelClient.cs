@@ -30,7 +30,7 @@ namespace EiffelEvents.Net.Clients
         /// <typeparam name="T">The type of event to send</typeparam>
         /// <param name="eiffelEvent">Event to send</param>
         /// <param name="validateOnPublish">
-        /// boolean to indicate that if the event will be validated before publish or not.
+        /// indicate that if the event will be validated before publish or not.
         /// This parameter will override any configured value.
         /// </param>
         /// <returns>
