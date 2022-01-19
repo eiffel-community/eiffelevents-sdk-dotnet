@@ -39,7 +39,7 @@ namespace EiffelEvents.Net.Clients
         /// If publish succeed, result object will hold event sent on the bus,
         /// which may be different from the input event (e.g. signed).
         /// </returns>
-        Result<T> Publish<T>(T eiffelEvent, SchemaValidationOnPublish validateOnPublish) where T : IEiffelEvent;
+        Result<T> Publish<T>(T eiffelEvent, SchemaValidationOnPublish validateOnPublish) where T : IEiffelEvent, new();
 
         /// <summary>
         /// Publish an event to the Eiffel event bus represented by this client.
@@ -52,7 +52,7 @@ namespace EiffelEvents.Net.Clients
         /// If publish succeed, result object will hold event sent on the bus,
         /// which may be different from the input event (e.g. signed).
         /// </returns>
-        Result<T> Publish<T>(T eiffelEvent) where T : IEiffelEvent;
+        Result<T> Publish<T>(T eiffelEvent) where T : IEiffelEvent, new();
 
         /// <summary>
         /// Subscribes to events of the given Eiffel type

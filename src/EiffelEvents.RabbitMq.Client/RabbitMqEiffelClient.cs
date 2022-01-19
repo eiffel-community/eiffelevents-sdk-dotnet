@@ -52,7 +52,8 @@ namespace EiffelEvents.RabbitMq.Client
         }
 
         /// <inheritdoc/>
-        public Result<T> Publish<T>(T eiffelEvent, SchemaValidationOnPublish validateOnPublish) where T : IEiffelEvent
+        public Result<T> Publish<T>(T eiffelEvent, SchemaValidationOnPublish validateOnPublish) 
+            where T : IEiffelEvent, new()
         {
             try
             {
@@ -61,17 +62,18 @@ namespace EiffelEvents.RabbitMq.Client
                 if (attributeValidationResult.IsFailed)
                     return attributeValidationResult.ToResult(eiffelEvent);
 
-                var json = string.Empty;
+                string json;
                 if (validateOnPublish == SchemaValidationOnPublish.ON)
                 {
                     json = eiffelEvent.ToJson();
                     var schemaValidationResult = SchemaValidationHelper.ValidateEvent<T>(json);
                     if (schemaValidationResult.IsFailed)
-                        return schemaValidationResult.ToResult(eiffelEvent);
+                        return GetResultFromValidationErrors<T>(schemaValidationResult);
                 }
-
-                if (string.IsNullOrWhiteSpace(json))
+                else
+                {
                     json = eiffelEvent.ToJson();
+                }
 
                 var body = Encoding.UTF8.GetBytes(json);
                 var routingKey = _rabbitMqWrapper.GetRoutingKey(typeof(T).Name);
@@ -88,7 +90,7 @@ namespace EiffelEvents.RabbitMq.Client
         }
 
         /// <inheritdoc/>
-        public Result<T> Publish<T>(T eiffelEvent) where T : IEiffelEvent
+        public Result<T> Publish<T>(T eiffelEvent) where T : IEiffelEvent, new()
         {
             return Publish(eiffelEvent, _validationConfig.SchemaValidationOnPublish);
         }
