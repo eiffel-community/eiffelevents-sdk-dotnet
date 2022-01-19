@@ -15,9 +15,9 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using EiffelEvents.Net.Events.Core.Data;
-using EiffelEvents.Net.Events.Edition_Lyon.Shared.Data;
-using EiffelEvents.Net.Events.Edition_Paris;
+using EiffelEvents.Net.Events.Edition_Paris.Shared.Data;
 using EiffelEvents.Net.Validation;
+using EiffelPersistentLog = EiffelEvents.Net.Events.Edition_Lyon.Shared.Data.EiffelPersistentLog;
 
 namespace EiffelEvents.Net.Events.Edition_Lyon
 {
