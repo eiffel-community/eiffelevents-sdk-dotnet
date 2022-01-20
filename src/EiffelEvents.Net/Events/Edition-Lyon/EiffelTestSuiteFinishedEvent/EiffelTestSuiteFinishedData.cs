@@ -13,7 +13,6 @@
 //    limitations under the License.
 
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using EiffelEvents.Net.Events.Core.Data;
 using EiffelEvents.Net.Events.Edition_Paris.Shared.Data;
 using EiffelEvents.Net.Validation;
@@ -21,17 +20,16 @@ using EiffelPersistentLog = EiffelEvents.Net.Events.Edition_Lyon.Shared.Data.Eif
 
 namespace EiffelEvents.Net.Events.Edition_Lyon
 {
-    public record EiffelTestCaseFinishedData : EiffelData
+    public record EiffelTestSuiteFinishedData : EiffelData
     {
         /// <summary>
-        /// The outcome of the test case
+        /// The outcome of the test suite.
         /// </summary>
-        [Required]
         [NestedObject]
-        public EiffelTestCaseOutcome Outcome { get; init; }
+        public EiffelTestSuiteOutcome Outcome { get; init; }
 
         /// <summary>
-        /// An array of persistent log files generated during execution
+        /// A list of persistent log files generated during execution.
         /// </summary>
         [NestedList]
         public List<EiffelPersistentLog> PersistentLogs { get; init; }

@@ -29,7 +29,6 @@ namespace EiffelClient.PublisherOne
             var eiffelEvent = TryClient.GetEvent<EiffelIssueVerifiedEvent>();
             var signedEvent = eiffelEvent?.Sign<EiffelIssueVerifiedEvent>();
 
-
           /*for (int i = 0; i < 10000; i++)
            {*/
             var result = TryClient.Eiffelclient.Publish(signedEvent);

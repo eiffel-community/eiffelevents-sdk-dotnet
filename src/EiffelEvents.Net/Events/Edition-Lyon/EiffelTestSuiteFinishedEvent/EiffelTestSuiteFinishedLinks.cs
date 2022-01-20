@@ -12,28 +12,23 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using EiffelEvents.Net.Events.Core.Data;
-using EiffelEvents.Net.Events.Edition_Paris.Shared.Data;
+using EiffelEvents.Net.Events.Edition_Lyon.Shared;
+using EiffelEvents.Net.Events.Edition_Lyon.Shared.Links;
 using EiffelEvents.Net.Validation;
-using EiffelPersistentLog = EiffelEvents.Net.Events.Edition_Lyon.Shared.Data.EiffelPersistentLog;
 
 namespace EiffelEvents.Net.Events.Edition_Lyon
 {
-    public record EiffelTestCaseFinishedData : EiffelData
+
+    public record EiffelTestSuiteFinishedLinks : EiffelSharedLinks
     {
         /// <summary>
-        /// The outcome of the test case
+        /// Identifies the relevant test suite execution. In other words, <see cref="EiffelTestSuiteStartedEvent"/>
+        /// acts as a handle for a particular test suite execution.
         /// </summary>
         [Required]
         [NestedObject]
-        public EiffelTestCaseOutcome Outcome { get; init; }
-
-        /// <summary>
-        /// An array of persistent log files generated during execution
-        /// </summary>
-        [NestedList]
-        public List<EiffelPersistentLog> PersistentLogs { get; init; }
+        public EiffelTestSuiteExecutionLink TestSuiteExecution { get; init; }
+  
     }
 }
