@@ -71,7 +71,7 @@ namespace EiffelEvents.Net.Tests.Events.Edition_Paris
             //Assert
             result.IsSuccess.Should().BeFalse();
         }
-        
+
         [Fact]
         public void Validate_NotValidGuidList_Failed()
         {
@@ -237,7 +237,7 @@ namespace EiffelEvents.Net.Tests.Events.Edition_Paris
             //Assert
             actualSerializedEvent.Should().BeEquivalentTo(expected);
         }
-        
+
         [Fact]
         public void ToJson_Serialize_Empty_Links_Success()
         {
@@ -259,12 +259,14 @@ namespace EiffelEvents.Net.Tests.Events.Edition_Paris
             var activityTriggeredJson = _eventFixture.GetValidJsonEvent();
 
             // Act
-            var result = SchemaValidationHelper.ValidateEvent<EiffelActivityTriggeredEvent>(activityTriggeredJson);
+            var result =
+                SchemaValidationHelper.ValidateEvent(activityTriggeredJson,
+                    "EiffelActivityTriggeredEvent", "4.0.0");
 
             // Assert
             result.IsSuccess.Should().BeTrue();
         }
-        
+
         [Fact]
         public void ValidateSchema_Invalid_Failed()
         {
@@ -272,7 +274,9 @@ namespace EiffelEvents.Net.Tests.Events.Edition_Paris
             var activityTriggeredJson = _eventFixture.GetInvalidJsonEvent();
 
             // Act
-            var result = SchemaValidationHelper.ValidateEvent<EiffelActivityTriggeredEvent>(activityTriggeredJson);
+            var result =
+                SchemaValidationHelper.ValidateEvent(activityTriggeredJson,
+                    "EiffelActivityTriggeredEvent", "4.0.0");
 
             // Assert
             result.IsSuccess.Should().BeFalse();

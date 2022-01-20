@@ -52,7 +52,7 @@ namespace EiffelEvents.RabbitMq.Client
         }
 
         /// <inheritdoc/>
-        public Result<T> Publish<T>(T eiffelEvent, SchemaValidationOnPublish validateOnPublish) 
+        public Result<T> Publish<T>(T eiffelEvent, SchemaValidationOnPublish validateOnPublish)
             where T : IEiffelEvent, new()
         {
             try
@@ -66,7 +66,9 @@ namespace EiffelEvents.RabbitMq.Client
                 if (validateOnPublish == SchemaValidationOnPublish.ON)
                 {
                     json = eiffelEvent.ToJson();
-                    var schemaValidationResult = SchemaValidationHelper.ValidateEvent<T>(json);
+                    var schemaValidationResult =
+                        SchemaValidationHelper.ValidateEvent(json, typeof(T).Name, eiffelEvent.GetVersion());
+                    
                     if (schemaValidationResult.IsFailed)
                         return GetResultFromValidationErrors<T>(schemaValidationResult);
                 }
@@ -145,6 +147,17 @@ namespace EiffelEvents.RabbitMq.Client
         private Result<T> ValidateEvent<T>(SchemaValidationOnSubscribe validateOnSubscribe, T typeObj, string content)
             where T : IEiffelEvent, new()
         {
+            var (type, version) = JsonHelper.GetTypeAndVersion(content);
+
+            if (string.IsNullOrWhiteSpace(type) ||
+                string.IsNullOrWhiteSpace(version))
+                return Result.Fail<T>("Not valid JSON event. Can't find meta.type or meta.version.");
+
+            if (version != typeObj.GetVersion() ||
+                type != typeof(T).Name)
+                return Result.Fail<T>($"Inconsistent event versions found: a subscription to event {typeof(T).Name} " +
+                                      $"with version: {typeObj.GetVersion()} but received event {type} with version: {version}");
+
             T eiffelEvent;
             Result validJsonResult;
             switch (validateOnSubscribe)
@@ -157,11 +170,11 @@ namespace EiffelEvents.RabbitMq.Client
                     }
                     catch (JsonSerializationException)
                     {
-                        validJsonResult = SchemaValidationHelper.ValidateEvent<T>(content);
+                        validJsonResult = SchemaValidationHelper.ValidateEvent(content, type, version);
                         return GetResultFromValidationErrors<T>(validJsonResult);
                     }
                 case SchemaValidationOnSubscribe.ALWAYS:
-                    validJsonResult = SchemaValidationHelper.ValidateEvent<T>(content);
+                    validJsonResult = SchemaValidationHelper.ValidateEvent(content, type, version);
                     if (validJsonResult.IsSuccess)
                     {
                         eiffelEvent = (T)typeObj.FromJson(content);

@@ -21,8 +21,8 @@ namespace EiffelEvents.Net.Exceptions
     /// </summary>
     public class SchemaNotFoundException : EiffelException
     {
-        public SchemaNotFoundException(string eventName, string edition) :
-            base($"Event json schema is not found for {eventName}, {edition}")
+        public SchemaNotFoundException(string eventName, string version) :
+            base($"Event json schema is not found for {eventName}, {version}")
         {
         }
 

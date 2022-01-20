@@ -12,11 +12,9 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using EiffelEvents.Net.Events.Core;
 using EiffelEvents.Net.Exceptions;
 using FluentResults;
 using Newtonsoft.Json.Linq;
@@ -30,18 +28,15 @@ namespace EiffelEvents.Net.Validation
         /// Validate json string of Eiffel event with the corresponding protocol Event json schema
         /// </summary>
         /// <param name="eiffelEventJson">JSON to be validated</param>
-        /// <typeparam name="T">Event type to be validated</typeparam>
+        /// <param name="type">Event type</param>
+        /// <param name="version">Event version</param>
         /// <returns>
         /// <see cref="Result"/> object that holds the validation results with errors array in case of not valid JSON.
         /// </returns>
-        public static Result ValidateEvent<T>(string eiffelEventJson)
-            where T : IEiffelEvent
+        public static Result ValidateEvent(string eiffelEventJson, string type, string version)
         {
             // load schema
-            var eventName = typeof(T).Name;
-            var edition = typeof(T).Namespace?.Split('.').Last().Replace('_', '-');
-
-            var jsonSchema = GetSchemaFromFileSystem(edition, eventName);
+            var jsonSchema = GetSchemaFromFileSystem(type, version);
             var schema = JSchema.Parse(jsonSchema);
 
             // parse json
@@ -55,17 +50,17 @@ namespace EiffelEvents.Net.Validation
                 : Result.Fail(string.Join(", ", validationErrors.Select(x => $"{x.Message} - Path: {x.Path}")));
         }
 
-        private static string GetSchemaFromFileSystem(string edition, string eventName)
+        private static string GetSchemaFromFileSystem(string type, string version)
         {
-            var path = Path.Join("Schemas", edition, eventName);
+            var path = Path.Join("Schemas", type);
             if (!Directory.Exists(path))
-                throw new SchemaNotFoundException(eventName, edition);
+                throw new SchemaNotFoundException(type, version);
 
-            var schemaFiles = Directory.GetFiles(path);
-            if (schemaFiles.Length == 0)
-                throw new SchemaNotFoundException(eventName, edition);
+            path = Path.Join(path, $"{version}.json");
+            if (!File.Exists(path))
+                throw new SchemaNotFoundException(type, version);
 
-            return File.ReadAllText(schemaFiles[0]);
+            return File.ReadAllText(path);
         }
     }
 }

@@ -15,8 +15,7 @@
     </ItemGroup>
     
     <ItemGroup>
-      <Folder Include="Schemas\Edition-Lyon" />
-      <Folder Include="Schemas\Edition-Paris" />
+      <Folder Include="Schemas" />
     </ItemGroup>
     
    <ItemGroup>
