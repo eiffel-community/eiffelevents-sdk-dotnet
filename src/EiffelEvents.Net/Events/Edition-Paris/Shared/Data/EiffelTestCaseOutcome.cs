@@ -14,11 +14,10 @@
 
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using EiffelEvents.Net.Events.Edition_Paris.Shared.Data;
 using EiffelEvents.Net.Events.Edition_Paris.Shared.Enums;
 using EiffelEvents.Net.Validation;
 
-namespace EiffelEvents.Net.Events.Edition_Paris
+namespace EiffelEvents.Net.Events.Edition_Paris.Shared.Data
 {
     public record EiffelTestCaseOutcome
     {
