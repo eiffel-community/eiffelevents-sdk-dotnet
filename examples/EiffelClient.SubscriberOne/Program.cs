@@ -41,8 +41,8 @@ namespace EiffelClient.SubscriberOne
             Console.WriteLine("Started ....");
 
             // Subscribe to events
-            _subscriptionId = _client.Subscribe<EiffelTestExecutionRecipeCollectionCreatedEvent>(_queueIdentifier, GeneralHandleEvent);
-            Console.WriteLine($"Subscription done to event {nameof(EiffelTestExecutionRecipeCollectionCreatedEvent)} !");
+            _subscriptionId = _client.Subscribe<EiffelAnnouncementPublishedEvent>(_queueIdentifier, GeneralHandleEvent);
+            Console.WriteLine($"Subscription done to event {nameof(EiffelAnnouncementPublishedEvent)} !");
 
             while (true)
             {
