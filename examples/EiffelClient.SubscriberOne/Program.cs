@@ -52,6 +52,10 @@ namespace EiffelClient.SubscriberOne
 
             // Subscribe to events
             _subscriptionId = _client.Subscribe<EiffelActivityTriggeredEvent>(_queueIdentifier, GeneralHandleEvent);
+
+            // or subscribe to event with overriding the global configurations of SchemaValidationOnSubscribe
+            // _subscriptionId = _client.Subscribe<EiffelActivityTriggeredEvent>(_queueIdentifier, GeneralHandleEvent, SchemaValidationOnSubscribe.ON_DESERIALIZATION_FAIL);
+
             Console.WriteLine($"Subscription done to event {nameof(EiffelActivityTriggeredEvent)} !");
 
             while (true)

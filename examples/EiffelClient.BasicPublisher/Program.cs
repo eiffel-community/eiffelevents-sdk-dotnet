@@ -14,6 +14,7 @@
 
 using System;
 using EiffelEvents.Net.Clients;
+using EiffelEvents.Net.Clients.Validation;
 using EiffelEvents.Net.Events.Edition_Lyon;
 using EiffelEvents.Net.Events.Edition_Paris.Shared.Enums;
 using EiffelEvents.RabbitMq.Client;
@@ -32,6 +33,11 @@ namespace EiffelClient.BasicPublisher
                 UserName = "admin",
                 Password = "admin",
                 Port = 5672
+            },
+            ValidationConfig = new ()
+            {
+                SchemaValidationOnPublish = SchemaValidationOnPublish.ON,
+                SchemaValidationOnSubscribe = SchemaValidationOnSubscribe.ALWAYS
             }
         }, 1);
 
@@ -79,6 +85,10 @@ namespace EiffelClient.BasicPublisher
 
             // 3.Publish event to RabbitMQ
             var result = _eiffelClient.Publish(signedEvent);
+            
+            // or you can publish by overriding SchemaValidationOnPublish configuration
+            //var result = _eiffelClient.Publish(signedEvent, SchemaValidationOnPublish.OFF);
+            
             if (!result.IsFailed) Console.WriteLine(signedEvent.ToJson());
 
             // 4.Print results

@@ -1,4 +1,4 @@
-<img src="images/logo.png" width="350" />
+<img src="images/logo.png" width="350"  alt="Eiffel Logo"/>
 
 # EiffelEvents .NET SDK #
 
@@ -6,7 +6,7 @@
 
 EiffelEvents .NET SDK features include:
 
-- Implement Eiffel events vocabularies as described in [Eiffel-edition-paris](https://github.com/eiffel-community/eiffel/tree/edition-paris) 
+- Implement Eiffel events vocabularies as described in [Eiffel-edition-paris](https://github.com/eiffel-community/eiffel/tree/edition-paris) and [Eiffel-edition-lyon](https://github.com/eiffel-community/eiffel/tree/edition-lyon)
 - Validate events' schema regarding target event’s version.
 - Sign and verify events' signatures.
 - Serialization/deserialization of events.
@@ -73,7 +73,7 @@ var signedEvent = activityTriggeredEvent.Sign<EiffelActivityTriggeredEvent>();
 var json = signedEvent.ToJson();
 Console.WriteLine(json);
 ```
-
+Note: In order to use an event from Lyon-Edition, just use namespace `EiffelEvents.Net.Events.Edition_Lyon` instead of `EiffelEvents.Net.Events.Edition_Paris`.
 
 
 ## Using Publishing Package ([src/EiffelEvents.RabbitMq.Client](src/EiffelEvents.RabbitMq.Client))
@@ -88,14 +88,22 @@ Note: make sure that a RabbitMQ instance is up and running, then provide its con
 // Use required namespaces
 using EiffelEvents.RabbitMq.Client;
 
-// Init client
-IEiffelClient eiffelClient = new RabbitMqEiffelClient(new RabbitMqConfig
-        {
-            HostName = "localhost",
-            UserName = "admin",
-            Password = "admin",
-            Port = 5672
-        }, 1);
+// Init client (globally)
+private static readonly IEiffelClient _eiffelClient = new RabbitMqEiffelClient(new ()
+{
+    RabbitMqConfig = new ()
+    {
+        HostName = "localhost",
+        UserName = "admin",
+        Password = "admin",
+        Port = 5672
+    },
+    ValidationConfig = new ()
+    {
+        SchemaValidationOnPublish = SchemaValidationOnPublish.ON,
+        SchemaValidationOnSubscribe = SchemaValidationOnSubscribe.ALWAYS
+    }
+}, 1);
         
 // Declare event as done in Using Events Package (src/EiffelEvents.Net) section
 //...
@@ -105,6 +113,9 @@ var signedEvent = activityTriggeredEvent.Sign<EiffelActivityTriggeredEvent>();
 // Publish event to RabbitMQ
 var result = _eiffelClient.Publish(signedEvent);
 
+// or you can publish by overriding SchemaValidationOnPublish global configuration
+// var result = _eiffelClient.Publish(signedEvent, SchemaValidationOnPublish.OFF);
+            
 //check the publishing result
 Console.WriteLine(result);
 ```
@@ -112,17 +123,28 @@ Console.WriteLine(result);
 #### **Subscriber sample**
 
 ```c#
-// Init client
-IEiffelClient eiffelClient = new RabbitMqEiffelClient(new RabbitMqConfig
-        {
-            HostName = "localhost",
-            UserName = "admin",
-            Password = "admin",
-            Port = 5672
-        }, 1);
+// Init client (globally)
+private static readonly IEiffelClient _eiffelClient = new RabbitMqEiffelClient(new ()
+{
+    RabbitMqConfig = new ()
+    {
+        HostName = "localhost",
+        UserName = "admin",
+        Password = "admin",
+        Port = 5672
+    },
+    ValidationConfig = new ()
+    {
+        SchemaValidationOnPublish = SchemaValidationOnPublish.ON,
+        SchemaValidationOnSubscribe = SchemaValidationOnSubscribe.ALWAYS
+    }
+}, 1);
 
 // Subscribe to strongly-typed event, EiffelActivityTriggeredEvent
 var subscriptionId = eiffelClient.Subscribe<EiffelActivityTriggeredEvent>(HandleEventReceived);
+
+// or subscribe to event with overriding the global configurations of SchemaValidationOnSubscribe
+// _subscriptionId = _client.Subscribe<EiffelActivityTriggeredEvent>(_queueIdentifier, GeneralHandleEvent, SchemaValidationOnSubscribe.ON_DESERIALIZATION_FAIL);
 ```
 
 ##### **Handle receiving an event** 
