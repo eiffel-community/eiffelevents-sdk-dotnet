@@ -91,13 +91,42 @@ namespace EiffelEvents.RabbitMq.Client
             }
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Publish an event to the Eiffel event bus represented by this client. SchemaValidationOnPublish will be ON
+        /// by default configurations if user didn't pass it in <see cref="ClientConfig"/>, otherwise, it will depend on
+        /// the value configured in <see cref="ClientConfig"/> that passed to the
+        /// constructor of <see cref="RabbitMqEiffelClient"/>
+        /// </summary>
+        /// <typeparam name="T">The type of event to send</typeparam>
+        /// <param name="eiffelEvent">Event to send</param>
+        /// <returns>
+        /// Result object that indicates if the event published successfully (Result.IsSuccess).
+        /// It may hold validation errors in case of failed event validation (Result.IsFailed).
+        /// If publish succeed, result object will hold event sent on the bus,
+        /// which may be different from the input event (e.g. signed).
+        /// </returns>
         public Result<T> Publish<T>(T eiffelEvent) where T : IEiffelEvent, new()
         {
             return Publish(eiffelEvent, _validationConfig.SchemaValidationOnPublish);
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Subscribes to events of the given Eiffel type. SchemaValidationOnSubscribe will be NONE by default
+        /// configurations if user didn't pass it in <see cref="ClientConfig"/>, otherwise, it will depend on
+        /// the value configured in <see cref="ClientConfig"/> that passed to the
+        /// constructor of <see cref="RabbitMqEiffelClient"/>
+        /// </summary>
+        /// <typeparam name="T">Type of event to subscribe to</typeparam>
+        /// <param name="serviceIdentifier">string identifier for each service to be included in queue name</param>
+        /// <param name="callback">
+        /// Callback that will be invoked when new events are received where
+        /// <see cref="Result{TValue}"/> is Fluent result object of subscribed event. "IsSuccess" flag will be "true"
+        /// if the received JSON was a valid event according to the respective schema and the event object can be found
+        /// in "Value" property. "IsSuccess" flag will be "false" if the received JSON wasn't valid according to the
+        /// respective schema and the validation errors can be found using `Errors` property.
+        /// And, ulong for deliveryTag.
+        /// </param>
+        /// <returns>string for subscriptionId can later be used to UnSubscribe</returns>
         public string Subscribe<T>(string serviceIdentifier, Action<Result<T>, ulong> callback)
             where T : IEiffelEvent, new()
         {
