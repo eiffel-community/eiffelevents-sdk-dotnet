@@ -38,9 +38,9 @@ For demo purposes, we provided sample projects and the Docker services section f
    1. URL: http://localhost:15672/
    1. Username: admin
    1. Password: admin
-1. Open another terminal then change directory to `examples/EiffelClient.EiffelClient.SubscriberOne` then run the command `dotnet run` to run the **subscriber-one**.
-1. Open another terminal then change directory to `examples/EiffelClient.EiffelClient.SubscriberTwo` then run the command `dotnet run` to run the **subscriber-two**.
-1. Open another terminal then change directory to `examples/EiffelClient.PublisherOne` then run the command `dotnet run` to run the publisher.
+1. Open another terminal then change directory to `examples/EiffelClient.EiffelClient.SubscriberOne/bin/Debug/net6.0/` then run the command `dotnet run --project ..\..\..\` to run the **subscriber-one**.
+1. Open another terminal then change directory to `examples/EiffelClient.EiffelClient.SubscriberTwo/bin/Debug/net6.0/` then run the command `dotnet run --project ..\..\..\` to run the **subscriber-two**.
+1. Open another terminal then change directory to `examples/EiffelClient.PublisherOne/bin/Debug/net6.0/` then run the command `dotnet run --project ..\..\..\` to run the publisher.
 1. Note: all publish and subscribe events should be the same.
 
 ## Make Commands ##
