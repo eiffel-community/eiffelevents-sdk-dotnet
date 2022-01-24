@@ -126,7 +126,7 @@ namespace EiffelEvents.RabbitMq.Client
                             var typeObj = (T)Activator.CreateInstance(typeof(T));
                             if (typeObj == null) return;
 
-                            var result = ValidateEvent(validateOnSubscribe, typeObj, content);
+                            var result = TryDeserializeEvent(validateOnSubscribe, typeObj, content);
                             callback(result, eventArgs.DeliveryTag);
                         }
                         catch (Exception e)
@@ -144,7 +144,18 @@ namespace EiffelEvents.RabbitMq.Client
             }
         }
 
-        private Result<T> ValidateEvent<T>(SchemaValidationOnSubscribe validateOnSubscribe, T typeObj, string content)
+        /// <summary>
+        /// Try deserialize JSON string to the corresponding C# type.
+        /// </summary>
+        /// <param name="validateOnSubscribe">Set configuration to validate against JSON schema or not</param>
+        /// <param name="typeObj">Object to deserialize to</param>
+        /// <param name="content">JSON content to be deserialized</param>
+        /// <typeparam name="T">C# event type</typeparam>
+        /// <returns>
+        /// <see cref="Result"/> of the deserialization process with event in Result.Value property if deserialization
+        /// was succeeded. Result.Errors will hold the error messages in case of failures.
+        /// </returns>
+        private Result<T> TryDeserializeEvent<T>(SchemaValidationOnSubscribe validateOnSubscribe, T typeObj, string content)
             where T : IEiffelEvent, new()
         {
             var (type, version) = JsonHelper.GetTypeAndVersion(content);
