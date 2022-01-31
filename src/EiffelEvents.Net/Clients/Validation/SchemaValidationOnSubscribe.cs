@@ -1,4 +1,4 @@
-//    Copyright (c) 2021 ICT Cube, doWhile, and Eiffel Community collaborators.
+﻿//    Copyright (c) 2021 ICT Cube, doWhile, and Eiffel Community collaborators.
 // 
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -12,32 +12,24 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 
-namespace EiffelEvents.RabbitMq.Client
+namespace EiffelEvents.Net.Clients.Validation
 {
     /// <summary>
-    /// Config model used to connect to RabbitMQ instance
+    /// Set whether to validate against JSON schema while subscribing to an event
     /// </summary>
-    public class RabbitMqConfig
+    public enum SchemaValidationOnSubscribe
     {
         /// <summary>
-        /// RabbitMQ host name
+        /// Never validate upcoming event against JSON schema
         /// </summary>
-        public string HostName { get; init; }
+        NONE = 0,
         /// <summary>
-        /// RabbitMQ user name
+        /// Validate upcoming event against JSON schema only if deserialization failed
         /// </summary>
-        public string UserName { get; init; }
+        ON_DESERIALIZATION_FAIL = 1,
         /// <summary>
-        /// RabbitMQ user password
+        /// Always validate upcoming event against JSON schema
         /// </summary>
-        public string Password { get; init; }
-        /// <summary>
-        /// RabbitMQ instance port
-        /// </summary>
-        public int Port { get; init; }
-        /// <summary>
-        /// RabbitMQ exchange name
-        /// </summary>
-        public string ExchangeName => RabbitMqConstants.EiffelExchangeName;
+        ALWAYS = 2
     }
 }

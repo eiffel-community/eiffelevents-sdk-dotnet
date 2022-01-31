@@ -19,6 +19,6 @@ namespace EiffelEvents.Net.Events.Edition_Lyon
     public record EiffelEnvironmentDefinedMeta : EiffelSharedMeta
     {
         public override string Type { get; init; } = nameof(EiffelEnvironmentDefinedEvent);
-        public override string Version { get; init; } = "3.0.0";
+        public override string Version { get; init; } = "3.2.0";
     }
 }

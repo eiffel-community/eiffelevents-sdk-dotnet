@@ -6,12 +6,21 @@
 
     <ItemGroup>
         <PackageReference Include="FluentResults" Version="2.5.0" />
-        <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />        
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+        <PackageReference Include="Newtonsoft.Json.Schema" Version="3.0.14" />        
     </ItemGroup>
     
     <ItemGroup>
         <InternalsVisibleTo Include="EiffelEvents.Net.Tests" />
     </ItemGroup>
     
-   
+    <ItemGroup>
+      <Folder Include="Schemas" />
+    </ItemGroup>
+    
+   <ItemGroup>
+       <Content Include="Schemas\**">
+           <CopyToOutputDirectory>Always</CopyToOutputDirectory>                                
+       </Content>
+   </ItemGroup>
 </Project>

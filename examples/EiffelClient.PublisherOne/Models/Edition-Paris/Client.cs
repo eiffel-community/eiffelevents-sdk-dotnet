@@ -21,12 +21,15 @@ namespace EiffelClient.PublisherOne.Models.Edition_Paris
     public class TryClient
     {
         // Create a client
-        public static IEiffelClient Eiffelclient = new RabbitMqEiffelClient(new RabbitMqConfig
+        public static IEiffelClient Eiffelclient = new RabbitMqEiffelClient(new ()
         {
-            HostName = "localhost",
-            UserName = "admin",
-            Password = "admin",
-            Port = 5672
+            RabbitMqConfig = new()
+            {
+                HostName = "localhost",
+                UserName = "admin",
+                Password = "admin",
+                Port = 5672
+            }
         }, 1);
 
         public static T? GetEvent<T>() where T : class

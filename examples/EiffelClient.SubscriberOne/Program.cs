@@ -15,9 +15,12 @@
 using System;
 using System.Threading;
 using EiffelEvents.Net.Clients;
+using EiffelEvents.Net.Clients.Validation;
 using EiffelEvents.Net.Events.Core;
 using EiffelEvents.Net.Events.Edition_Lyon;
 using EiffelEvents.RabbitMq.Client;
+using EiffelEvents.RabbitMq.Client.Config;
+using FluentResults;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 
@@ -35,14 +38,21 @@ namespace EiffelClient.SubscriberOne
         public static void Main(string[] args)
         {
             using IHost host = CreateHostBuilder(args).Build();
-            _client = new RabbitMqEiffelClient(_rabbitMqConfig);
-
+            _client = new RabbitMqEiffelClient(new()
+            {
+                RabbitMqConfig = _rabbitMqConfig,
+                ValidationConfig = new ()
+                {
+                    SchemaValidationOnPublish = SchemaValidationOnPublish.ON,
+                    SchemaValidationOnSubscribe = SchemaValidationOnSubscribe.ALWAYS
+                }
+            });
 
             Console.WriteLine("Started ....");
 
             // Subscribe to events
-            _subscriptionId = _client.Subscribe<EiffelAnnouncementPublishedEvent>(_queueIdentifier, GeneralHandleEvent);
-            Console.WriteLine($"Subscription done to event {nameof(EiffelAnnouncementPublishedEvent)} !");
+            _subscriptionId = _client.Subscribe<EiffelActivityTriggeredEvent>(_queueIdentifier, GeneralHandleEvent);
+            Console.WriteLine($"Subscription done to event {nameof(EiffelActivityTriggeredEvent)} !");
 
             while (true)
             {
@@ -53,19 +63,30 @@ namespace EiffelClient.SubscriberOne
 
         #region Event Handlers
 
-        static void GeneralHandleEvent<T>(T eiffelEvent, ulong deliveryTag) where T : IEiffelEvent
+        static void GeneralHandleEvent<T>(Result<T> eiffelEventResult, ulong deliveryTag) where T : IEiffelEvent
         {
             Console.WriteLine("========= Callback called ========= ");
 
             Console.WriteLine($"Event Received {typeof(T).Name} \nDelivery Tag : {deliveryTag} \n========");
-            var verified = eiffelEvent.VerifySignature();
-            Console.WriteLine($" ======== Event signature verified: {verified} ==============");
-            Console.WriteLine(eiffelEvent.ToJson());
 
-            Console.WriteLine("========= Processing Done ===========");
+            if (eiffelEventResult.IsSuccess)
+            {
+                var eiffelEvent = eiffelEventResult.Value;
+                var verified = eiffelEvent.VerifySignature();
+                Console.WriteLine($" ======== Event signature verified: {verified} ==============");
+                Console.WriteLine(eiffelEvent.ToJson());
 
-            _client.Ack(deliveryTag);
-            Console.WriteLine($"========= Ack Done for Delivery Tag : {deliveryTag} ===========");
+                Console.WriteLine("========= Processing Done ===========");
+
+                _client.Ack(deliveryTag);
+                Console.WriteLine($"========= Ack Done for Delivery Tag : {deliveryTag} ===========");
+            }
+            else
+            {
+                Console.WriteLine($"Error occured: {string.Join(',', eiffelEventResult.Errors)}");
+                _client.Reject(deliveryTag, false);
+                Console.WriteLine($"========= Reject Done for Delivery Tag : {deliveryTag} ===========");
+            }
         }
 
         #endregion

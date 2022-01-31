@@ -13,6 +13,7 @@
 //    limitations under the License.
 
 using EiffelEvents.Net.Clients;
+using EiffelEvents.Net.Clients.Validation;
 using EiffelEvents.Net.Events.Edition_Lyon;
 using EiffelEvents.RabbitMq.Client;
 
@@ -21,12 +22,20 @@ namespace EiffelClient.PublisherOne.Models.Edition_Lyon
     public class TryClient
     {
         // Create a client
-        public static IEiffelClient Eiffelclient = new RabbitMqEiffelClient(new RabbitMqConfig
+        public static IEiffelClient Eiffelclient = new RabbitMqEiffelClient(new ()
         {
-            HostName = "localhost",
-            UserName = "admin",
-            Password = "admin",
-            Port = 5672
+            RabbitMqConfig = new()
+            {
+                HostName = "localhost",
+                UserName = "admin",
+                Password = "admin",
+                Port = 5672
+            },
+            ValidationConfig = new ()
+            {
+                SchemaValidationOnPublish = SchemaValidationOnPublish.ON,
+                SchemaValidationOnSubscribe = SchemaValidationOnSubscribe.ALWAYS
+            }
         }, 1);
 
         public static T? GetEvent<T>() where T : class

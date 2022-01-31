@@ -15,6 +15,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Reflection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -39,7 +41,8 @@ namespace EiffelEvents.Net.Common
                     new StringEnumConverter()
                 },
                 NullValueHandling = NullValueHandling.Ignore,
-                DefaultValueHandling = DefaultValueHandling.Populate
+                DefaultValueHandling = DefaultValueHandling.Populate,
+                MissingMemberHandling = MissingMemberHandling.Error
             };
         }
 
@@ -79,7 +82,7 @@ namespace EiffelEvents.Net.Common
         {
             var property = base.CreateProperty(member, memberSerialization);
             bool eiffelShouldSerialize;
-            
+
             //Ignore Empty collection in serialization/deserialization
             if (property.PropertyType?.GetInterface(nameof(ICollection)) != null)
             {
@@ -89,12 +92,16 @@ namespace EiffelEvents.Net.Common
                     instance =>
                         property.UnderlyingName != null &&
                         (eiffelShouldSerialize ||
-                         (instance?.GetType().GetProperty(property.UnderlyingName,BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)?
+                         (instance?.GetType().GetProperty(property.UnderlyingName,
+                                 BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)?
                              .GetValue(instance) as ICollection)?.Count > 0);
 
                 // CollectionValueProvider for ICollection types to be set by empty object when not provided in JSON.
                 property.ValueProvider = new CollectionValueProvider(property.ValueProvider, property.PropertyType);
             }
+
+            if (member.GetCustomAttribute<RequiredAttribute>() != null)
+                property.Required = Required.Always;
 
             return property;
         }

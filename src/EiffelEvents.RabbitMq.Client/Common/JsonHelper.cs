@@ -12,25 +12,31 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 
-using System;
-using EiffelEvents.Net.Events.Core;
-using EiffelEvents.Net.Exceptions;
+using Newtonsoft.Json.Linq;
 
 namespace EiffelEvents.RabbitMq.Client.Common
 {
-    internal static class ValidationHelper
+    internal static class JsonHelper
     {
         /// <summary>
-        /// Validate Event instance Version against event type version
+        /// Get type and version from specified JSON eiffel event
         /// </summary>
-        /// <param name="eiffelEvent">Instance to be checked</param>
-        /// <typeparam name="T">Type to check against</typeparam>
-        /// <exception cref="InvalidEiffelEventException">Thrown if the versions are not equal</exception>
-        public static void ValidateEventVersion<T>(T eiffelEvent) where T : IEiffelEvent
+        /// <param name="json">JSON string</param>
+        /// <returns>Tuple of (type, version). Returns empty strings in case of failure.</returns>
+        public static (string type, string version) GetTypeAndVersion(string json)
         {
-            var typeObj = (T)Activator.CreateInstance(typeof(T));
-            if (eiffelEvent.GetVersion() != typeObj?.GetVersion())
-                throw new InvalidEiffelEventException(typeof(T).Name, eiffelEvent.GetVersion());
+            // parse JSON
+            var eventObj = JObject.Parse(json);
+
+            // try to get meta obj
+            var metaObj = eventObj["meta"];
+            if (metaObj == null) return (string.Empty, string.Empty);
+
+            // try to get type and version
+            var type = metaObj["type"]?.ToString();
+            var version = metaObj["version"]?.ToString();
+
+            return (type, version);
         }
     }
 }
