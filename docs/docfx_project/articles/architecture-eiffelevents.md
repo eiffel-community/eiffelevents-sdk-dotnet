@@ -8,6 +8,26 @@ For more details check the [Implement Events Checklist](implement-event.md)
 
 ## Validation
 
+SDK is implementing events validations using two techniques:
+- Validate declared events using C# attributes.
+- Validate declared and received events against JSON schema provided by Eiffel protocol.
+
+### JSON schema validation
+
+- JSON schema validations is done on the produced/upcoming JSON string.
+- JSON schema files is provided and maintained by Eiffel protocol and can be found [here](https://github.com/eiffel-community/eiffel/tree/master/schemas).
+- Schema validation is done in `Publish` and `Subscribe` methods based on the following configurations:
+  - `SchemaValidationOnPublish`: Set whether to validate against JSON schema before publish or not. Eligible values:
+      - `ON`: Validate before publish.
+      - `OFF`: Publish without validation.
+  - `SchemaValidationOnSubscribe`: Set whether to validate against JSON schema while subscribing to an event. Eligible values:
+      - `NONE`: Never validate upcoming event against JSON schema.
+      - `ON_DESERIALIZATION_FAIL`: Validate upcoming event against JSON schema only if deserialization failed.
+      - `ALWAYS`: Always validate upcoming event against JSON schema.
+    
+**Note**: The above two config keys (`SchemaValidationOnPublish`, `SchemaValidationOnSubscribe`) can be initiated in `ClientConfig.ValidationConfig` or while calling to `Publish`/`Subscribe` methods. Check [examples](../../../examples/README.md) for more info.
+
+### C# attribute validations
 - Events validation is declarative by using attribute validation, hence the events are considered as a domain class, which is self-contained for their definition and validation.
 
 ```c#
@@ -20,14 +40,18 @@ public EiffelOutcome Outcome { get; init; }
 
 ```c#
 public Result Validate()
-    
 ```
 
-It is also called according to options parameter in Publish in the **EiffelEvents.RabbitMq.Client** package
+The `Validate` method is called in Publish method in the **EiffelEvents.RabbitMq.Client** package
 
 ```c#
-public Result<T> Publish<T>(T eiffelEvent, bool validateBeforePublish = true)
-...
+public Result<T> Publish<T>(T eiffelEvent)
+{
+    var attributeValidationResult = eiffelEvent.Validate();
+    if (attributeValidationResult.IsFailed)
+        return attributeValidationResult.ToResult(eiffelEvent);
+    ...
+}
 ```
 
 - Validation Result: events validation results are reported by the returned object of `Result<T>` using **FluentResult **: An external library for  [Result](https://github.com/altmann/FluentResults) object implementation with cumulative errors.
