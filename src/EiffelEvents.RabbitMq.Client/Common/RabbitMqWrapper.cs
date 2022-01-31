@@ -148,7 +148,7 @@ namespace EiffelEvents.RabbitMq.Client.Common
         {
             //Declare the Queue
             var createdQueue =
-                _channel.QueueDeclare(queueName, durable: false, exclusive: false, autoDelete: true, null);
+                _channel.QueueDeclare(queueName, durable: true, exclusive: false, autoDelete: false, null);
             //Bind the Queue to the Exchange
             _channel.QueueBind(createdQueue.QueueName, exchangeName, routingKey, null);
             _channel.BasicQos(0, 1, false);

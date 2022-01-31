@@ -73,7 +73,16 @@ Queue name will be auto-generated with the following pattern: `"{serviceName}_{e
 
 As a result of that design, once an event is published to a certain Topic (XEvent), only one **XService** instance will process that event hence RabbitMQ will push the messages from the queue to the service using a round-robin pattern. Once the event will be dequeued by a service instance (XService instance 1), the other two instances will not be able to process that event.
 
-## RabbitMqEiffelClient Functionality
+### Queues Durability
+We have designed our RabbitMQ client to declare queues using the following parameters:
+- `durable: true` => configure declared queue as durable after RabbitMQ instance restart.
+- `exclusive: false` => configure declared queue as persistent after the declaring connection is closed.
+- `autoDelete: false` => configure declared queue as persistent after the consumer unsubscribes.
+
+This will make the consumer capable of consuming events published in its downtime as the queue will be durable and messages will be persistent on RabbitMQ instance. 
+
+
+## `RabbitMqEiffelClient`
 
 `RabbitMqEiffelClient` is the core class used for assisted publishing and subscribing to RabbitMQ, it implements the `IEiffelClient` interface which resides in the **EiffelEvents** package, and sets the contract for Eiffel Clients classes such as `RabbitMqEiffelClient`.
 
@@ -215,7 +224,6 @@ where:
 ## RabbitMqWrapper
 
 `RabbitMqWrapper` as its name implies, wraps and abstract all RabbitMQ client functionality to `RabbitMqEiffelClient`
-
 to ease further updates and maintainability.
 
 ## Exception
