@@ -2,7 +2,7 @@
 <package>
     <metadata>
         <id>EiffelEvents.RabbitMq.Client</id>
-        <version>1.0.1</version>
+        <version>$version$</version>
         <title>EiffelEvents.RabbitMq.Client</title>
         <authors>ICT Cube and doWhile team</authors>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
