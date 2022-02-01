@@ -17,6 +17,9 @@
             <dependency id="Newtonsoft.Json" version="13.0.1" />
             <dependency id="RabbitMQ.Client" version="6.2.2" />
         </dependencies>
+        <releaseNotes>
+            Provide APIs for users to publish, subscribe, acknowledge, reject and unsubscribe for strongly-typed Eiffel events to RabbitMQ.
+        </releaseNotes>
     </metadata>
     <files>
         <file src="bin\$configuration$\net6.0\EiffelEvents.RabbitMq.Client.dll" target="lib\net6.0" />
