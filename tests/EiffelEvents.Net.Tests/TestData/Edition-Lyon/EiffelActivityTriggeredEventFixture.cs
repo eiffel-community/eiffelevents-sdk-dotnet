@@ -14,6 +14,7 @@
 
 using EiffelEvents.Net.Events.Edition_Lyon;
 using EiffelEvents.Net.Events.Edition_Paris.Shared.Enums;
+using EiffelEvents.Net.Tests.Helpers;
 using Newtonsoft.Json.Linq;
 
 namespace EiffelEvents.Net.Tests.TestData.Edition_Lyon
@@ -124,7 +125,7 @@ namespace EiffelEvents.Net.Tests.TestData.Edition_Lyon
                                         'activity_block'
                                             ],
                                         'source': {
-                                                    'serializer': 'pkg:nuget/EiffelEvents.Net@1.0.0.0'
+                                             'serializer': 'pkg:nuget/EiffelEvents.Net@" + VersionHelper.Version + @"'
                                          },
                                         'security': {
                                             'authorIdentity': 'Flower'
@@ -311,7 +312,7 @@ namespace EiffelEvents.Net.Tests.TestData.Edition_Lyon
                                         'activity_block'
                                             ],
                                         'source': {
-                                                    'serializer': 'pkg:nuget/EiffelEvents.Net@1.0.0.0'
+                                                    'serializer': 'pkg:nuget/EiffelEvents.Net@" + VersionHelper.Version + @"'
                                          },
                                         'security': {
                                             'authorIdentity': 'Flower'
@@ -462,7 +463,7 @@ namespace EiffelEvents.Net.Tests.TestData.Edition_Lyon
                                         'activity_block'
                                             ],
                                         'source': {
-                                                    'serializer': 'pkg:nuget/EiffelEvents.Net@1.0.0.0'
+                                                    'serializer': 'pkg:nuget/EiffelEvents.Net@" + VersionHelper.Version + @"'
                                          },
                                         'security': {
                                             'authorIdentity': 'Flower'
@@ -603,7 +604,7 @@ namespace EiffelEvents.Net.Tests.TestData.Edition_Lyon
                                         'activity_block'
                                             ],
                                         'source': {
-                                                    'serializer': 'pkg:nuget/EiffelEvents.Net@1.0.0.0'
+                                                    'serializer': 'pkg:nuget/EiffelEvents.Net@" + VersionHelper.Version + @"'
                                          },
                                         'security': {
                                             'authorIdentity': 'Flower'
@@ -630,7 +631,7 @@ namespace EiffelEvents.Net.Tests.TestData.Edition_Lyon
         }
 
         #endregion
-        
+
         #region Valid Event empty Links (ICollection types)
 
         /// <summary>
@@ -639,7 +640,7 @@ namespace EiffelEvents.Net.Tests.TestData.Edition_Lyon
         /// <returns></returns>
         public EiffelActivityTriggeredEvent GetEventWithEmptyLinks()
         {
-             return new EiffelActivityTriggeredEvent()
+            return new EiffelActivityTriggeredEvent()
             {
                 Data = new()
                 {
@@ -671,7 +672,6 @@ namespace EiffelEvents.Net.Tests.TestData.Edition_Lyon
                     }
                 },
                 Links = new()
-                
             };
         }
 
@@ -709,7 +709,7 @@ namespace EiffelEvents.Net.Tests.TestData.Edition_Lyon
                                         'activity_block'
                                             ],
                                         'source': {
-                                                    'serializer': 'pkg:nuget/EiffelEvents.Net@1.0.0.0'
+                                                    'serializer': 'pkg:nuget/EiffelEvents.Net@" + VersionHelper.Version + @"'
                                          },
                                         'security': {
                                             'authorIdentity': 'Flower'
@@ -910,7 +910,7 @@ namespace EiffelEvents.Net.Tests.TestData.Edition_Lyon
         }
 
         #endregion
-        
+
         #region Json Schema
 
         public string GetValidJsonEvent()
@@ -947,7 +947,7 @@ namespace EiffelEvents.Net.Tests.TestData.Edition_Lyon
                                         'activity_block'
                                             ],
                                         'source': {
-                                                    'serializer': 'pkg:nuget/EiffelEvents.Net@1.0.0.0'
+                                                    'serializer': 'pkg:nuget/EiffelEvents.Net@" + VersionHelper.Version + @"'
                                          },
                                         'security': {
                                             'authorIdentity': 'Flower'
@@ -976,7 +976,7 @@ namespace EiffelEvents.Net.Tests.TestData.Edition_Lyon
                             }");
             return json.ToString();
         }
-        
+
         public string GetInvalidJsonEvent()
         {
             var json = JObject.Parse(@"{
@@ -1011,7 +1011,7 @@ namespace EiffelEvents.Net.Tests.TestData.Edition_Lyon
                                         'activity_block'
                                             ],
                                         'source': {
-                                                    'serializer': 'pkg:nuget/EiffelEvents.Net@1.0.0.0'
+                                                    'serializer': 'pkg:nuget/EiffelEvents.Net@" + VersionHelper.Version + @"'
                                          },
                                         'security': {
                                             'authorIdentity': 'Flower'
