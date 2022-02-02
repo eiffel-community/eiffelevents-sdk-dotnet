@@ -12,6 +12,7 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 
+using System.Diagnostics;
 using System.Reflection;
 using EiffelEvents.Net.Events.Core;
 
@@ -27,9 +28,12 @@ namespace EiffelEvents.Net.Common
         /// <returns>current version of Assembly EiffelEvents.Net</returns>
         internal static string GetAssemblyVersion()
         {
-            if (string.IsNullOrWhiteSpace(_version))
-                _version = Assembly.GetAssembly(typeof(IEiffelEvent))?.GetName().Version?.ToString();
+            if (!string.IsNullOrWhiteSpace(_version)) return _version;
             
+            var assembly = Assembly.GetAssembly(typeof(IEiffelEvent));
+            if (assembly != null)
+                _version = FileVersionInfo.GetVersionInfo(assembly.Location).ProductVersion;
+
             return _version;
         }
     }

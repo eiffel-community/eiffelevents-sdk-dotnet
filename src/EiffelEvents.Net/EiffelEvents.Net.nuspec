@@ -2,7 +2,7 @@
 <package>
     <metadata>
         <id>EiffelEvents.Net</id>
-        <version>1.0.0</version>
+        <version>$version$</version>
         <title>EiffelEvents.Net</title>
         <authors>ICT Cube and doWhile team</authors>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -13,25 +13,20 @@
         <contentFiles>
             <files include="**\*.json" buildAction="Content"  copyToOutput="true"/>
         </contentFiles>
-
         <dependencies>
             <dependency id="FluentResults" version="2.5.0" />
             <dependency id="Newtonsoft.Json" version="13.0.1" />
             <dependency id="Newtonsoft.Json.Schema" version="3.0.14"/>
-        
-           <!-- <group targetFramework="net6.0"></group>-->
         </dependencies>
-        
+        <releaseNotes>
+            - Implement Eiffel events vocabularies as described in Eiffel-edition-paris and Eiffel-edition-lyon
+            - Validate events' schema regarding target event’s version.
+            - Sign and verify events' signatures.
+            - Serialization/deserialization of events.
+        </releaseNotes>
     </metadata>
     <files>
-        <!-- Add files from an arbitrary folder that's not necessarily in the project -->
        <file src="Schemas\**" target="contentFiles\any\any\Schemas"/>
        <file src="bin\$configuration$\net6.0\EiffelEvents.Net.dll" target="lib\net6.0" />
-       <!-- command to build package:
-        nuget pack EiffelEvents.Net.nuspec -properties Configuration=Debug
-        for packaging from release
-        nuget pack EiffelEvents.Net.nuspec -properties Configuration=Release
-        
-        -->
     </files>
 </package>
