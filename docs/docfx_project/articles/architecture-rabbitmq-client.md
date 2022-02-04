@@ -228,7 +228,7 @@ to ease further updates and maintainability.
 
 ## Exception
 
-Based on the exception hierarchy defined in the **EiffelEvents** package, the **EiffelEvents.RabbitMq.Client** package provides `RabbitMqException` that raised to handle and wrap RabbitMQ communication errors.
+Based on the exception hierarchy defined in the **EiffelEvents** package, the **EiffelEvents.Clients.RabbitMq** package provides `RabbitMqException` that raised to handle and wrap RabbitMQ communication errors.
 
 ```c#
 public class RabbitMqException : EiffelException

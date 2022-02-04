@@ -12,7 +12,7 @@ EiffelEvents .NET SDK features include:
 - Serialization/deserialization of events.
 - Provide  APIs for users to publish, subscribe, acknowledge, reject and unsubscribe for strongly-typed Eiffel events to RabbitMQ.
 
-It consists of two packages; 1) **EiffelEvents.Net** for events' implementation, 2) **EiffelEvents.RabbitMq.Client** for assisted publishing to RabbitMQ.
+It consists of two packages; 1) **EiffelEvents.Net** for events' implementation, 2) **EiffelEvents.Clients.RabbitMq** for assisted publishing to RabbitMQ.
 
 
 
@@ -76,9 +76,9 @@ Console.WriteLine(json);
 Note: In order to use an event from Lyon-Edition, just use namespace `EiffelEvents.Net.Events.Edition_Lyon` instead of `EiffelEvents.Net.Events.Edition_Paris`.
 
 
-## Using Publishing Package ([src/EiffelEvents.RabbitMq.Client](src/EiffelEvents.RabbitMq.Client))
+## Using Publishing Package ([src/EiffelEvents.Clients.RabbitMq](src/EiffelEvents.Clients.RabbitMq))
 
-To get started install requirements then reference the events library, [src/EiffelEvents.RabbitMq.Client](src/EiffelEvents.RabbitMq.Client) in a project, then start processing using the publishing client.
+To get started install requirements then reference the events library, [src/EiffelEvents.Clients.RabbitMq](src/EiffelEvents.Clients.RabbitMq) in a project, then start processing using the publishing client.
 
 Note: make sure that a RabbitMQ instance is up and running, then provide its configurations to `RabbitMqEiffelClient`
 
@@ -86,7 +86,7 @@ Note: make sure that a RabbitMQ instance is up and running, then provide its con
 
 ```c#
 // Use required namespaces
-using EiffelEvents.RabbitMq.Client;
+using EiffelEvents.Clients.RabbitMq;
 
 // Init client (globally)
 private static readonly IEiffelClient _eiffelClient = new RabbitMqEiffelClient(new ()
@@ -201,7 +201,7 @@ Example projects are created for demo purposes and reside on the [examples](exam
 ## SDK Projects
 
 - [src/EiffelEvents.Net](src/EiffelEvents.Net): Events implementation.
-- [src/EiffelEvents.RabbitMq.Client](src/EiffelEvents.RabbitMq.Client): Event Publishing service.
+- [src/EiffelEvents.Clients.RabbitMq](src/EiffelEvents.Clients.RabbitMq): Event Publishing service.
 
 ## Tests
 

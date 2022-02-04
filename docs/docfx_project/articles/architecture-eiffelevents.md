@@ -42,7 +42,7 @@ public EiffelOutcome Outcome { get; init; }
 public Result Validate()
 ```
 
-The `Validate` method is called in Publish method in the **EiffelEvents.RabbitMq.Client** package
+The `Validate` method is called in Publish method in the **EiffelEvents.Clients.RabbitMq** package
 
 ```c#
 public Result<T> Publish<T>(T eiffelEvent)
