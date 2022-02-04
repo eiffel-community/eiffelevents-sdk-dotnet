@@ -12,15 +12,13 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 
-using System;
-using System.Threading;
-using EiffelEvents.RabbitMq.Client.Config;
-using EiffelEvents.RabbitMq.Client.Exceptions;
+using EiffelEvents.Clients.RabbitMq.Config;
+using EiffelEvents.Clients.RabbitMq.Exceptions;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using RabbitMQ.Client.Exceptions;
 
-namespace EiffelEvents.RabbitMq.Client.Common
+namespace EiffelEvents.Clients.RabbitMq.Common
 {
     internal class RabbitMqWrapper : IRabbitMqWrapper
     {

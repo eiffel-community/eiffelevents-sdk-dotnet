@@ -1,4 +1,4 @@
-//    Copyright (c) 2021 ICT Cube, doWhile, and Eiffel Community collaborators.
+﻿//    Copyright (c) 2021 ICT Cube, doWhile, and Eiffel Community collaborators.
 // 
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -12,11 +12,21 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 
-namespace EiffelEvents.RabbitMq.Client
+namespace EiffelEvents.Clients.RabbitMq.Config
 {
-    public static class RabbitMqConstants
+    /// <summary>
+    /// Client config model that used while connecting to RabbitMq and validating Eiffel events in pub/sub methods
+    /// </summary>
+    public class ClientConfig
     {
-        public static string EiffelExchangeName => "eiffel";
-        public static string EiffelRoutingKeyFirstSegment => "eiffel";
+        /// <summary>
+        /// Configs used to connect to RabbitMQ instance
+        /// </summary>
+        public RabbitMqConfig RabbitMqConfig { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ValidationConfig ValidationConfig { get; set; } = new();
     }
 }

@@ -12,24 +12,18 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 
-using System;
-using EiffelEvents.Net.Exceptions;
-
-namespace EiffelEvents.RabbitMq.Client.Exceptions
+namespace EiffelEvents.Clients.RabbitMq.Exceptions
 {
     /// <summary>
-    /// RabbitMqException is an exception wrapper for RabbitMQ exceptions.
+    /// RabbitMqNullArgumentException is an exception wrapper for RabbitMQ null argument exceptions.
     /// </summary>
-    public class RabbitMqException : EiffelException
+    public class RabbitMqNullArgumentException : RabbitMqException
     {
-        public RabbitMqException(string message) : base(message)
+        public RabbitMqNullArgumentException(string propertyName) : 
+            base($"Argument '{propertyName}' can't be null")
         {
         }
 
-        public RabbitMqException(string message, Exception innerException) : base(message, innerException)
-        {
-        }
         
-        public override ExceptionSource RaisedBy => ExceptionSource.MessageBroker;
     }
 }

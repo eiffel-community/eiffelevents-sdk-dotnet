@@ -12,7 +12,7 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 
-namespace EiffelEvents.RabbitMq.Client.Config
+namespace EiffelEvents.Clients.RabbitMq.Config
 {
     /// <summary>
     /// Config model used to connect to RabbitMQ instance

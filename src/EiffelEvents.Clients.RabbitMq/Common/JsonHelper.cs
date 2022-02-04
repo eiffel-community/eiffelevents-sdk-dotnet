@@ -14,7 +14,7 @@
 
 using Newtonsoft.Json.Linq;
 
-namespace EiffelEvents.RabbitMq.Client.Common
+namespace EiffelEvents.Clients.RabbitMq.Common
 {
     internal static class JsonHelper
     {

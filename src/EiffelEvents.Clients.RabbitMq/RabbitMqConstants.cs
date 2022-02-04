@@ -1,4 +1,4 @@
-﻿//    Copyright (c) 2021 ICT Cube, doWhile, and Eiffel Community collaborators.
+//    Copyright (c) 2021 ICT Cube, doWhile, and Eiffel Community collaborators.
 // 
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -12,18 +12,11 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 
-namespace EiffelEvents.RabbitMq.Client.Exceptions
+namespace EiffelEvents.Clients.RabbitMq
 {
-    /// <summary>
-    /// RabbitMqNullArgumentException is an exception wrapper for RabbitMQ null argument exceptions.
-    /// </summary>
-    public class RabbitMqNullArgumentException : RabbitMqException
+    public static class RabbitMqConstants
     {
-        public RabbitMqNullArgumentException(string propertyName) : 
-            base($"Argument '{propertyName}' can't be null")
-        {
-        }
-
-        
+        public static string EiffelExchangeName => "eiffel";
+        public static string EiffelRoutingKeyFirstSegment => "eiffel";
     }
 }

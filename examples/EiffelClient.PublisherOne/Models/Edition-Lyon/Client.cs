@@ -15,7 +15,7 @@
 using EiffelEvents.Net.Clients;
 using EiffelEvents.Net.Clients.Validation;
 using EiffelEvents.Net.Events.Edition_Lyon;
-using EiffelEvents.RabbitMq.Client;
+using EiffelEvents.Clients.RabbitMq;
 
 namespace EiffelClient.PublisherOne.Models.Edition_Lyon
 {

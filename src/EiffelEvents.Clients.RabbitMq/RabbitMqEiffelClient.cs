@@ -17,13 +17,13 @@ using System.Text;
 using EiffelEvents.Net.Clients;
 using EiffelEvents.Net.Clients.Validation;
 using EiffelEvents.Net.Validation;
-using EiffelEvents.RabbitMq.Client.Common;
-using EiffelEvents.RabbitMq.Client.Config;
-using EiffelEvents.RabbitMq.Client.Exceptions;
+using EiffelEvents.Clients.RabbitMq.Common;
+using EiffelEvents.Clients.RabbitMq.Config;
+using EiffelEvents.Clients.RabbitMq.Exceptions;
 using FluentResults;
 using Newtonsoft.Json;
 
-namespace EiffelEvents.RabbitMq.Client
+namespace EiffelEvents.Clients.RabbitMq
 {
     /// <summary>
     /// Provides publishing and subscription of Eiffel events on RabbitMQ.

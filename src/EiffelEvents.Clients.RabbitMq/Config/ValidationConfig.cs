@@ -12,21 +12,15 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 
-namespace EiffelEvents.RabbitMq.Client.Config
-{
-    /// <summary>
-    /// Client config model that used while connecting to RabbitMq and validating Eiffel events in pub/sub methods
-    /// </summary>
-    public class ClientConfig
-    {
-        /// <summary>
-        /// Configs used to connect to RabbitMQ instance
-        /// </summary>
-        public RabbitMqConfig RabbitMqConfig { get; set; }
+using EiffelEvents.Net.Clients.Validation;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public ValidationConfig ValidationConfig { get; set; } = new();
+namespace EiffelEvents.Clients.RabbitMq.Config
+{
+    public class ValidationConfig
+    {
+        public SchemaValidationOnPublish SchemaValidationOnPublish { get; init; } = SchemaValidationOnPublish.ON;
+        public SchemaValidationOnSubscribe SchemaValidationOnSubscribe { get; init; } = SchemaValidationOnSubscribe.NONE;
     }
+
+    
 }

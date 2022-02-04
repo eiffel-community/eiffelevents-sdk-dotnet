@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package>
     <metadata>
-        <id>EiffelEvents.RabbitMq.Client</id>
+        <id>EiffelEvents.Clients.RabbitMq</id>
         <version>$version$</version>
-        <title>EiffelEvents.RabbitMq.Client</title>
+        <title>EiffelEvents.Clients.RabbitMq</title>
         <authors>ICT Cube and doWhile team</authors>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <license type="expression">Apache-2.0</license>
@@ -22,6 +22,6 @@
         </releaseNotes>
     </metadata>
     <files>
-        <file src="bin\$configuration$\net6.0\EiffelEvents.RabbitMq.Client.dll" target="lib\net6.0" />
+        <file src="bin\$configuration$\net6.0\EiffelEvents.Clients.RabbitMq.dll" target="lib\net6.0" />
     </files>
 </package>
