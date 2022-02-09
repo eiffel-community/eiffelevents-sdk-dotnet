@@ -234,3 +234,15 @@ Docs directory resides under repo root, structured as follows:
 
 The contents of this repository are licensed under [Apache License 2.0](LICENSE)
 
+# Limitations
+
+**EiffelEvents.Net SDK** optionally validates the events against the [Eiffel JSON schema](https://github.com/eiffel-community/eiffel/tree/edition-paris/schemas) in publishing using `SchemaValidationOnPublish`  with value  `ON` or `OFF`, or subscribing using `SchemaValidationOnSubscribe` with value `ALWAYS` , `ON_DESERIALIZATION_FAIL`, or `NONE`. In order to achieve this schema validation, **EiffelEvents.Net SDK** depends on [Newtonsoft.Json.Schema](https://www.newtonsoft.com/jsonschema) which limits the free allowed number of validations per hour to **1000 validation/hour**. 
+
+The error message as follows:
+
+```
+JSchemaException: The free-quota limit of 1000 schema validations per hour has been reached. Please visit http://www.newtonsoft.com/jsonschema to upgrade to a commercial license.
+```
+
+So as a recommendation (depending on business case) in production subscription, for example, could be either `ON_DESERIALIZATION_FAIL`, or `NONE` and for publishing to be  `OFF` as the **EiffelEvents.Net SDK** provides another validation [layer](docs/docfx_project/articles/architecture-eiffelevents.md#c-attribute-validations).
+
