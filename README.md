@@ -12,7 +12,7 @@ EiffelEvents .NET SDK features include:
 - Serialization/deserialization of events.
 - Provide  APIs for users to publish, subscribe, acknowledge, reject and unsubscribe for strongly-typed Eiffel events to RabbitMQ.
 
-It consists of two packages; 1) **EiffelEvents.Net** for events' implementation, 2) **EiffelEvents.RabbitMq.Client** for assisted publishing to RabbitMQ.
+It consists of two packages; 1) **EiffelEvents.Net** for events' implementation, 2) **EiffelEvents.Clients.RabbitMq** for assisted publishing to RabbitMQ.
 
 
 
@@ -76,9 +76,9 @@ Console.WriteLine(json);
 Note: In order to use an event from Lyon-Edition, just use namespace `EiffelEvents.Net.Events.Edition_Lyon` instead of `EiffelEvents.Net.Events.Edition_Paris`.
 
 
-## Using Publishing Package ([src/EiffelEvents.RabbitMq.Client](src/EiffelEvents.RabbitMq.Client))
+## Using Publishing Package ([src/EiffelEvents.Clients.RabbitMq](src/EiffelEvents.Clients.RabbitMq))
 
-To get started install requirements then reference the events library, [src/EiffelEvents.RabbitMq.Client](src/EiffelEvents.RabbitMq.Client) in a project, then start processing using the publishing client.
+To get started install requirements then reference the events library, [src/EiffelEvents.Clients.RabbitMq](src/EiffelEvents.Clients.RabbitMq) in a project, then start processing using the publishing client.
 
 Note: make sure that a RabbitMQ instance is up and running, then provide its configurations to `RabbitMqEiffelClient`
 
@@ -86,7 +86,7 @@ Note: make sure that a RabbitMQ instance is up and running, then provide its con
 
 ```c#
 // Use required namespaces
-using EiffelEvents.RabbitMq.Client;
+using EiffelEvents.Clients.RabbitMq;
 
 // Init client (globally)
 private static readonly IEiffelClient _eiffelClient = new RabbitMqEiffelClient(new ()
@@ -201,7 +201,7 @@ Example projects are created for demo purposes and reside on the [examples](exam
 ## SDK Projects
 
 - [src/EiffelEvents.Net](src/EiffelEvents.Net): Events implementation.
-- [src/EiffelEvents.RabbitMq.Client](src/EiffelEvents.RabbitMq.Client): Event Publishing service.
+- [src/EiffelEvents.Clients.RabbitMq](src/EiffelEvents.Clients.RabbitMq): Event Publishing service.
 
 ## Tests
 
@@ -233,4 +233,16 @@ Docs directory resides under repo root, structured as follows:
 # License
 
 The contents of this repository are licensed under [Apache License 2.0](LICENSE)
+
+# Limitations
+
+**EiffelEvents.Net SDK** optionally validates the events against the [Eiffel JSON schema](https://github.com/eiffel-community/eiffel/tree/edition-paris/schemas) in publishing using `SchemaValidationOnPublish`  with value  `ON` or `OFF`, or subscribing using `SchemaValidationOnSubscribe` with value `ALWAYS` , `ON_DESERIALIZATION_FAIL`, or `NONE`. In order to achieve this schema validation, **EiffelEvents.Net SDK** depends on [Newtonsoft.Json.Schema](https://www.newtonsoft.com/jsonschema) which limits the free allowed number of validations per hour to **1000 validation/hour**. 
+
+The error message as follows:
+
+```
+JSchemaException: The free-quota limit of 1000 schema validations per hour has been reached. Please visit http://www.newtonsoft.com/jsonschema to upgrade to a commercial license.
+```
+
+So as a recommendation (depending on business case) in production subscription, for example, could be either `ON_DESERIALIZATION_FAIL`, or `NONE` and for publishing to be  `OFF` as the **EiffelEvents.Net SDK** provides another validation [layer](docs/docfx_project/articles/architecture-eiffelevents.md#c-attribute-validations).
 

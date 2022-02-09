@@ -15,7 +15,7 @@
 using System;
 using RabbitMQ.Client.Events;
 
-namespace EiffelEvents.RabbitMq.Client.Common
+namespace EiffelEvents.Clients.RabbitMq.Common
 {
     internal interface IRabbitMqWrapper : IDisposable
     {

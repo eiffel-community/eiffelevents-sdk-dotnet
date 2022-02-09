@@ -13,7 +13,7 @@ EiffelEvents .NET SDK features include:
 It consists of two packages:
 
 1. **EiffelEvents.Net** for events' implementation, 
-2. **EiffelEvents.RabbitMq.Client** for assisted publishing to RabbitMQ.
+2. **EiffelEvents.Clients.RabbitMq** for assisted publishing to RabbitMQ.
 
 ## Design Specifications
 

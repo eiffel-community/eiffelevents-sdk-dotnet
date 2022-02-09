@@ -17,8 +17,8 @@ using EiffelEvents.Net.Clients;
 using EiffelEvents.Net.Clients.Validation;
 using EiffelEvents.Net.Events.Edition_Lyon;
 using EiffelEvents.Net.Events.Edition_Paris.Shared.Enums;
-using EiffelEvents.RabbitMq.Client;
-using EiffelEvents.RabbitMq.Client.Config;
+using EiffelEvents.Clients.RabbitMq;
+using EiffelEvents.Clients.RabbitMq.Config;
 
 namespace EiffelClient.BasicPublisher
 {

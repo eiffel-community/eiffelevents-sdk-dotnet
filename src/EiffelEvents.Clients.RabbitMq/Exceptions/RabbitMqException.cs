@@ -12,15 +12,23 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 
-using EiffelEvents.Net.Clients.Validation;
+using EiffelEvents.Net.Exceptions;
 
-namespace EiffelEvents.RabbitMq.Client.Config
+namespace EiffelEvents.Clients.RabbitMq.Exceptions
 {
-    public class ValidationConfig
+    /// <summary>
+    /// RabbitMqException is an exception wrapper for RabbitMQ exceptions.
+    /// </summary>
+    public class RabbitMqException : EiffelException
     {
-        public SchemaValidationOnPublish SchemaValidationOnPublish { get; init; } = SchemaValidationOnPublish.ON;
-        public SchemaValidationOnSubscribe SchemaValidationOnSubscribe { get; init; } = SchemaValidationOnSubscribe.NONE;
-    }
+        public RabbitMqException(string message) : base(message)
+        {
+        }
 
-    
+        public RabbitMqException(string message, Exception innerException) : base(message, innerException)
+        {
+        }
+        
+        public override ExceptionSource RaisedBy => ExceptionSource.MessageBroker;
+    }
 }
