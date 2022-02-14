@@ -48,7 +48,7 @@ namespace EiffelEvents.Net.Tests.Events.Edition_Paris
         public void Validate_MissingRequired_Failed()
         {
             //Arrange
-            var sourceChangeSubmittedEvent = new EiffelSourceChangeSubmittedEvent();
+            var sourceChangeSubmittedEvent = _eventFixture.GetMissedRequiredEvent();
 
             //Act
             var result = sourceChangeSubmittedEvent.Validate();

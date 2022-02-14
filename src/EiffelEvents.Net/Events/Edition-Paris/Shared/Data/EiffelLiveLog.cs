@@ -16,7 +16,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace EiffelEvents.Net.Events.Edition_Paris.Shared.Data
 {
-    public class EiffelLiveLog
+    public record EiffelLiveLog
     {
         /// <summary>
         /// The name of the log file

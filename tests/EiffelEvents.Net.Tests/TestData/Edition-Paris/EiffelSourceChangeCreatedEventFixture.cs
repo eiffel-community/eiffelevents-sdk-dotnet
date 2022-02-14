@@ -78,5 +78,19 @@ namespace EiffelEvents.Net.Tests.TestData.Edition_Paris
                 }
             };
         }
+        
+        /// <summary>
+        /// Get a invalid instance of EiffelSourceChangeCreatedEvent.
+        /// </summary>
+        /// <returns></returns>
+        public EiffelSourceChangeCreatedEvent GetMissedRequiredEvent()
+        {
+            return new EiffelSourceChangeCreatedEvent
+            {
+                Data = null,
+                Meta = null,
+                Links = null
+            };
+        }
     }
 }

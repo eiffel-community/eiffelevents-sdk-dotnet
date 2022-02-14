@@ -1,16 +1,18 @@
+<img src="images/logo.png" width="350"  alt="Eiffel Logo"/>
+
 # EiffelEvents .NET SDK #
 
 **EiffelEvents .NET SDK** is a .NET implementation for Eiffel events and  Assisted publishing service, which acts as an intermediate between the event author (publisher) and the Message Broker (RabbitMQ for instance).
 
 EiffelEvents .NET SDK features include:
 
-- Implement Eiffel events vocabularies as described in [Eiffel-edition-paris](https://github.com/eiffel-community/eiffel/tree/edition-paris) 
+- Implement Eiffel events vocabularies as described in [Eiffel-edition-paris](https://github.com/eiffel-community/eiffel/tree/edition-paris) and [Eiffel-edition-lyon](https://github.com/eiffel-community/eiffel/tree/edition-lyon)
 - Validate events' schema regarding target event’s version.
 - Sign and verify events' signatures.
 - Serialization/deserialization of events.
 - Provide  APIs for users to publish, subscribe, acknowledge, reject and unsubscribe for strongly-typed Eiffel events to RabbitMQ.
 
-It consists of two packages; 1) **EiffelEvents.Net** for events' implementation, 2) **EiffelEvents.RabbitMq.Client** for assisted publishing to RabbitMQ.
+It consists of two packages; 1) **EiffelEvents.Net** for events' implementation, 2) **EiffelEvents.Clients.RabbitMq** for assisted publishing to RabbitMQ.
 
 
 
@@ -71,12 +73,12 @@ var signedEvent = activityTriggeredEvent.Sign<EiffelActivityTriggeredEvent>();
 var json = signedEvent.ToJson();
 Console.WriteLine(json);
 ```
+Note: In order to use an event from Lyon-Edition, just use namespace `EiffelEvents.Net.Events.Edition_Lyon` instead of `EiffelEvents.Net.Events.Edition_Paris`.
 
 
+## Using Publishing Package ([src/EiffelEvents.Clients.RabbitMq](src/EiffelEvents.Clients.RabbitMq))
 
-## Using Publishing Package ([src/EiffelEvents.RabbitMq.Client](src/EiffelEvents.RabbitMq.Client))
-
-To get started install requirements then reference the events library, [src/EiffelEvents.RabbitMq.Client](src/EiffelEvents.RabbitMq.Client) in a project, then start processing using the publishing client.
+To get started install requirements then reference the events library, [src/EiffelEvents.Clients.RabbitMq](src/EiffelEvents.Clients.RabbitMq) in a project, then start processing using the publishing client.
 
 Note: make sure that a RabbitMQ instance is up and running, then provide its configurations to `RabbitMqEiffelClient`
 
@@ -84,16 +86,24 @@ Note: make sure that a RabbitMQ instance is up and running, then provide its con
 
 ```c#
 // Use required namespaces
-using EiffelEvents.RabbitMq.Client;
+using EiffelEvents.Clients.RabbitMq;
 
-// Init client
-IEiffelClient eiffelClient = new RabbitMqEiffelClient(new RabbitMqConfig
-        {
-            HostName = "localhost",
-            UserName = "admin",
-            Password = "admin",
-            Port = 5672
-        }, 1);
+// Init client (globally)
+private static readonly IEiffelClient _eiffelClient = new RabbitMqEiffelClient(new ()
+{
+    RabbitMqConfig = new ()
+    {
+        HostName = "localhost",
+        UserName = "admin",
+        Password = "admin",
+        Port = 5672
+    },
+    ValidationConfig = new ()
+    {
+        SchemaValidationOnPublish = SchemaValidationOnPublish.ON,
+        SchemaValidationOnSubscribe = SchemaValidationOnSubscribe.ALWAYS
+    }
+}, 1);
         
 // Declare event as done in Using Events Package (src/EiffelEvents.Net) section
 //...
@@ -103,6 +113,9 @@ var signedEvent = activityTriggeredEvent.Sign<EiffelActivityTriggeredEvent>();
 // Publish event to RabbitMQ
 var result = _eiffelClient.Publish(signedEvent);
 
+// or you can publish by overriding SchemaValidationOnPublish global configuration
+// var result = _eiffelClient.Publish(signedEvent, SchemaValidationOnPublish.OFF);
+            
 //check the publishing result
 Console.WriteLine(result);
 ```
@@ -110,36 +123,56 @@ Console.WriteLine(result);
 #### **Subscriber sample**
 
 ```c#
-// Init client
-IEiffelClient eiffelClient = new RabbitMqEiffelClient(new RabbitMqConfig
-        {
-            HostName = "localhost",
-            UserName = "admin",
-            Password = "admin",
-            Port = 5672
-        }, 1);
+// Init client (globally)
+private static readonly IEiffelClient _eiffelClient = new RabbitMqEiffelClient(new ()
+{
+    RabbitMqConfig = new ()
+    {
+        HostName = "localhost",
+        UserName = "admin",
+        Password = "admin",
+        Port = 5672
+    },
+    ValidationConfig = new ()
+    {
+        SchemaValidationOnPublish = SchemaValidationOnPublish.ON,
+        SchemaValidationOnSubscribe = SchemaValidationOnSubscribe.ALWAYS
+    }
+}, 1);
 
 // Subscribe to strongly-typed event, EiffelActivityTriggeredEvent
 var subscriptionId = eiffelClient.Subscribe<EiffelActivityTriggeredEvent>(HandleEventReceived);
+
+// or subscribe to event with overriding the global configurations of SchemaValidationOnSubscribe
+// _subscriptionId = _client.Subscribe<EiffelActivityTriggeredEvent>(_queueIdentifier, GeneralHandleEvent, SchemaValidationOnSubscribe.ON_DESERIALIZATION_FAIL);
 ```
 
 ##### **Handle receiving an event** 
 
 ```c#
-static void HandleEventReceived(EiffelActivityTriggeredEvent eiffelEvent, ulong deliveryTag)
+static void HandleEventReceived(Result<EiffelActivityTriggeredEvent> eiffelEventResult, ulong deliveryTag)
 {
     Console.WriteLine("========= Callback called ========= ");
     Console.WriteLine($"Event Received {typeof(T).Name} \nDelivery Tag : {deliveryTag} \n========");
-   
-    // verify event signature
-    var verified = eiffelEvent.VerifySignature();
-    Console.WriteLine($" ======== Event signature verified: {verified} ==============");
-    
-    // do some proccessing...
-    
-	// Acknowledge receiving an event
-    eiffelClient.Ack(deliveryTag);
-    Console.WriteLine($"========= Ack Done for Delivery Tag : {deliveryTag} ===========");
+    if (eiffelEventResult.IsSuccess)
+    {
+        var eiffelEvent = eiffelEventResult.Value;
+        var verified = eiffelEvent.VerifySignature();
+        Console.WriteLine($" ======== Event signature verified: {verified} ==============");
+        Console.WriteLine(eiffelEvent.ToJson());
+
+        Console.WriteLine("========= Processing Done ===========");    
+        // valid json messages must be acknowledged to be able to consume new messages
+        _client.Ack(deliveryTag);
+        Console.WriteLine($"========= Ack Done for Delivery Tag : {deliveryTag} ===========");
+    }
+    else
+    {
+        Console.WriteLine($"Error occured: {string.Join(',', eiffelEventResult.Errors)}");
+        // not valid json messages must be rejected to be able to consume new messages
+        _client.Reject(deliveryTag, false);
+        Console.WriteLine($"========= Reject Done for Delivery Tag : {deliveryTag} ===========");
+    }
 }
 ```
 
@@ -168,7 +201,7 @@ Example projects are created for demo purposes and reside on the [examples](exam
 ## SDK Projects
 
 - [src/EiffelEvents.Net](src/EiffelEvents.Net): Events implementation.
-- [src/EiffelEvents.RabbitMq.Client](src/EiffelEvents.RabbitMq.Client): Event Publishing service.
+- [src/EiffelEvents.Clients.RabbitMq](src/EiffelEvents.Clients.RabbitMq): Event Publishing service.
 
 ## Tests
 
@@ -200,4 +233,16 @@ Docs directory resides under repo root, structured as follows:
 # License
 
 The contents of this repository are licensed under [Apache License 2.0](LICENSE)
+
+# Limitations
+
+**EiffelEvents.Net SDK** optionally validates the events against the [Eiffel JSON schema](https://github.com/eiffel-community/eiffel/tree/edition-paris/schemas) in publishing using `SchemaValidationOnPublish`  with value  `ON` or `OFF`, or subscribing using `SchemaValidationOnSubscribe` with value `ALWAYS` , `ON_DESERIALIZATION_FAIL`, or `NONE`. In order to achieve this schema validation, **EiffelEvents.Net SDK** depends on [Newtonsoft.Json.Schema](https://www.newtonsoft.com/jsonschema) which limits the free allowed number of validations per hour to **1000 validation/hour**. 
+
+The error message as follows:
+
+```
+JSchemaException: The free-quota limit of 1000 schema validations per hour has been reached. Please visit http://www.newtonsoft.com/jsonschema to upgrade to a commercial license.
+```
+
+So as a recommendation (depending on business case) in production subscription, for example, could be either `ON_DESERIALIZATION_FAIL`, or `NONE` and for publishing to be  `OFF` as the **EiffelEvents.Net SDK** provides another validation [layer](docs/docfx_project/articles/architecture-eiffelevents.md#c-attribute-validations).
 

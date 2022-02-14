@@ -12,7 +12,9 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 
+using System.ComponentModel.DataAnnotations;
 using EiffelEvents.Net.Events.Core.Links;
+using EiffelEvents.Net.Validation;
 
 namespace EiffelEvents.Net.Events.Edition_Lyon.Shared.Links
 {
@@ -25,8 +27,11 @@ namespace EiffelEvents.Net.Events.Edition_Lyon.Shared.Links
         /// </summary>
         public string DomainId { get; init; }
         /// <inheritdoc/>
+        [Required(AllowEmptyStrings = false)]
         public string Type { get; init; }
         /// <inheritdoc/>
+        [Required(AllowEmptyStrings = false)]
+        [ValidGuid]
         public string Target { get; init; }
     }
 }

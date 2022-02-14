@@ -60,5 +60,19 @@ namespace EiffelEvents.Net.Tests.TestData.Edition_Paris
                 }
             };
         }
+        
+        /// <summary>
+        /// Get a invalid instance of EiffelFlowContextDefinedEvent.
+        /// </summary>
+        /// <returns></returns>
+        public EiffelFlowContextDefinedEvent GetMissedRequiredEvent()
+        {
+            return new EiffelFlowContextDefinedEvent
+            {
+                Data = null,
+                Meta = null,
+                Links = null
+            };
+        }
     }
 }

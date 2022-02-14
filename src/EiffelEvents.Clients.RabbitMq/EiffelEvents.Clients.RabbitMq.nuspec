@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package>
+    <metadata>
+        <id>EiffelEvents.Clients.RabbitMq</id>
+        <version>$version$</version>
+        <title>EiffelEvents.Clients.RabbitMq</title>
+        <authors>ICT Cube and doWhile team</authors>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <license type="expression">Apache-2.0</license>
+        <projectUrl>https://github.com/eiffel-community/eiffelevents-sdk-dotnet/</projectUrl>
+        <description>SDK for working with Eiffel events in .NET languages (C#, F#, VB.NET etc.) 
+            to provide APIs for users to publish, subscribe, acknowledge, reject and unsubscribe for strongly-typed Eiffel events to RabbitMQ.
+        </description>
+        <copyright>Copyright (c) 2021 ICT Cube, doWhile, and Eiffel Community collaborators</copyright>
+        <dependencies>
+            <dependency id="EiffelEvents.Net" version="1.0.1" />
+            <dependency id="Newtonsoft.Json" version="13.0.1" />
+            <dependency id="RabbitMQ.Client" version="6.2.2" />
+        </dependencies>
+        <releaseNotes>
+            Provide APIs for users to publish, subscribe, acknowledge, reject and unsubscribe for strongly-typed Eiffel events to RabbitMQ.
+        </releaseNotes>
+    </metadata>
+    <files>
+        <file src="bin\$configuration$\net6.0\EiffelEvents.Clients.RabbitMq.dll" target="lib\net6.0" />
+    </files>
+</package>

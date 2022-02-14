@@ -63,6 +63,7 @@ namespace EiffelEvents.Net.Events.Edition_Paris.Shared
         public abstract TLinks Links { get; init; }
 
         [JsonProperty("links")]
+        [EiffelShouldSerialize]
         internal virtual IEiffelSerializedLinkCollection SerializedLinks { get; init; } =
             new EiffelSerializedLinkCollection();
 

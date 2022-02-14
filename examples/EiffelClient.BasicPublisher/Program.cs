@@ -12,22 +12,33 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 
+using System;
 using EiffelEvents.Net.Clients;
+using EiffelEvents.Net.Clients.Validation;
 using EiffelEvents.Net.Events.Edition_Lyon;
 using EiffelEvents.Net.Events.Edition_Paris.Shared.Enums;
-using EiffelEvents.RabbitMq.Client;
+using EiffelEvents.Clients.RabbitMq;
+using EiffelEvents.Clients.RabbitMq.Config;
 
 namespace EiffelClient.BasicPublisher
 {
     class Program
     {
         // Init client (globally)
-        private static readonly IEiffelClient _eiffelClient = new RabbitMqEiffelClient(new RabbitMqConfig
+        private static readonly IEiffelClient _eiffelClient = new RabbitMqEiffelClient(new ()
         {
-            HostName = "localhost",
-            UserName = "admin",
-            Password = "admin",
-            Port = 5672
+            RabbitMqConfig = new()
+            {
+                HostName = "localhost",
+                UserName = "admin",
+                Password = "admin",
+                Port = 5672
+            },
+            ValidationConfig = new ()
+            {
+                SchemaValidationOnPublish = SchemaValidationOnPublish.ON,
+                SchemaValidationOnSubscribe = SchemaValidationOnSubscribe.ALWAYS
+            }
         }, 1);
 
         public static void Main(string[] args)
@@ -62,7 +73,7 @@ namespace EiffelClient.BasicPublisher
                 Links = new()
                 {
                     Context = new("82f11609-bd5b-4c82-a5f2-c2a9d982cdbd"),
-                    FlowContext = new ()
+                    FlowContext = new()
                     {
                         new("cf056717-201b-43f6-9f2c-839b33b71baf")
                     }
@@ -74,6 +85,10 @@ namespace EiffelClient.BasicPublisher
 
             // 3.Publish event to RabbitMQ
             var result = _eiffelClient.Publish(signedEvent);
+            
+            // or you can publish by overriding SchemaValidationOnPublish configuration
+            //var result = _eiffelClient.Publish(signedEvent, SchemaValidationOnPublish.OFF);
+            
             if (!result.IsFailed) Console.WriteLine(signedEvent.ToJson());
 
             // 4.Print results

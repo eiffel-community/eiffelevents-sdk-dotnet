@@ -32,13 +32,13 @@ namespace EiffelEvents.Net.Events.Edition_Paris
     {
         
         /// <inheritdoc/>
-        public override EiffelEnvironmentDefinedData Data { get; init; }= new();
+        public override EiffelEnvironmentDefinedData Data { get; init; } = new();
 
         /// <inheritdoc/>
-        public override EiffelEnvironmentDefinedMeta Meta { get; init; }
+        public override EiffelEnvironmentDefinedMeta Meta { get; init; } = new();
 
         /// <inheritdoc/>
-        public override EiffelEnvironmentDefinedLinks Links { get; init; }
+        public override EiffelEnvironmentDefinedLinks Links { get; init; } = new();
 
         public override IEiffelEvent FromJson(string json)
         {

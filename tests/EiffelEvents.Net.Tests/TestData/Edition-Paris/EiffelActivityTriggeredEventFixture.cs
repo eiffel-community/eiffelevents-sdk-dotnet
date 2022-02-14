@@ -14,6 +14,7 @@
 
 using EiffelEvents.Net.Events.Edition_Paris;
 using EiffelEvents.Net.Events.Edition_Paris.Shared.Enums;
+using EiffelEvents.Net.Tests.Helpers;
 using Newtonsoft.Json.Linq;
 
 namespace EiffelEvents.Net.Tests.TestData.Edition_Paris
@@ -98,7 +99,7 @@ namespace EiffelEvents.Net.Tests.TestData.Edition_Paris
                                         'activity_block'
                                             ],
                                         'source': {
-                                                    'serializer': 'pkg:nuget/EiffelEvents.Net@1.0.0.0'
+                                                    'serializer': 'pkg:nuget/EiffelEvents.Net@" + VersionHelper.Version + @"'
                                          },
                                         'security': {
                                             'authorIdentity': 'Flower'
@@ -244,7 +245,7 @@ namespace EiffelEvents.Net.Tests.TestData.Edition_Paris
                                         'activity_block'
                                             ],
                                         'source': {
-                                                    'serializer': 'pkg:nuget/EiffelEvents.Net@1.0.0.0'
+                                                    'serializer': 'pkg:nuget/EiffelEvents.Net@" + VersionHelper.Version + @"'
                                          },
                                         'security': {
                                             'authorIdentity': 'Flower'
@@ -366,7 +367,7 @@ namespace EiffelEvents.Net.Tests.TestData.Edition_Paris
                                         'activity_block'
                                             ],
                                         'source': {
-                                                    'serializer': 'pkg:nuget/EiffelEvents.Net@1.0.0.0'
+                                                    'serializer': 'pkg:nuget/EiffelEvents.Net@" + VersionHelper.Version + @"'
                                          },
                                         'security': {
                                             'authorIdentity': 'Flower'
@@ -481,7 +482,7 @@ namespace EiffelEvents.Net.Tests.TestData.Edition_Paris
                                         'activity_block'
                                             ],
                                         'source': {
-                                                    'serializer': 'pkg:nuget/EiffelEvents.Net@1.0.0.0'
+                                                    'serializer': 'pkg:nuget/EiffelEvents.Net@" + VersionHelper.Version + @"'
                                          },
                                         'security': {
                                             'authorIdentity': 'Flower'
@@ -503,6 +504,71 @@ namespace EiffelEvents.Net.Tests.TestData.Edition_Paris
                                     'target': '82f11609-bd5b-4c82-a5f2-c2a9d982cdbd'
                                 }
                             ]
+                            }");
+            return json.ToString();
+        }
+
+        #endregion
+
+        #region Valid Event empty Links (ICollection types)
+
+        /// <summary>
+        /// Get a valid instance of EiffelActivityTriggeredEvent with empty Links.
+        /// </summary>
+        /// <returns></returns>
+        public EiffelActivityTriggeredEvent GetEventWithEmptyLinks()
+        {
+            return new EiffelActivityTriggeredEvent()
+            {
+                Data = new()
+                {
+                    Name = "My activity",
+                    Categories = new() { "category 1", "category 2" },
+                    Triggers = new(),
+                    ExecutionType = EiffelDataExecutionType.AUTOMATED,
+                    CustomData = new()
+                },
+                Meta = new()
+                {
+                    Id = "91d0c7da-8d90-4033-8685-a035853aeea1",
+                    Time = 1637001247776,
+                    Tags = new() { "activity_block" },
+                    Security = new()
+                    {
+                        AuthorIdentity = "Flower"
+                    }
+                },
+                Links = new()
+            };
+        }
+
+        public string GetEventWithEmptyLinksSerialized()
+        {
+            var json = JObject.Parse(@"{
+                              'data': {
+                                        'name': 'My activity',
+                                        'categories': [
+                                        'category 1',
+                                        'category 2'
+                                            ],
+                                        'executionType': 'AUTOMATED'
+                                    },
+                                    'meta': {
+                                        'type': 'EiffelActivityTriggeredEvent',
+                                        'version': '4.0.0',
+                                        'tags': [
+                                        'activity_block'
+                                            ],
+                                        'source': {
+                                                    'serializer': 'pkg:nuget/EiffelEvents.Net@" + VersionHelper.Version + @"'
+                                         },
+                                        'security': {
+                                            'authorIdentity': 'Flower'
+                                        },
+                                        'id': '91d0c7da-8d90-4033-8685-a035853aeea1',
+                                        'time': 1637001247776
+                                    },
+                                'links': [ ]
                             }");
             return json.ToString();
         }
@@ -552,7 +618,7 @@ namespace EiffelEvents.Net.Tests.TestData.Edition_Paris
                 }
             };
         }
-        
+
         /// <summary>
         /// Get a complete instance of EiffelActivityTriggeredEvent with empty Guid ("00000000-0000-0000-0000-000000000000")
         /// </summary>
@@ -636,6 +702,138 @@ namespace EiffelEvents.Net.Tests.TestData.Edition_Paris
                 }
             };
         }
+
+        #endregion
+
+        #region Json Schema
+
+        public string GetValidJsonEvent()
+        {
+            var json = JObject.Parse(@"{
+                              'data': {
+                                        'name': 'My activity',
+                                        'categories': [
+                                        'category 1',
+                                        'category 2'
+                                            ],
+                                        'triggers': [
+                                        {
+                                            'type': 'SOURCE_CHANGE',
+                                            'description': 'Description'
+                                        }
+                                        ],
+                                        'executionType': 'AUTOMATED',
+                                         'customData': [
+                                            {
+                                                'key': 'key1',
+                                                'value': 'test'
+                                            },
+                                            {
+                                                'key': 'key2',
+                                                'value': 1
+                                            }
+                                            ]
+                                    },
+                                    'meta': {
+                                        'type': 'EiffelActivityTriggeredEvent',
+                                        'version': '4.0.0',
+                                        'tags': [
+                                        'activity_block'
+                                            ],
+                                        'source': {
+                                                    'serializer': 'pkg:nuget/EiffelEvents.Net@" + VersionHelper.Version + @"'
+                                         },
+                                        'security': {
+                                            'authorIdentity': 'Flower'
+                                        },
+                                        'id': '91d0c7da-8d90-4033-8685-a035853aeea1',
+                                        'time': 1637001247776
+                                    },
+                                'links': [
+                                {
+                                    'type': 'CAUSE',
+                                    'target': '91d0c7da-8d90-4033-8685-a035853aeea2'
+                                },
+                                {
+                                    'type': 'CAUSE',
+                                    'target': '91d0c7da-8d90-4033-8685-a035853aeea3'
+                                },
+                                {
+                                    'type': 'CONTEXT',
+                                    'target': '82f11609-bd5b-4c82-a5f2-c2a9d982cdbd'
+                                },
+                                {
+                                    'type': 'FLOW_CONTEXT',
+                                    'target': 'cf056717-201b-43f6-9f2c-839b33b71baf'
+                            }
+                            ]
+                            }");
+            return json.ToString();
+        }
+
+        public string GetInvalidJsonEvent()
+        {
+            var json = JObject.Parse(@"{
+                              'data': {
+                                        'name': 'My activity',
+                                        'categories': [
+                                        'category 1',
+                                        'category 2'
+                                            ],
+                                        'triggers': [
+                                        {
+                                            'type': 'SOURCE_CHANGE',
+                                            'description': 'Description'
+                                        }
+                                        ],
+                                        'executionType': 'AUTOMATED',
+                                         'customData': [
+                                            {
+                                                'key': 'key1',
+                                                'value': 'test'
+                                            },
+                                            {
+                                                'key': 'key2',
+                                                'value': 1
+                                            }
+                                            ]
+                                    },
+                                    'meta': {
+                                        'type': 'EiffelActivityTriggeredEvent',
+                                        'version': '4.0.0',
+                                        'tags': [
+                                        'activity_block'
+                                            ],
+                                        'source': {
+                                                    'serializer': 'pkg:nuget/EiffelEvents.Net@" + VersionHelper.Version + @"'
+                                         },
+                                        'security': {
+                                            'authorIdentity': 'Flower'
+                                        },
+                                        'id': '91d0c7da-8d90-4033-8685-a035853aeea1'
+                                    },
+                                'links': [
+                                {
+                                    'type': 'CAUSE',
+                                    'target': '91d0c7da-8d90-4033-8685-a035853aeea2'
+                                },
+                                {
+                                    'type': 'CAUSE',
+                                    'target': '91d0c7da-8d90-4033-8685-a035853aeea3'
+                                },
+                                {
+                                    'type': 'CONTEXT',
+                                    'target': '82f11609-bd5b-4c82-a5f2-c2a9d982cdbd'
+                                },
+                                {
+                                    'type': 'FLOW_CONTEXT',
+                                    'target': 'cf056717-201b-43f6-9f2c-839b33b71baf'
+                            }
+                            ]
+                            }");
+            return json.ToString();
+        }
+
         #endregion
     }
 }

@@ -18,17 +18,24 @@ using EiffelEvents.Net.Events.Edition_Lyon.Shared;
 
 namespace EiffelEvents.Net.Events.Edition_Lyon
 {
+    /// <summary>
+    /// Announces that an activity has been triggered.
+    /// <a href="https://github.com/eiffel-community/eiffel/blob/edition-lyon/eiffel-vocabulary/EiffelActivityTriggeredEvent.md">
+    /// EiffelActivityTriggeredEvent
+    /// </a>
+    /// for details.
+    /// </summary>
     public record EiffelActivityTriggeredEvent
         : EiffelEvent<EiffelActivityTriggeredData, EiffelActivityTriggeredMeta, EiffelActivityTriggeredLinks>
     {
         /// <inheritdoc/>
-        public override EiffelActivityTriggeredData Data { get; init; }
+        public override EiffelActivityTriggeredData Data { get; init; } = new();
 
         /// <inheritdoc/>
-        public override EiffelActivityTriggeredMeta Meta { get; init; }
+        public override EiffelActivityTriggeredMeta Meta { get; init; } = new();
 
         /// <inheritdoc/>
-        public override EiffelActivityTriggeredLinks Links { get; init; }
+        public override EiffelActivityTriggeredLinks Links { get; init; } = new();
 
         /// <inheritdoc/>
         public override IEiffelEvent FromJson(string json)

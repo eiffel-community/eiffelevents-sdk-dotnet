@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>disable</Nullable>
+        <Version>1.0.1</Version>
+        <RootNamespace>EiffelEvents.Clients.RabbitMq</RootNamespace>
+    </PropertyGroup>
+    
+    <ItemGroup>
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+        <PackageReference Include="RabbitMQ.Client" Version="6.2.2" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <ProjectReference Include="..\EiffelEvents.Net\EiffelEvents.Net.csproj" />
+    </ItemGroup>
+
+</Project>
