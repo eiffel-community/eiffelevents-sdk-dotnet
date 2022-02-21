@@ -13,12 +13,12 @@
         </description>
         <copyright>Copyright (c) 2021 ICT Cube, doWhile, and Eiffel Community collaborators</copyright>
         <dependencies>
-            <dependency id="EiffelEvents.Net" version="1.0.1" />
+            <dependency id="EiffelEvents.Net" version="1.0.2" />
             <dependency id="Newtonsoft.Json" version="13.0.1" />
-            <dependency id="RabbitMQ.Client" version="6.2.2" />
+            <dependency id="RabbitMQ.Client" version="6.2.3" />
         </dependencies>
         <releaseNotes>
-            Provide APIs for users to publish, subscribe, acknowledge, reject and unsubscribe for strongly-typed Eiffel events to RabbitMQ.
+            Upgrade dependencies (RabbitMQ.Client, EiffelEvents.Net) to its latest versions
         </releaseNotes>
     </metadata>
     <files>

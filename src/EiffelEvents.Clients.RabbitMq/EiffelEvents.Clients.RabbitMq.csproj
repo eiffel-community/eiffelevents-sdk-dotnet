@@ -4,13 +4,13 @@
         <TargetFramework>net6.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>disable</Nullable>
-        <Version>1.0.1</Version>
+        <Version>1.0.2</Version>
         <RootNamespace>EiffelEvents.Clients.RabbitMq</RootNamespace>
     </PropertyGroup>
     
     <ItemGroup>
         <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-        <PackageReference Include="RabbitMQ.Client" Version="6.2.2" />
+        <PackageReference Include="RabbitMQ.Client" Version="6.2.3" />
     </ItemGroup>
     
     <ItemGroup>
