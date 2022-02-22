@@ -15,10 +15,10 @@
         <dependencies>
             <dependency id="EiffelEvents.Net" version="1.0.2" />
             <dependency id="Newtonsoft.Json" version="13.0.1" />
-            <dependency id="RabbitMQ.Client" version="6.2.3" />
+            <dependency id="RabbitMQ.Client" version="6.2.2" />
         </dependencies>
         <releaseNotes>
-            Upgrade dependencies (RabbitMQ.Client, EiffelEvents.Net) to its latest versions
+            Upgrade dependencies (EiffelEvents.Net) to its latest versions
         </releaseNotes>
     </metadata>
     <files>
