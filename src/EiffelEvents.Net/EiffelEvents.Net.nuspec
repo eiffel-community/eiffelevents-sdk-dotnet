@@ -14,15 +14,12 @@
             <files include="**\*.json" buildAction="Content"  copyToOutput="true"/>
         </contentFiles>
         <dependencies>
-            <dependency id="FluentResults" version="2.5.0" />
+            <dependency id="FluentResults" version="3.0.0" />
             <dependency id="Newtonsoft.Json" version="13.0.1" />
             <dependency id="Newtonsoft.Json.Schema" version="3.0.14"/>
         </dependencies>
         <releaseNotes>
-            - Implement Eiffel events vocabularies as described in Eiffel-edition-paris and Eiffel-edition-lyon
-            - Validate events' schema regarding target event’s version.
-            - Sign and verify events' signatures.
-            - Serialization/deserialization of events.
+            Upgrade dependency (FluentResults) to its latest versions
         </releaseNotes>
     </metadata>
     <files>
