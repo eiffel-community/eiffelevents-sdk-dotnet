@@ -39,7 +39,7 @@ namespace EiffelEvents.Net.Clients
         /// If publish succeed, result object will hold event sent on the bus,
         /// which may be different from the input event (e.g. signed).
         /// </returns>
-        Result<T> Publish<T>(T eiffelEvent, SchemaValidationOnPublish validateOnPublish) where T : IEiffelEvent, new();
+        Result<T> Publish<T>(T eiffelEvent, SchemaValidationOnPublish validateOnPublish) where T : IEiffelEvent;
 
         /// <summary>
         /// Publish an event to the Eiffel event bus represented by this client. SchemaValidationOnPublish will be ON
@@ -53,7 +53,7 @@ namespace EiffelEvents.Net.Clients
         /// If publish succeed, result object will hold event sent on the bus,
         /// which may be different from the input event (e.g. signed).
         /// </returns>
-        Result<T> Publish<T>(T eiffelEvent) where T : IEiffelEvent, new();
+        Result<T> Publish<T>(T eiffelEvent) where T : IEiffelEvent;
 
         /// <summary>
         /// Subscribes to events of the given Eiffel type. SchemaValidationOnSubscribe will be NONE by default
@@ -70,7 +70,7 @@ namespace EiffelEvents.Net.Clients
         /// And, ulong for deliveryTag.
         /// </param>
         /// <returns>string for subscriptionId can later be used to UnSubscribe</returns>
-        string Subscribe<T>(string serviceIdentifier, Action<Result<T>, ulong> callback) where T : IEiffelEvent, new();
+        string Subscribe<T>(string serviceIdentifier, Action<Result<T>, ulong> callback) where T : IEiffelEvent;
 
         /// <summary>
         /// Subscribes to events of the given Eiffel type
@@ -88,7 +88,7 @@ namespace EiffelEvents.Net.Clients
         /// <typeparam name="T">Type of event to subscribe to</typeparam>
         /// <returns>string for subscriptionId can later be used to UnSubscribe</returns>
         string Subscribe<T>(string serviceIdentifier, Action<Result<T>, ulong> callback,
-            SchemaValidationOnSubscribe validateOnSubscribe) where T : IEiffelEvent, new();
+            SchemaValidationOnSubscribe validateOnSubscribe) where T : IEiffelEvent;
 
         /// <summary>
         /// Acknowledge receiving the message(event), used for positive acknowledgements. 
