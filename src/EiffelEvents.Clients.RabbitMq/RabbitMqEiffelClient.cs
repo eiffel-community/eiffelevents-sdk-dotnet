@@ -58,6 +58,7 @@ namespace EiffelEvents.Clients.RabbitMq
             try
             {
                 // validate against c# schema 
+                var eventType = eiffelEvent.GetType().Name;
                 var attributeValidationResult = eiffelEvent.Validate();
                 if (attributeValidationResult.IsFailed)
                     return attributeValidationResult.ToResult(eiffelEvent);
@@ -67,8 +68,8 @@ namespace EiffelEvents.Clients.RabbitMq
                 {
                     json = eiffelEvent.ToJson();
                     var schemaValidationResult =
-                        SchemaValidationHelper.ValidateEvent(json, typeof(T).Name, eiffelEvent.GetVersion());
-                    
+                        SchemaValidationHelper.ValidateEvent(json, eventType, eiffelEvent.GetVersion());
+
                     if (schemaValidationResult.IsFailed)
                         return GetResultFromValidationErrors<T>(schemaValidationResult);
                 }
@@ -78,7 +79,7 @@ namespace EiffelEvents.Clients.RabbitMq
                 }
 
                 var body = Encoding.UTF8.GetBytes(json);
-                var routingKey = _rabbitMqWrapper.GetRoutingKey(typeof(T).Name);
+                var routingKey = _rabbitMqWrapper.GetRoutingKey(eventType);
                 var sent = _rabbitMqWrapper.Publish(routingKey, body);
 
                 return sent
@@ -173,6 +174,54 @@ namespace EiffelEvents.Clients.RabbitMq
             }
         }
 
+        /// <inheritdoc/>
+        public string Subscribe(Type eventType, string serviceIdentifier, Action<Result<IEiffelEvent>, ulong> callback, 
+            SchemaValidationOnSubscribe validateOnSubscribe)
+        {
+            try
+            {
+                var eventTypeName = eventType.Name;
+                var routingKey = _rabbitMqWrapper.GetRoutingKey(eventTypeName);
+
+                var queueName = string.IsNullOrWhiteSpace(serviceIdentifier)
+                    ? string.Empty
+                    : $"{serviceIdentifier}_{eventTypeName}";
+
+                _rabbitMqWrapper.CreateQueue(queueName, routingKey);
+                var subscriptionId = _rabbitMqWrapper.Consume(queueName, (_, eventArgs) =>
+                    {
+                        try
+                        {
+                            var content = Encoding.UTF8.GetString(eventArgs.Body.Span);
+
+                            var typeObj = Activator.CreateInstance(eventType) as IEiffelEvent;
+
+                            if (typeObj == null) return;
+
+                            var result = TryDeserializeEvent(validateOnSubscribe, typeObj, content);
+                            callback(result, eventArgs.DeliveryTag);
+                        }
+                        catch (Exception e)
+                        {
+                            var failedResult = Result.Fail(e.Message);
+                            callback(failedResult, eventArgs.DeliveryTag);
+                        }
+                    }
+                );
+                return subscriptionId;
+            }
+            catch (Exception e)
+            {
+                throw new RabbitMqException($"Error occurred while subscribing to {eventType}", e);
+            }
+        }
+
+        /// <inheritdoc/>
+        public string Subscribe(Type eventType, string serviceIdentifier, Action<Result<IEiffelEvent>, ulong> callback)
+        {
+            return Subscribe(eventType, serviceIdentifier, callback, _validationConfig.SchemaValidationOnSubscribe);
+        }
+
         /// <summary>
         /// Try deserialize JSON string to the corresponding C# type.
         /// </summary>
@@ -184,8 +233,8 @@ namespace EiffelEvents.Clients.RabbitMq
         /// <see cref="Result"/> of the deserialization process with event in Result.Value property if deserialization
         /// was succeeded. Result.Errors will hold the error messages in case of failures.
         /// </returns>
-        private Result<T> TryDeserializeEvent<T>(SchemaValidationOnSubscribe validateOnSubscribe, T typeObj, string content)
-            where T : IEiffelEvent
+        private Result<T> TryDeserializeEvent<T>(SchemaValidationOnSubscribe validateOnSubscribe, T typeObj,
+            string content) where T : IEiffelEvent
         {
             var (type, version) = JsonHelper.GetTypeAndVersion(content);
 
@@ -194,7 +243,7 @@ namespace EiffelEvents.Clients.RabbitMq
                 return Result.Fail<T>("Not valid JSON event. Can't find meta.type or meta.version.");
 
             if (version != typeObj.GetVersion() ||
-                type != typeof(T).Name)
+                type != typeObj.GetType().Name)
                 return Result.Fail<T>($"Inconsistent event versions found: a subscription to event {typeof(T).Name} " +
                                       $"with version: {typeObj.GetVersion()} but received event {type} with version: {version}");
 
