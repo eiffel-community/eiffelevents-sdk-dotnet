@@ -16,5 +16,5 @@ namespace EiffelEvents.Net.Tests.Helpers;
 
 public static class VersionHelper
 {
-    public static string Version => "1.0.2";
+    public static string Version => "1.0.3";
 }
