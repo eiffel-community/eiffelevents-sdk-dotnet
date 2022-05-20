@@ -19,7 +19,8 @@
             <dependency id="Newtonsoft.Json.Schema" version="3.0.14"/>
         </dependencies>
         <releaseNotes>
-            Upgrade dependency (FluentResults) to its latest versions
+            Remove unnecessary parameterless constructor constraints in IEiffelClient.
+            Add more overloads for subscribe method in IEiffelClient.
         </releaseNotes>
     </metadata>
     <files>

@@ -164,7 +164,7 @@ Result<T> Publish<T>(T eiffelEvent) where T : IEiffelEvent;
 Subscribes to events of the given type (the given topic). the `Subscribe` method has the following signature:
 
 ```c#
-string Subscribe<T>(string serviceIdentifier, Action<Result<T>, ulong> callback, SchemaValidationOnSubscribe validateOnSubscribe) where T : IEiffelEvent, new();
+string Subscribe<T>(string serviceIdentifier, Action<Result<T>, ulong> callback, SchemaValidationOnSubscribe validateOnSubscribe) where T : IEiffelEvent;
 ```
 
 where: 
@@ -177,7 +177,7 @@ where:
 
 Note: the following overload also exist for `Subscribe` but `SchemaValidationOnSubscribe` will be `NONE` by default configurations if user didn't pass it in `ClientConfig`, otherwise, it will depend on the value configured in `ClientConfig` that passed to the constructor of `RabbitMqEiffelClient`
 ```c#
-string Subscribe<T>(string serviceIdentifier, Action<Result<T>, ulong> callback) where T : IEiffelEvent, new();
+string Subscribe<T>(string serviceIdentifier, Action<Result<T>, ulong> callback) where T : IEiffelEvent;
 ```
 
 ***Note:** all events (i.e. messages) that will be processed must be acknowledged if the processing is done successfully or rejected if any unhandled situation happens while processing.*
